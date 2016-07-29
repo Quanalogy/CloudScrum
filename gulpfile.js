@@ -29,6 +29,7 @@ gulp.task('build-ts', function() {
 gulp.task('build-ts-server', function() {
     return gulp.src([
             'app.ts',
+            'bin/www.ts',
             routes + '/**/*.ts',
             typingsIndex
         ])
@@ -53,6 +54,10 @@ gulp.task('clean', function() {
     // Clean the main server app.
     del('app.js');
     del('app.js.map');
+
+    // Clean the main www app.
+    del('bin/www.js');
+    del('bin/www.js.map');
 });
 
 gulp.task('vendor', function() {
@@ -91,6 +96,7 @@ gulp.task('watch', function() {
     gulp.watch(appDev + '**/*.ts', ['build-ts']);
     gulp.watch(routes + '/**/*.ts', ['build-ts-server']);
     gulp.watch('app.ts', ['build-ts-server']);
+    gulp.watch('bin/web.ts', ['build-ts-server']);
     gulp.watch(appDev + '**/*.{html,htm,css}', ['build-copy']);
 
 });

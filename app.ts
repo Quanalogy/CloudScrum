@@ -7,7 +7,7 @@ import bodyParser = require("body-parser");
 
 const appRoutes = require("./routes/appRoutes");
 
-const app = express();
+export const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, './views'));
@@ -63,5 +63,3 @@ app.use(function (err, req, res, next) {
 });
 
 */
-
-module.exports = app;
