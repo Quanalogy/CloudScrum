@@ -1,18 +1,10 @@
-#!/usr/bin/env node
+import * as debug from "debug";
+import * as http from "http";
 
-/**
- * Module dependencies.
- */
+import { app } from "../app";
 
-var app = require('../app');
-var debug = require('debug')('example:server');
-var http = require('http');
-
-/**
- * Get port from environment and store in Express.
- */
-
-var port = normalizePort(process.env.PORT || '3000');
+// Get the port from environment and store in Express.
+var port = (process.env.PORT || '3000');
 app.set('port', port);
 
 /**
@@ -28,26 +20,6 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
-
-/**
- * Normalize a port into a number, string, or false.
- */
-
-function normalizePort(val) {
-  var port = parseInt(val, 10);
-
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
-
-  if (port >= 0) {
-    // port number
-    return port;
-  }
-
-  return false;
-}
 
 /**
  * Event listener for HTTP server "error" event.

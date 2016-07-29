@@ -7,7 +7,12 @@ import bodyParser = require("body-parser");
 
 const appRoutes = require("./routes/appRoutes");
 
-const app = express();
+import * as mongoConfig from "./config/mongodb";
+
+export const app = express();
+
+// Connect to the database.
+mongoConfig.connect();
 
 // view engine setup
 app.set('views', path.join(__dirname, './views'));
@@ -63,5 +68,3 @@ app.use(function (err, req, res, next) {
 });
 
 */
-
-module.exports = app;
