@@ -8,12 +8,18 @@ var del = require('del');
 var appDev = 'assets/app/';
 var appProd = 'public/js/app/';
 var vendor = 'public/js/vendor';
-var src = 'src/';
+
+var routes = 'routes';
+var typingsIndex = 'typings/index.d.ts';
 
 var tsconfig = gulpTypescript.createProject('tsconfig.json');
+var tsconfigServer = gulpTypescript.createProject('tsconfig.json');
 
 gulp.task('build-ts', function() {
-    return gulp.src([appDev + '/**/*.ts', 'typings/index.d.ts'])
+    return gulp.src([
+            appDev + '/**/*.ts',
+            typingsIndex
+        ])
         .pipe(gulpSourcemaps.init())
         .pipe(gulpTypescript(tsconfig))
         .pipe(gulpSourcemaps.write())
@@ -21,21 +27,32 @@ gulp.task('build-ts', function() {
 });
 
 gulp.task('build-ts-server', function() {
-    var tsconfigServer = gulpTypescript.createProject('tsconfig.json');
-    return gulp.src([src + '/**/*.ts', 'typings/index.d.ts'])
+    return gulp.src([
+            'app.ts',
+            routes + '/**/*.ts',
+            typingsIndex
+        ])
         .pipe(gulpSourcemaps.init())
         .pipe(gulpTypescript(tsconfigServer))
         .pipe(gulpSourcemaps.write())
-        .pipe(gulp.dest(src));
+        .pipe(gulp.dest("."));
 });
 
 gulp.task('build-copy', function() {
-   return gulp.src([appDev + '**/*.html', appDev + '**/*.htm', appDev + '**/*.css'])
+    return gulp.src([appDev + '**/*.html', appDev + '**/*.htm', appDev + '**/*.css'])
        .pipe(gulp.dest(appProd));
 });
 
 gulp.task('clean', function() {
-   del(appProd + '/**/*');
+    del(appProd + '/**/*');
+
+    // Cleanup routes.
+    del(routes + '/**/*.js');
+    del(routes + '/**/*.js.map');
+
+    // Clean the main server app.
+    del('app.js');
+    del('app.js.map');
 });
 
 gulp.task('vendor', function() {
@@ -71,9 +88,10 @@ gulp.task('vendor', function() {
 });
 
 gulp.task('watch', function() {
-   gulp.watch(appDev + '**/*.ts', ['build-ts']); 
-   gulp.watch(src + '**/*.ts', ['build-ts-server']);
-   gulp.watch(appDev + '**/*.{html,htm,css}', ['build-copy']);
+    gulp.watch(appDev + '**/*.ts', ['build-ts']);
+    gulp.watch(routes + '/**/*.ts', ['build-ts-server']);
+    gulp.watch('app.ts', ['build-ts-server']);
+    gulp.watch(appDev + '**/*.{html,htm,css}', ['build-copy']);
 
 });
 
