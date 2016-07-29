@@ -1,13 +1,16 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+/**
+ * Created by munk on 29-07-16.
+ */
+import express = require("express");
+import path = require("path");
+import favicon = require("serve-favicon");
+import logger = require("morgan");
+import cookieParser = require("cookie-parser");
+import bodyParser = require("body-parser");
 
-var appRoutes = require('./routes/app');
+const appRoutes = require("./routes/appRoutes");
 
-var app = express();
+export const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -31,17 +34,19 @@ app.use('/', appRoutes);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
+    const err = new Error('Not Found');
+    res.sendStatus(404);
     next(err);
 });
 
 // error handlers
+/*
 
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
     app.use(function (err, req, res, next) {
+
         res.status(err.status || 500);
         res.json({
             message: err.message,
@@ -60,5 +65,8 @@ app.use(function (err, req, res, next) {
     });
 });
 
+*/
 
-module.exports = app;
+//module.exports = app;
+
+//module.exports = app;
