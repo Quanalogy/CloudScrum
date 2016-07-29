@@ -8,15 +8,25 @@ var del = require('del');
 var appDev = 'assets/app/';
 var appProd = 'public/js/app/';
 var vendor = 'public/js/vendor';
+var src = 'src/';
 
 var tsconfig = gulpTypescript.createProject('tsconfig.json');
 
 gulp.task('build-ts', function() {
-    return gulp.src(appDev + '/**/*.ts')
+    return gulp.src([appDev + '/**/*.ts', 'typings/index.d.ts'])
         .pipe(gulpSourcemaps.init())
         .pipe(gulpTypescript(tsconfig))
         .pipe(gulpSourcemaps.write())
         .pipe(gulp.dest(appProd));
+});
+
+gulp.task('build-ts-server', function() {
+    var tsconfigServer = gulpTypescript.createProject('tsconfig.json');
+    return gulp.src([src + '/**/*.ts', 'typings/index.d.ts'])
+        .pipe(gulpSourcemaps.init())
+        .pipe(gulpTypescript(tsconfigServer))
+        .pipe(gulpSourcemaps.write())
+        .pipe(gulp.dest(src));
 });
 
 gulp.task('build-copy', function() {
@@ -62,8 +72,10 @@ gulp.task('vendor', function() {
 
 gulp.task('watch', function() {
    gulp.watch(appDev + '**/*.ts', ['build-ts']); 
-   gulp.watch(appDev + '**/*.{html,htm,css}', ['build-copy']); 
+   gulp.watch(src + '**/*.ts', ['build-ts-server']);
+   gulp.watch(appDev + '**/*.{html,htm,css}', ['build-copy']);
+
 });
 
-gulp.task('default', ['watch', 'build-ts', 'build-copy', 'vendor']);
-gulp.task('build', ['build-ts', 'build-copy', 'vendor']);
+gulp.task('default', ['watch', 'build']);
+gulp.task('build', ['build-ts', 'build-copy', 'vendor', 'build-ts-server']);
