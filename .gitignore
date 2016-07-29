@@ -2,3 +2,6 @@
 node_modules
 typings
 public
+npm-debug.log
+app.js
+app.js.map
