@@ -1,4 +1,6 @@
 import mongoose = require("mongoose");
+import bluebird = require("bluebird");
+
 
 // Get the connection string from the environment. Default to localhost with no password.
 const mongodbDatabase: string = process.env.MONGODBDATABASE || "ScrumOnline";
@@ -31,12 +33,30 @@ const mongooseConnected = 1;
 const mongooseConnecting = 2;
 const mongooseDisconnecting = 3;
 
-export function connect(): void {
+const connectionPromise = new Promise<mongoose.Connection>((resolve, reject) => {
     // Check if we have already connected, or are in the process of connecting.
     const connectionState = mongoose.connection.readyState;
 
     if (connectionState === mongooseDisconnected || connectionState === mongooseDisconnecting) {
         // Perform the connect call with the proper connection string.
-        mongoose.connect(getConnectionString());
+        mongoose.connect(getConnectionString(), (err) => {
+            if (err) {
+                reject();
+            }
+        });
+
+        mongoose.connection.on("open", () => {
+            resolve(mongoose.connection)
+        });
+    } else if (connectionState === mongooseConnecting) {
+        mongoose.connection.on("open", () => {
+            resolve(mongoose.connection)
+        });
+    } else {
+        resolve(mongoose.connection);
     }
+});
+
+export function connect(): Promise<mongoose.Connection> {
+    return connectionPromise;
 }

@@ -10,6 +10,7 @@ var appProd = 'public/js/app/';
 var vendor = 'public/js/vendor';
 
 var config = 'config';
+var controllers = 'controllers';
 var models = 'models';
 var routes = 'routes';
 var tests = 'tests';
@@ -34,6 +35,7 @@ gulp.task('build-ts-server', function() {
             'app.ts',
             'bin/www.ts',
             config + '/**/*.ts',
+            controllers + '/**/*.ts',
             models + '/**/*.ts',
             routes + '/**/*.ts',
             tests + '/**/*.ts',
@@ -112,6 +114,7 @@ gulp.task('watch', function() {
     gulp.watch(appDev + '**/*.ts', ['build-ts']);
     gulp.watch(appDev + '**/*.{html,htm,css}', ['build-copy']);
     gulp.watch(config + '/**/*.ts', ['build-ts-server']);
+    gulp.watch(controllers + '/**/*.ts', ['build-ts-server']);
     gulp.watch(models + '/**/*.ts', ['build-ts-server']);
     gulp.watch(routes + '/**/*.ts', ['build-ts-server']);
     gulp.watch(tests + '/**/*.ts', ['build-ts-server']);
