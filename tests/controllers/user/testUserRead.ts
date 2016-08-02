@@ -19,10 +19,6 @@ describe("", function() {
     });
 
     it("Can read 0 users in an empty database.", function(done) {
-        // Define test data.
-        const userEmail = "a@valid.email.com";
-        const userPassword = "test";
-
         Users.count({}).exec().then( (numberOfUsers) => {
             expect(numberOfUsers).toBe(0);
         }).then( () => {
