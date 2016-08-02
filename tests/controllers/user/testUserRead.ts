@@ -46,6 +46,7 @@ describe("", function() {
         }).then( (user: IUserDocument) => {
             expect(user).toBeDefined();
             expect(user.email).toBe(userEmail);
+            expect(user.checkPassword(userPassword)).toBe(true);
         }).then( () => {
             done();
         });

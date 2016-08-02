@@ -9,10 +9,8 @@ export function createUser(email: string, password: string): Promise<IUserDocume
     // Set the email.
     user.email = email;
 
-    // Generate a new salt.
-
-    // Hash the password and the salt, and store the result.
-
+    // Let the user class handle the password.
+    user.createPassword(password);
 
     // Perform validation of the data.
 
