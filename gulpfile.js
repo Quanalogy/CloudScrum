@@ -12,6 +12,7 @@ var vendor = 'public/js/vendor';
 var config = 'config';
 var models = 'models';
 var routes = 'routes';
+var tests = 'tests';
 var typingsIndex = 'typings/index.d.ts';
 
 var tsconfig = gulpTypescript.createProject('tsconfig.json');
@@ -35,6 +36,7 @@ gulp.task('build-ts-server', function() {
             config + '/**/*.ts',
             models + '/**/*.ts',
             routes + '/**/*.ts',
+            tests + '/**/*.ts',
             typingsIndex
         ])
         .pipe(gulpSourcemaps.init())
@@ -112,6 +114,7 @@ gulp.task('watch', function() {
     gulp.watch(config + '/**/*.ts', ['build-ts-server']);
     gulp.watch(models + '/**/*.ts', ['build-ts-server']);
     gulp.watch(routes + '/**/*.ts', ['build-ts-server']);
+    gulp.watch(tests + '/**/*.ts', ['build-ts-server']);
 });
 
 gulp.task('default', ['watch', 'build']);

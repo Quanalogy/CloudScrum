@@ -1,6 +1,4 @@
-import IUser from "./IUser";
-
-export class User implements IUser {
+export class User {
     public email: string;
     public image: string;
     public name: string;
@@ -8,4 +6,8 @@ export class User implements IUser {
 
     private passwordHash: string;
     private passwordSalt: string;
+
+    public checkPass(password: string): boolean {
+        return false;
+    }
 }
