@@ -3,8 +3,9 @@ mongoose.Promise = require('bluebird');
 
 import * as config from "../../../config/mongodb";
 
-import {Users} from "../../../models/UserModel";
+import {Users, IUserDocument} from "../../../models/UserModel";
 
+import {getUser} from "../../../controllers/user/userControllerRead";
 import {createUser} from "../../../controllers/user/userControllerCreate";
 
 beforeEach((done) => {
@@ -43,6 +44,12 @@ describe("", function() {
             return Users.count({}).exec();
         }).then( (numberOfUsers) => {
             expect(numberOfUsers).toBe(1);
+        }).then( () => {
+            // Check that we can get the user via the interface.
+            return getUser(userEmail);
+        }).then( (user: IUserDocument) => {
+            expect(user).toBeDefined();
+            expect(user.email).toBe(userEmail);
         }).then( () => {
             done();
         });
