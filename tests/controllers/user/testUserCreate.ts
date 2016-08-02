@@ -17,19 +17,7 @@ describe("", function() {
         mongoose.connection.db.dropDatabase(done);
     });
 
-    it("Can read 0 users in an empty database.", function(done) {
-        // Define test data.
-        const userEmail = "a@valid.email.com";
-        const userPassword = "test";
-
-        Users.count({}).exec().then( (numberOfUsers) => {
-            expect(numberOfUsers).toBe(0);
-        }).then( () => {
-            done();
-        });
-    });
-
-    it("Can read 1 users in a populated database.", function(done) {
+    it("Can create a user in an empty database.", function(done) {
         // Define test data.
         const userEmail = "a@valid.email.com";
         const userPassword = "test";
