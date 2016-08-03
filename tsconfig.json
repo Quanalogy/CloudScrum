@@ -10,6 +10,16 @@
     "noImplicitAny": false,
     "outDir": "../public/js/app"
   },
+  "files": [
+    "typings/index",
+    "bin/www",
+    "app",
+    "assets/app/boot",
+    "assets/app/app.component",
+    "assets/app/login.component",
+    "assets/app/user",
+    "routes/appRoutes"
+  ],
   "exclude": [
     "node_modules",
     "public"
