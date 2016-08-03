@@ -10,6 +10,7 @@ var appProd = 'public/js/app/';
 var vendor = 'public/js/vendor';
 
 var config = 'config';
+var models = 'models';
 var routes = 'routes';
 var typingsIndex = 'typings/index.d.ts';
 
@@ -31,8 +32,9 @@ gulp.task('build-ts-server', function() {
     return gulp.src([
             'app.ts',
             'bin/www.ts',
-            routes + '/**/*.ts',
             config + '/**/*.ts',
+            models + '/**/*.ts',
+            routes + '/**/*.ts',
             typingsIndex
         ])
         .pipe(gulpSourcemaps.init())
@@ -49,13 +51,17 @@ gulp.task('build-copy', function() {
 gulp.task('clean', function() {
     del(appProd + '/**/*');
 
-    // Cleanup routes.
-    del(routes + '/**/*.js');
-    del(routes + '/**/*.js.map');
-
     // Cleanup config.
     del(config + '/**/*.js');
     del(config + '/**/*.js.map');
+
+    // Cleanup models.
+    del(models + '/**/*.js');
+    del(models + '/**/*.js.map');
+
+    // Cleanup routes.
+    del(routes + '/**/*.js');
+    del(routes + '/**/*.js.map');
 
     // Clean the main server app.
     del('app.js');
@@ -104,6 +110,7 @@ gulp.task('watch', function() {
     gulp.watch(appDev + '**/*.ts', ['build-ts']);
     gulp.watch(appDev + '**/*.{html,htm,css}', ['build-copy']);
     gulp.watch(config + '/**/*.ts', ['build-ts-server']);
+    gulp.watch(models + '/**/*.ts', ['build-ts-server']);
     gulp.watch(routes + '/**/*.ts', ['build-ts-server']);
 });
 
