@@ -7,7 +7,7 @@ import {ROUTER_DIRECTIVES} from "@angular/router";
 
 @Component({
     selector: 'user-form',
-    templateUrl: '/js/app/create-user-form.component.html',
+    templateUrl: '/js/app/user/create-user-form.component.html',
     directives: [ROUTER_DIRECTIVES]
 })
 
@@ -17,6 +17,5 @@ export class CreateUserComponent{
     onSubmit(){
         this.submitted = true;
     }
-    // TODO: Remove this when we're done
-    get diagnostic() { return JSON.stringify(this.model); }
+
 }

@@ -6,8 +6,10 @@ import { provideRouter, RouterConfig } from '@angular/router';
 import {UserRoutes} from "./user/user.routes";
 
 const routes: RouterConfig = [
+    {path: '', redirectTo: '/login', pathMatch: 'full'},
     ...UserRoutes,
-    {path: 'notFound', component: PageNotFound}
+    {path: 'notFound', component: PageNotFound},
+    {path: '**', component: PageNotFound}
 ];
 
 export const appRouterProvider = [

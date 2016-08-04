@@ -7,7 +7,7 @@ import {ROUTER_DIRECTIVES} from "@angular/router"
 
 @Component({
     selector: 'login-component',
-    templateUrl: '/js/app/login.component.html',
+    templateUrl: '/js/app/user/login.component.html',
     directives: [ROUTER_DIRECTIVES]
 })
 
