@@ -6,6 +6,7 @@ import cookieParser = require("cookie-parser");
 import bodyParser = require("body-parser");
 
 const appRoutes = require("./routes/appRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 import * as mongoConfig from "./config/mongodb";
 
@@ -33,7 +34,7 @@ app.use(function (req, res, next) {
 });
 
 app.use('/', appRoutes);
-app.use('/users', appRoutes);
+app.use('/users', userRoutes);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

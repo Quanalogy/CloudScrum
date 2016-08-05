@@ -17,6 +17,8 @@ router.post("/", (req, res, next) => {
     res.render("index");
 });
 
+
+
 // Edit an existing user.
 router.patch("/", (req, res, next) => {
     res.render("index");
