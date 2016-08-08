@@ -75,7 +75,6 @@ describe("The user login route", () => {
     });
 
     it("can authenticate an existing user with valid data.", (done) => {
-        pending("Not yet implemented");
         // Create the JSON object to send.
         const user = {
             email: validEmail,
@@ -88,19 +87,20 @@ describe("The user login route", () => {
             .send(user)
             .then((res) => {
                 expect(res.status).toBe(200);
-                expect(res.header["Content-Type"]).toBe(/json/);
+                expect(res.type).toBe("application/json");
 
                 // Perform the next call, to test authentication.
                 return sap(app)
                     .post("/users/login")
                     .send(user);
             }).then((res) => {
-            expect(res.status).toBe(200);
-            expect(res.header["Content-Type"]).toBe(/json/);
+                expect(res.status).toBe(200);
+                expect(res.type).toBe("application/json");
 
                 expect(res.body).toBeDefined();
                 expect(res.body.ok).toBeDefined();
                 expect(res.body.ok).toBe(true);
+                expect(res.body.token).toBeDefined();
 
                 done();
             }).catch((err) => {
