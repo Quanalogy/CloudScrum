@@ -1,7 +1,7 @@
 import * as debug from "debug";
 import * as http from "http";
 
-import { app } from "../app";
+import { app } from "./app";
 
 // Get the port from environment and store in Express.
 var port = (process.env.PORT || '3000');

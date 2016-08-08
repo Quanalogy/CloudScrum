@@ -1,27 +1,24 @@
-var gulp = require('gulp');
+var del = require("del");
+var gulp = require("gulp");
+var gulpTypescript = require("gulp-typescript");
+var gulpSourcemaps = require("gulp-sourcemaps");
+var path = require("path");
 
-var gulpTypescript = require('gulp-typescript');
-var gulpSourcemaps = require('gulp-sourcemaps');
+var appDev = "assets/app/";
+var appProd = "public/js/app/";
+var vendor = "public/js/vendor";
 
-var del = require('del');
+// Variables to help with the paths for the different parts of the project.
+var backendDir = path.join(__dirname, "backend");
 
-var appDev = 'assets/app/';
-var appProd = 'public/js/app/';
-var vendor = 'public/js/vendor';
+// Constant reference to the main typings file, used in transpiling to javascript.
+var typingsIndex = "typings/index.d.ts";
 
-var config = 'config';
-var controllers = 'controllers';
-var models = 'models';
-var routes = 'routes';
-var tests = 'tests';
-var typingsIndex = 'typings/index.d.ts';
+gulp.task("build-ts", function() {
+    var tsconfig = gulpTypescript.createProject("tsconfig.json");
 
-var tsconfig = gulpTypescript.createProject('tsconfig.json');
-var tsconfigServer = gulpTypescript.createProject('tsconfig.json');
-
-gulp.task('build-ts', function() {
     return gulp.src([
-            appDev + '/**/*.ts',
+            appDev + "/**/*.ts",
             typingsIndex
         ])
         .pipe(gulpSourcemaps.init())
@@ -30,95 +27,71 @@ gulp.task('build-ts', function() {
         .pipe(gulp.dest(appProd));
 });
 
-gulp.task('build-ts-server', function() {
+gulp.task("build-ts-server", function() {
+    var tsconfig = gulpTypescript.createProject("tsconfig.json");
+
     return gulp.src([
-            'app.ts',
-            'bin/www.ts',
-            config + '/**/*.ts',
-            controllers + '/**/*.ts',
-            models + '/**/*.ts',
-            routes + '/**/*.ts',
-            tests + '/**/*.ts',
+            backendDir + "/**/*.ts",
             typingsIndex
         ])
         .pipe(gulpSourcemaps.init())
-        .pipe(gulpTypescript(tsconfigServer))
+        .pipe(gulpTypescript(tsconfig))
         .pipe(gulpSourcemaps.write())
-        .pipe(gulp.dest("."));
+        .pipe(gulp.dest(backendDir));
 });
 
-gulp.task('build-copy', function() {
-    return gulp.src([appDev + '**/*.html', appDev + '**/*.htm', appDev + '**/*.css'])
+gulp.task("build-copy", function() {
+    return gulp.src([appDev + "**/*.html", appDev + "**/*.htm", appDev + "**/*.css"])
        .pipe(gulp.dest(appProd));
 });
 
-gulp.task('clean', function() {
-    del(appProd + '/**/*');
+gulp.task("clean", function() {
+    del(appProd + "/**/*");
 
-    // Cleanup config.
-    del(config + '/**/*.js');
-    del(config + '/**/*.js.map');
-
-    // Cleanup models.
-    del(models + '/**/*.js');
-    del(models + '/**/*.js.map');
-
-    // Cleanup routes.
-    del(routes + '/**/*.js');
-    del(routes + '/**/*.js.map');
-
-    // Clean the main server app.
-    del('app.js');
-    del('app.js.map');
-
-    // Clean the main www app.
-    del('bin/www.js');
-    del('bin/www.js.map');
+    // Cleanup the backend.
+    del(backend + "/**/*.js");
+    del(backend + "/**/*.js.map");
 });
 
-gulp.task('vendor', function() {
-    gulp.src('node_modules/@angular/**')
-        .pipe(gulp.dest(vendor + '/@angular'));
+gulp.task("vendor", function() {
+    gulp.src("node_modules/@angular/**")
+        .pipe(gulp.dest(vendor + "/@angular"));
 
-    gulp.src('node_modules/es6-shim/**')
-        .pipe(gulp.dest(vendor + '/es6-shim'));
+    gulp.src("node_modules/es6-shim/**")
+        .pipe(gulp.dest(vendor + "/es6-shim"));
 
     //reflect metadata
-    gulp.src('node_modules/reflect-metadata/**')
-        .pipe(gulp.dest(vendor + '/reflect-metadata/'));
+    gulp.src("node_modules/reflect-metadata/**")
+        .pipe(gulp.dest(vendor + "/reflect-metadata/"));
 
     //rxjs
-    gulp.src('node_modules/rxjs/**')
-        .pipe(gulp.dest(vendor + '/rxjs/'));
+    gulp.src("node_modules/rxjs/**")
+        .pipe(gulp.dest(vendor + "/rxjs/"));
 
     //systemjs
-    gulp.src('node_modules/systemjs/**')
-        .pipe(gulp.dest(vendor + '/systemjs/'));
+    gulp.src("node_modules/systemjs/**")
+        .pipe(gulp.dest(vendor + "/systemjs/"));
 
     //ng2-bootstrap
-    gulp.src('node_modules/ng2-bootstrap/**')
-        .pipe(gulp.dest(vendor + '/ng2-bootstrap/'));
+    gulp.src("node_modules/ng2-bootstrap/**")
+        .pipe(gulp.dest(vendor + "/ng2-bootstrap/"));
 
     //moment
-    gulp.src('node_modules/moment/**')
-        .pipe(gulp.dest(vendor + '/moment/'));
+    gulp.src("node_modules/moment/**")
+        .pipe(gulp.dest(vendor + "/moment/"));
 
     //zonejs
-    return gulp.src('node_modules/zone.js/**')
-        .pipe(gulp.dest(vendor + '/zone.js/'));
+    return gulp.src("node_modules/zone.js/**")
+        .pipe(gulp.dest(vendor + "/zone.js/"));
 });
 
-gulp.task('watch', function() {
-    gulp.watch('app.ts', ['build-ts-server']);
-    gulp.watch('bin/web.ts', ['build-ts-server']);
-    gulp.watch(appDev + '**/*.ts', ['build-ts']);
-    gulp.watch(appDev + '**/*.{html,htm,css}', ['build-copy']);
-    gulp.watch(config + '/**/*.ts', ['build-ts-server']);
-    gulp.watch(controllers + '/**/*.ts', ['build-ts-server']);
-    gulp.watch(models + '/**/*.ts', ['build-ts-server']);
-    gulp.watch(routes + '/**/*.ts', ['build-ts-server']);
-    gulp.watch(tests + '/**/*.ts', ['build-ts-server']);
+gulp.task("watch", function() {
+    gulp.watch("app.ts", ["build-ts-server"]);
+    gulp.watch("bin/web.ts", ["build-ts-server"]);
+    gulp.watch(appDev + "**/*.ts", ["build-ts"]);
+    gulp.watch(appDev + "**/*.{html,htm,css}", ["build-copy"]);
+    gulp.watch(backendDir + "/**/*.ts", ["build-ts-server"]);
 });
 
-gulp.task('default', ['watch', 'build']);
-gulp.task('build', ['build-ts', 'build-copy', 'vendor', 'build-ts-server']);
+gulp.task("default", ["watch", "build"]);
+gulp.task("build", ["build-ts", "build-copy", "vendor", "build-ts-server"]);
