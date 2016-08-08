@@ -1,20 +1,11 @@
 <div class="container">
-    <h1>Create New User response = {{response}}</h1>
+    <h1>Create New User</h1>
     <form>
         <div class="form-group">
             <label for="email">E-mail</label>
             <input type="email" class="form-control" required
                    [(ngModel)]="model.email" name="email" #spy
                    pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
-            <!--<div class="md-errors-spacer" [hidden]="email.valid || email.untouched">
-                <div class="md-char-counter" *ngIf="email.errors && email.errors.required">
-                    Email is required
-                </div>
-                <div class="md-char-counter" *ngIf="email.errors && email.errors.pattern">
-                    Email is invalid
-                </div>
-            </div>
-            <br>TODO: Remove this: {{spy.className}}-->
         </div>
         <div class="form-group">
             <label for="password">Password</label>

@@ -14,23 +14,17 @@ export class UserService{
     }
 
     private createUserURL = "/users/create-user";
+    private loginURL = "/users/create-user";
 
     getUserByEmail(email: string): Observable<User>{
         console.log("Sending GET");
         let getUserURL = "/users/" + email;
 
-
-        //return
         return this.http.get(getUserURL)
             .map(res => res.json());    // we are recieving json data
 
     }
 
-    private extractData(res: Response){
-        let body = res.json();
-        console.log("This is the body:", body);
-        return body.data || {};
-    }
 
     postUser(email: string, password: string){
         console.log("Sending post");
@@ -44,10 +38,14 @@ export class UserService{
 
     }
 
-    private handleError(error: any){
-        let errMsg = (error.message) ? error.message :
-            error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-        console.error(errMsg); // log to console instead
-        return Promise.reject(errMsg);
+    login(email: string, password: string){
+        let body = JSON.stringify({email: email, password: password});
+        let headers = new Headers({'Content-Type': 'application/json'});
+        let options = new RequestOptions({headers: headers});
+
+        return this.http.post(
+            this.loginURL, body, options
+        ).map(res => res.json);
     }
+
 }
