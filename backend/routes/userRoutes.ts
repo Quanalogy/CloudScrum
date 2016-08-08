@@ -1,6 +1,8 @@
 import { Router, Request,Response } from "express";
-import {getUser, checkPass} from "../controllers/user/userControllerRead";
-import {createUser} from "../controllers/user/userControllerCreate";
+import jwt = require("jsonwebtoken");
+
+import { getUser, checkPass } from "../controllers/user/userControllerRead";
+import { createUser } from "../controllers/user/userControllerCreate";
 
 
 const router = Router();
