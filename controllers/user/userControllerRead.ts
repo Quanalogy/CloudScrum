@@ -19,4 +19,6 @@ export function getUser(email: string): Promise<IUserDocument>  {
     });
 
     return p;
+
 }
+

@@ -4,6 +4,8 @@
 
 import {Component} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router"
+import {User} from "./user";
+import {UserService} from "./user.service";
 
 @Component({
     selector: 'login-component',
@@ -12,6 +14,22 @@ import {ROUTER_DIRECTIVES} from "@angular/router"
 })
 
 export class LoginComponent {
-    title = "Hello login";
+    title = "Login";
+    model = new User('', '');
 
+    constructor(private userService: UserService){
+
+    }
+
+    login(email: string, password: string){
+        if(!email || !password){
+            return;
+        }
+
+        this.userService.login(email, password).subscribe(success => {
+
+        }, failure => {
+
+        })
+    }
 }

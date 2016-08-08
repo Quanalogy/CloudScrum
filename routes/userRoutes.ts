@@ -2,6 +2,8 @@ import { Router, Request,Response } from "express";
 import {getUser} from "../controllers/user/userControllerRead";
 import {createUser} from "../controllers/user/userControllerCreate";
 import {error} from "util";
+import {IUserDocument} from "../models/UserModel";
+import {IUser} from "../models/IUser";
 
 const router = Router();
 
@@ -36,6 +38,26 @@ router.post("/create-user", (req: Request, res: Response) =>{
     createUser(req.body.email, req.body.password).then(result => {
         res.json(result);
     });
+});
+
+router.post("/login", (req: Request, res: Response) => {
+    console.log("I got a post request");
+    console.log(req.body);
+
+/*
+    const user:Promise<IUserDocument> = getUser(req.params.email).then(result => {
+        // The users exists, now we should test if login credentials are OK
+
+
+
+        user.checkPassword(req.params.password);
+        console.log("got user", result);
+        res.json(result);
+    }, error => {
+        console.log("User not found or error on DB");
+
+    });*/
+
 });
 
 // Edit an existing user.

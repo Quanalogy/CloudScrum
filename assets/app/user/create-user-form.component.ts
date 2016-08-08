@@ -15,16 +15,9 @@ import {UserService} from "./user.service";
 
 export class CreateUserComponent{
     model = new User('', '');
-    submitted = false;
-
-    response = 0;
 
     constructor(private userService: UserService){
 
-    }
-
-    onSubmit(){
-        this.submitted = true;
     }
 
     createUser(email: string, password: string){
@@ -36,14 +29,11 @@ export class CreateUserComponent{
         this.userService.getUserByEmail(email).subscribe(
             (data) => {
                 if(data.email.length < 5){
-                    this.response = 1;
-                    console.log("Empty body returned");
                     this.userService.postUser(email, password);
                 } else {
-                    console.log("This is the email: ", data.email);
-                    this.response = 2;
+                    //TODO handle that the user exists
                 }
-            }, // save revieved data
+            },
             err => this.handleError(err)
         );
     }
