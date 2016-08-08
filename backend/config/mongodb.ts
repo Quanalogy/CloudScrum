@@ -1,9 +1,16 @@
-import mongoose = require("mongoose");
-import bluebird = require("bluebird");
+import * as mongoose from "mongoose";
 
+// Set the promise library.
+mongoose.Promise = require("bluebird");
+
+// Define constants for the different states. Taken from http://mongoosejs.com/docs/api.html#connection_Connection-readyState
+const disconnected = 0;
+const connected = 1;
+const connecting = 2;
+const disconnecting = 3;
 
 // Get the connection string from the environment. Default to localhost with no password.
-const mongodbDatabase: string = process.env.MONGODBDATABASE || "ScrumOnline";
+const mongodbDatabase: string = process.env.MONGODBDATABASE || "CloudScrum";
 const mongodbHost: string = process.env.MONGODBHOST || "localhost";
 const mongodbPassword: string = process.env.MONGODBPASSWORD || "";
 const mongodbPort: string = process.env.MONGODBPORT || "";
@@ -27,36 +34,48 @@ function getConnectionString(): string {
     return connectionString;
 }
 
-// State variables to easier handle the different possibilities in the readyState property.
-const mongooseDisconnected = 0;
-const mongooseConnected = 1;
-const mongooseConnecting = 2;
-const mongooseDisconnecting = 3;
+export function dropDatabase(): Promise<mongoose.Connection> {
+    // Variable for easy access to the mongoose connection.
+    const conn = mongoose.connection;
 
-const connectionPromise = new Promise<mongoose.Connection>((resolve, reject) => {
-    // Check if we have already connected, or are in the process of connecting.
-    const connectionState = mongoose.connection.readyState;
-
-    if (connectionState === mongooseDisconnected || connectionState === mongooseDisconnecting) {
-        // Perform the connect call with the proper connection string.
-        mongoose.connect(getConnectionString(), (err) => {
+    return new Promise<mongoose.Connection>((resolve, reject) => {
+        conn.db.dropDatabase((err) => {
             if (err) {
-                reject();
+                reject(err);
             }
-        });
 
-        mongoose.connection.on("open", () => {
-            resolve(mongoose.connection)
+            resolve(conn);
         });
-    } else if (connectionState === mongooseConnecting) {
-        mongoose.connection.on("open", () => {
-            resolve(mongoose.connection)
-        });
-    } else {
-        resolve(mongoose.connection);
-    }
-});
+    });
+}
 
 export function connect(): Promise<mongoose.Connection> {
-    return connectionPromise;
+    // Variable for easy access to the mongoose connection.
+    const conn = mongoose.connection;
+
+    // Read out the current state of the connection.
+    const currentState = conn.readyState;
+
+    // Return a promise depending on the state.
+    return new Promise<mongoose.Connection>((resolve, reject) => {
+        if (currentState === connected) {
+            // We are already connected, no need to do anything.
+            resolve(conn);
+        } else if (currentState === disconnecting) {
+            // We are in the process of disconnecting. Nothing to do now but return an error.
+            reject("In the process of disconnecting.");
+        } else if (currentState === disconnected) {
+            // Start connecting.
+            mongoose.connect(getConnectionString(), (err) => {
+                if (err) {
+                    reject(err);
+                }
+            });
+        }
+
+        // If we are here, we are either already connecting or have just begun. We register a callback for when the connection is open.
+        conn.on("open", () => {
+            resolve(conn);
+        });
+    });
 }
