@@ -109,10 +109,65 @@ describe("The user login route", () => {
     });
 
     it("cannot authenticate an existing user with invalid data.", (done) => {
-        pending("Not yet implemented.");
+        // Create the JSON object to send.
+        const user = {
+            email: validEmail,
+            password: validPassword
+        };
+
+        const userInvalid = {
+            email: validEmail,
+            password: invalidPassword
+        };
+
+        // Create the proper user.
+        sap(app)
+            .post("/users/")
+            .send(user)
+            .then((res) => {
+                expect(res.status).toBe(200);
+                expect(res.type).toBe("application/json");
+
+                // Perform the next call, to test authentication.
+                return sap(app)
+                    .post("/users/login")
+                    .send(userInvalid);
+            }).then((res) => {
+            expect(res.status).toBe(200);
+            expect(res.type).toBe("application/json");
+
+            expect(res.body).toBeDefined();
+            expect(res.body.ok).toBeDefined();
+            expect(res.body.ok).toBe(false);
+
+            done();
+        }).catch((err) => {
+            done(err);
+        });
     });
 
     it("cannot authenticate a non-existing user.", (done) => {
-        pending("Not yet implemented.");
+        // Create the JSON object to send.
+        const user = {
+            email: validEmail,
+            password: validPassword
+        };
+
+        // Create the proper user.
+        sap(app)
+            .post("/users/login")
+            .send(user)
+            .then((res) => {
+            expect(res.status).toBe(200);
+            expect(res.type).toBe("application/json");
+
+            expect(res.body).toBeDefined();
+            expect(res.body.ok).toBeDefined();
+            expect(res.body.ok).toBe(false);
+
+            done();
+        }).catch((err) => {
+            done(err);
+        });
     });
 });
