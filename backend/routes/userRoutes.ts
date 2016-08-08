@@ -12,12 +12,9 @@ router.get("/", (req: Request, res: Response, next) => {
 
 // Get a single user.
 router.get("/:email", (req: Request, res: Response, next) => {
-    console.log("Got get requst for user");
     getUser(req.params.email).then(result => {
-        console.log("Result coming", result);
         res.json(result);
     }, error => {
-        console.log("Not found or error");
         res.json({'email':'','password':''});
     });
 
@@ -25,14 +22,7 @@ router.get("/:email", (req: Request, res: Response, next) => {
 });
 
 // Create a new user.
-router.post("/", (req, res, next) => {
-    res.render("index");
-});
-
-router.post("/create-user", (req: Request, res: Response) =>{
-    console.log("I got a post request");
-    console.log(req.body);
-
+router.post("/", (req: Request, res: Response) =>{
     createUser(req.body.email, req.body.password).then(result => {
         res.json(result);
     });
