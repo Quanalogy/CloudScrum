@@ -1,9 +1,7 @@
 import { Router, Request,Response } from "express";
-import {getUser} from "../controllers/user/userControllerRead";
+import {getUser, checkPass} from "../controllers/user/userControllerRead";
 import {createUser} from "../controllers/user/userControllerCreate";
-import {error} from "util";
-import {IUserDocument} from "../models/UserModel";
-import {IUser} from "../models/IUser";
+
 
 const router = Router();
 
@@ -44,6 +42,15 @@ router.post("/login", (req: Request, res: Response) => {
     console.log("I got a post request");
     console.log(req.body);
 
+    let tryUser = req.params.email;
+
+
+
+    checkPass(req.params.email, req.params.password).then(success => {
+
+    }, failure => {
+
+    });
 /*
     const user:Promise<IUserDocument> = getUser(req.params.email).then(result => {
         // The users exists, now we should test if login credentials are OK
