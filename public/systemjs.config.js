@@ -1,3 +1,7 @@
+/**
+ * Created by munk on 08-08-16.
+ */
+
 var map = {
     'app': 'js/app',
     'rxjs': 'js/vendor/rxjs',
@@ -22,11 +26,11 @@ var packageNames = [
     '@angular/router',
     '@angular/forms',
     '@angular/testing',
-    '@angular/upgrade' 
+    '@angular/upgrade'
 ];
 
 packageNames.forEach(function(pkgName) {
-   packages[pkgName] = { main: 'index.js', defaultExtension: 'js' };
+    packages[pkgName] = { main: 'index.js', defaultExtension: 'js' };
 });
 
 var config = {
