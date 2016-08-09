@@ -28,12 +28,16 @@ export class CreateUserComponent{
         }
 
 
-        this.userService.getUserByEmail(email).subscribe(
+        this.userService.getUserByEmail(email.toLowerCase()).subscribe(
             (data) => {
                 if(data.email.length < 5){
-                    this.userService.postUser(email, password);
-                    this.userInUse = false;
-                    this.router.navigateByUrl('');
+                    this.userService.postUser(email.toLowerCase(), password).then(
+                        (success) => {
+                            this.userInUse = false;
+                            this.router.navigateByUrl('');
+                    }, (failure) => {
+                            this.userInUse = true;
+                        });
                 } else {
                     this.userInUse = true;
                 }
