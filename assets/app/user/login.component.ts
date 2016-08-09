@@ -10,7 +10,8 @@ import {UserService} from "./user.service";
 @Component({
     selector: 'login-component',
     templateUrl: '/js/app/user/login.component.html',
-    directives: [ROUTER_DIRECTIVES]
+    directives: [ROUTER_DIRECTIVES],
+    providers: [UserService]
 })
 
 export class LoginComponent {
