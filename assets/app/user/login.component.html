@@ -14,6 +14,9 @@
             <input type="password" class="form-control" required
                    [(ngModel)]="model.password" name="password">
         </div>
+        <div *ngIf="rejected" role="alert">
+            Login rejected, Bad E-mail or password
+        </div>
         <nav>
             <a type="button" class="btn" [routerLink]="['/create-user']" routerLinkActive="active">Create user</a>
             <a type="button" class="btn" [routerLink]="['/notFound']" routerLinkActive="active">Forgot password</a>

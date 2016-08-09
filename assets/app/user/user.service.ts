@@ -4,7 +4,8 @@
 import {User} from "./user";
 import {Http, Headers, RequestOptions, Response} from "@angular/http";
 import {Injectable} from "@angular/core";
-import {Observable} from "rxjs";    // needed for toPromise()
+import {Observable} from "rxjs";
+import {ILoginOk} from "../../../interfaces/ILoginOk";    // needed for toPromise()
 
 @Injectable()
 export class UserService{
@@ -22,7 +23,6 @@ export class UserService{
 
         return this.http.get(getUserURL)
             .map(res => res.json());    // we are recieving json data
-
     }
 
 
@@ -38,14 +38,21 @@ export class UserService{
 
     }
 
-    login(email: string, password: string){
+    login(email: string, password: string): Observable<ILoginOk>{
         let body = JSON.stringify({email: email, password: password});
         let headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});
 
         return this.http.post(
             this.loginURL, body, options
-        ).map(res => res.json);
+        ).map(res => res.json());
+        //res => res.json().ok this.extractData
+    }
+
+    private extractData(res: Response) {
+        let body = res.json();
+        console.log(body.ok);
+        return body.data || { };
     }
 
 }
