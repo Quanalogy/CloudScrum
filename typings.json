@@ -15,7 +15,10 @@
     "morgan": "registry:dt/morgan#1.7.0+20160524142355",
     "node": "registry:dt/node#6.0.0+20160801161248",
     "serve-favicon": "registry:dt/serve-favicon#0.0.0+20160316155526",
-    "serve-static": "registry:dt/serve-static#0.0.0+20160606155157"
+    "serve-static": "registry:dt/serve-static#0.0.0+20160606155157",
+    "superagent": "registry:dt/superagent#2.0.0+20160802164024",
+    "supertest": "registry:dt/supertest#1.1.0+20160724070541",
+    "supertest-as-promised": "registry:dt/supertest-as-promised#2.0.2+20160802164024"
   },
   "dependencies": {
     "requirejs": "registry:npm/requirejs#2.2.0+20160319062357"
