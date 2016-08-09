@@ -19,8 +19,6 @@ router.get("/:email", (req: Request, res: Response, next) => {
     }, error => {
         res.json({'email':'','password':''});
     });
-
-    //res.render("index");
 });
 
 // Create a new user.
@@ -31,32 +29,11 @@ router.post("/", (req: Request, res: Response) =>{
 });
 
 router.post("/login", (req: Request, res: Response) => {
-    console.log("I got a post request");
-    console.log(req.body);
+    checkPass(req.params.email, req.params.password).then((succes) => {
 
-    let tryUser = req.params.email;
-
-
-
-    checkPass(req.params.email, req.params.password).then(success => {
-
-    }, failure => {
+    }, (failure) => {
 
     });
-/*
-    const user:Promise<IUserDocument> = getUser(req.params.email).then(result => {
-        // The users exists, now we should test if login credentials are OK
-
-
-
-        user.checkPassword(req.params.password);
-        console.log("got user", result);
-        res.json(result);
-    }, error => {
-        console.log("User not found or error on DB");
-
-    });*/
-
 });
 
 // Edit an existing user.
