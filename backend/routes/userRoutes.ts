@@ -3,6 +3,7 @@ import jwt = require("jsonwebtoken");
 
 import { getUser, checkPass } from "../controllers/user/userControllerRead";
 import { createUser } from "../controllers/user/userControllerCreate";
+import {JSONSendLoginOk, JSONSendError} from "../utilities/JSONSender";
 
 
 const router = Router();
@@ -29,10 +30,10 @@ router.post("/", (req: Request, res: Response) =>{
 });
 
 router.post("/login", (req: Request, res: Response) => {
-    checkPass(req.params.email, req.params.password).then((succes) => {
-
+    checkPass(req.body.email, req.body.password).then((succes) => {
+        JSONSendLoginOk(res, succes);
     }, (failure) => {
-
+        JSONSendError(res);
     });
 });
 
