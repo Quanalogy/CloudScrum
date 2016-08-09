@@ -3,7 +3,7 @@
  */
 import {Component} from "@angular/core";
 import {User} from "./user";
-import {ROUTER_DIRECTIVES} from "@angular/router";
+import {ROUTER_DIRECTIVES, Router} from "@angular/router";
 import {UserService} from "./user.service";
 
 @Component({
@@ -15,8 +15,10 @@ import {UserService} from "./user.service";
 
 export class CreateUserComponent{
     model = new User('', '');
+    userInUse = false;
 
-    constructor(private userService: UserService){
+    constructor(private userService: UserService,
+                private router: Router){
 
     }
 
@@ -30,8 +32,10 @@ export class CreateUserComponent{
             (data) => {
                 if(data.email.length < 5){
                     this.userService.postUser(email, password);
+                    this.userInUse = false;
+                    this.router.navigateByUrl('');
                 } else {
-                    //TODO handle that the user exists
+                    this.userInUse = true;
                 }
             },
             err => this.handleError(err)
@@ -44,4 +48,6 @@ export class CreateUserComponent{
         console.error(errMsg); // log to console instead
         return Promise.reject(errMsg);
     }
+
+
 }

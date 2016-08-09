@@ -37,6 +37,15 @@ router.post("/login", (req: Request, res: Response) => {
     });
 });
 
+router.post("/create-user", (req: Request, res: Response) =>{
+    console.log("I got a post request");
+    console.log(req.body);
+
+    createUser(req.body.email, req.body.password).then(result => {
+        res.json(result);
+    });
+});
+
 // Edit an existing user.
 router.patch("/", (req: Request, res: Response, next) => {
     res.render("index");

@@ -28,9 +28,9 @@ export class LoginComponent {
         }
 
         this.userService.login(email, password).subscribe(success => {
-
+            console.log("Success on log-in");
         }, failure => {
-
+            console.log("failure on log-in");
         })
     }
 }

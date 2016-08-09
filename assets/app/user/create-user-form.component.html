@@ -7,11 +7,15 @@
                    [(ngModel)]="model.email" name="email" #spy
                    pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
         </div>
+        <div *ngIf="userInUse" class="alert alert-dismissible fade in" role="alert">
+            The user is already in use, please try another
+        </div>
         <div class="form-group">
             <label for="password">Password</label>
             <input type="password" class="form-control" required
             [(ngModel)]="model.password" name="password">
         </div>
+
         <button type="submit" class="btn btn-default"
                 (click)="createUser(model.email, model.password)">Submit</button>
     </form>

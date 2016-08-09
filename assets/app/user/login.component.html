@@ -17,7 +17,7 @@
         <nav>
             <a type="button" class="btn btn-default" [routerLink]="['/create-user']" routerLinkActive="active">Create user</a>
             <a type="button" class="btn btn-default" [routerLink]="['/notFound']" routerLinkActive="active">Forgot password</a>
-            <button type="submit" class="btn btn-default">Submit</button>
+            <button type="submit" class="btn btn-default" (click)="login(model.email,model.password)">Submit</button>
         </nav>
     </form>
 </div>
