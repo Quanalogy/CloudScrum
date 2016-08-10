@@ -22,9 +22,7 @@ userSchema.methods.changePassword = function(passwordOld: string, passwordNew: s
     }
 
     // Generate a new password and save it.
-    this.createPassword(passwordNew);
-
-    return true;
+    return this.createPassword(passwordNew);
 };
 
 userSchema.methods.checkPassword = function(password: string) {
@@ -35,7 +33,13 @@ userSchema.methods.checkPassword = function(password: string) {
 };
 
 userSchema.methods.createPassword = function(password: string): boolean {
-    // TODO: Check that the password passes the requirements.
+    // Create a new regular expression.
+    const regex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^a-zA-Z\\d])[.\\S]{8,64}");
+
+    if (!regex.test(password))
+    {
+        return false;
+    }
 
     // Generate a new salt.
     this.passwordSalt = bcrypt.genSaltSync(rounds);

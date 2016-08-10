@@ -7,9 +7,13 @@ require("events").EventEmitter.prototype._maxListeners = 100;
 import { Users } from "../../models/UserModel";
 
 // Define common test data.
-const password1 = "test1";
-const password2 = "test2";
-const invalidPassword = "";
+const password1 = "abcde?1H";
+const password2 = "abcde!1H";
+const invalidPassword1 = "abcdefgh";
+const invalidPassword2 = "abcdefgH";
+const invalidPassword3 = "abcdef1H";
+const invalidPassword4 = "abde!1H";
+const invalidPassword5 = "abcdef1Habcdef1Habcdef1Habcdef1Habcdef1Habcdef1Habcdef1Habcdef1Ha";
 
 describe("The user model", () => {
     it("can generate a new password salt, and hash the passed password.", (done) => {
@@ -40,7 +44,11 @@ describe("The user model", () => {
         expect(user["passwordSalt"]).toBeUndefined();
 
         // Set the password.
-        expect(user.createPassword(invalidPassword)).toBe(false);
+        expect(user.createPassword(invalidPassword1)).toBe(false, invalidPassword1);
+        expect(user.createPassword(invalidPassword2)).toBe(false, invalidPassword2);
+        expect(user.createPassword(invalidPassword3)).toBe(false, invalidPassword3);
+        expect(user.createPassword(invalidPassword4)).toBe(false, invalidPassword4);
+        expect(user.createPassword(invalidPassword5)).toBe(false, invalidPassword5);
 
         // Make sure the password hash and salt are defined and not null.
         expect(user["passwordHash"]).toBeUndefined();
@@ -123,7 +131,7 @@ describe("The user model", () => {
         user.createPassword(password1);
 
         // Attempt to change the password.
-        expect(user.changePassword(password1, invalidPassword)).toBe(false);
+        expect(user.changePassword(password1, invalidPassword1)).toBe(false);
 
         // Signal that we are done.
         done();
