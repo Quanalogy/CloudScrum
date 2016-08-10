@@ -1,26 +1,30 @@
-import mongoose = require("mongoose");
-mongoose.Promise = require('bluebird');
+import { assert } from "chai";
 
-import * as config from "../../../config/mongodb";
+import { connect, dropDatabase } from "../../../config/mongodb";
 
 import {Users, IUserDocument} from "../../../models/UserModel";
 
 import {getUser} from "../../../controllers/user/userControllerRead";
 import {createUser} from "../../../controllers/user/userControllerCreate";
 
-beforeEach((done) => {
-    config.connect().then(done);
+before((done) => {
+    connect().then(() => {
+        done();
+    });
 });
 
 describe("The user controller", function() {
-    beforeEach( (done) => {
-        // Drop the entire database.
-        mongoose.connection.db.dropDatabase(done);
+    beforeEach((done) => {
+        dropDatabase().catch((err) => {
+            console.log(err);
+        }).then(() => {
+            done();
+        });
     });
 
     it("can read 0 users in an empty database.", function(done) {
         Users.count({}).exec().then( (numberOfUsers) => {
-            expect(numberOfUsers).toBe(0);
+            assert.equal(numberOfUsers, 0);
         }).then( () => {
             done();
         });
@@ -32,21 +36,21 @@ describe("The user controller", function() {
         const userPassword = "testT1!s";
 
         Users.count({}).exec().then( (numberOfUsers) => {
-            expect(numberOfUsers).toBe(0);
+            assert.equal(numberOfUsers, 0);
         }).then( () => {
             return createUser(userEmail, userPassword);
         }).then( () => {
             // Check that there are 1 element in the database.
             return Users.count({}).exec();
         }).then( (numberOfUsers) => {
-            expect(numberOfUsers).toBe(1);
+            assert.equal(numberOfUsers, 1);
         }).then( () => {
             // Check that we can get the user via the interface.
             return getUser(userEmail);
         }).then( (user: IUserDocument) => {
-            expect(user).toBeDefined();
-            expect(user.email).toBe(userEmail);
-            expect(user.checkPassword(userPassword)).toBe(true);
+            assert.isDefined(user);
+            assert.equal(user.email, userEmail);
+            assert.isTrue(user.checkPassword(userPassword));
         }).then( () => {
             done();
         });
