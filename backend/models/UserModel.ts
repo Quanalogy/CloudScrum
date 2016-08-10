@@ -1,5 +1,4 @@
 import * as mongoose from "mongoose";
-import uniqueValidator = require("mongoose-unique-validator");
 
 import bcrypt = require("bcryptjs");
 
@@ -20,8 +19,6 @@ const userSchema = new mongoose.Schema({
     passwordSalt: String,
     phoneNumber: String,
 });
-
-userSchema.plugin(uniqueValidator;
 
 userSchema.methods.changePassword = function(passwordOld: string, passwordNew: string): boolean {
     // Check the old password.
