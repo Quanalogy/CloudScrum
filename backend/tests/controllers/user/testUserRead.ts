@@ -12,13 +12,13 @@ beforeEach((done) => {
     config.connect().then(done);
 });
 
-describe("", function() {
+describe("The user controller", function() {
     beforeEach( (done) => {
         // Drop the entire database.
         mongoose.connection.db.dropDatabase(done);
     });
 
-    it("Can read 0 users in an empty database.", function(done) {
+    it("can read 0 users in an empty database.", function(done) {
         Users.count({}).exec().then( (numberOfUsers) => {
             expect(numberOfUsers).toBe(0);
         }).then( () => {
@@ -26,7 +26,7 @@ describe("", function() {
         });
     });
 
-    it("Can read 1 users in a populated database.", function(done) {
+    it("can read 1 users in a populated database.", function(done) {
         // Define test data.
         const userEmail = "a@valid.email.com";
         const userPassword = "testT1!s";

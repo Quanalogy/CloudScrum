@@ -11,7 +11,7 @@ beforeEach((done) => {
     config.connect().then(done);
 });
 
-describe("", function() {
+describe("The user controller", function() {
     beforeEach( (done) => {
         // Drop the entire database.
         mongoose.connection.db.dropDatabase(done);
@@ -22,7 +22,7 @@ describe("", function() {
     const userEmailUppercase = "A@valid.email.com";
     const userPassword = "testT1!s";
 
-    it("Can create a user in an empty database.", function(done) {
+    it("can create a user in an empty database.", function(done) {
 
         Users.count({}).exec().then( (numberOfUsers) => {
             expect(numberOfUsers).toBe(0);
@@ -38,7 +38,7 @@ describe("", function() {
         });
     });
 
-    it("Can not differentiate between upper- and lowercase email", (done) => {
+    it("can not differentiate between upper- and lowercase email", (done) => {
         createUser(userEmail, userPassword).then(fullfilled => { // this should be ok - empty database
             return createUser(userEmailUppercase, userPassword);
         }, rejected => {    // Database error
