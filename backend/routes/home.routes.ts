@@ -7,7 +7,7 @@ const router = Router();
 
 //User homepage
 router.get("/", (req: Request, res: Response) => {
-    console.log("It works");
+    res.render("index");
 });
 
 module.exports = router;

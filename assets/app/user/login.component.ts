@@ -3,7 +3,7 @@
  */
 
 import {Component} from "@angular/core";
-import {ROUTER_DIRECTIVES} from "@angular/router"
+import {ROUTER_DIRECTIVES, Router} from "@angular/router"
 import {User} from "./user";
 import {UserService} from "./user.service";
 
@@ -19,7 +19,8 @@ export class LoginComponent {
     rejected = false;
     model = new User('', '');
 
-    constructor(private userService: UserService){
+    constructor(private userService: UserService,
+                private router: Router){
 
     }
 
@@ -32,16 +33,14 @@ export class LoginComponent {
             .subscribe(
                 data => {
                     if(data.ok){
-                        console.log("Success", data.ok, "Token", data.token);
                         this.rejected = false;
+                        this.router.navigateByUrl("/home");
                     } else {
-                        console.log("failure", data.ok);
                         this.rejected = true;
                     }
                 },
                 err => {
                     this.rejected = true;
-                    console.log("Error in request");
                 }
             );
     }

@@ -4,10 +4,11 @@
 import {PageNotFound} from "./page-not-found.component";
 import { provideRouter, RouterConfig } from '@angular/router';
 import {UserRoutes} from "./user/user.routes";
+import {HomeRoutes} from "./home/home.routes";
 
 const routes: RouterConfig = [
     {path: '', redirectTo: '/login', pathMatch: 'full'},
-    ...UserRoutes,
+    ...UserRoutes, ...HomeRoutes,
     {path: 'notFound', component: PageNotFound},
     {path: '**', component: PageNotFound}
 ];
