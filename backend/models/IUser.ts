@@ -6,5 +6,5 @@ export interface IUser {
 
     changePassword(passwordOld: string, passwordNew: string): boolean;
     checkPassword(password: string): boolean;
-    createPassword(password: string);
+    createPassword(password: string): boolean;
 }

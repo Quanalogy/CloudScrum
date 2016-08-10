@@ -34,12 +34,16 @@ userSchema.methods.checkPassword = function(password: string) {
     return (passwordHash === this.passwordHash);
 };
 
-userSchema.methods.createPassword = function(password: string) {
+userSchema.methods.createPassword = function(password: string): boolean {
+    // TODO: Check that the password passes the requirements.
+
     // Generate a new salt.
     this.passwordSalt = bcrypt.genSaltSync(rounds);
 
     // Hash the password and store it.
     this.passwordHash = bcrypt.hashSync(password, this.passwordSalt);
+
+    return true;
 };
 
 // Create the document interface.
