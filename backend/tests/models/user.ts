@@ -6,13 +6,15 @@ require("events").EventEmitter.prototype._maxListeners = 100;
 
 import { Users } from "../../models/UserModel";
 
+// Define common test data.
+const password1 = "test1";
+const password2 = "test2";
+const invalidPassword = "";
+
 describe("The user model", () => {
     it("can generate a new password salt, and hash the passed password.", (done) => {
         // Generate a new user.
         const user = new Users();
-
-        // Define test data.
-        const password1 = "test1";
 
         // Make sure the password hash and salt are undefined to begin with.
         expect(user["passwordHash"]).toBeUndefined();
@@ -33,9 +35,6 @@ describe("The user model", () => {
         // Generate a new user.
         const user = new Users();
 
-        // Define test data.
-        const password1 = "test1";
-
         // Attempt to validate the password.
         expect(user.checkPassword(password1)).toBe(false);
 
@@ -52,10 +51,6 @@ describe("The user model", () => {
     it("cannot validate an invalid password.", (done) => {
         // Generate a new user.
         const user = new Users();
-
-        // Define test data.
-        const password1 = "test1";
-        const password2 = "test2";
 
         // Set the password.
         user.createPassword(password1);
@@ -74,18 +69,42 @@ describe("The user model", () => {
         // Generate a new user.
         const user = new Users();
 
-        // Define test data.
-        const password1 = "test1";
-        const password2 = "test2";
+        // Set the password.
+        user.createPassword(password1);
+
+        // Attempt to change the password.
+        expect(user.changePassword(password1, password2)).toBe(true);
+
+        // Attempt to validate the password.
+        expect(user.checkPassword(password2)).toBe(true);
+
+        // Signal that we are done.
+        done();
+    });
+
+    it("cannot change the password with the wrong password.", (done) => {
+        // Generate a new user.
+        const user = new Users();
 
         // Set the password.
         user.createPassword(password1);
 
         // Attempt to change the password.
-        user.changePassword(password1, password2);
+        expect(user.changePassword(password2, password2)).toBe(false);
 
-        // Attempt to validate the password.
-        expect(user.checkPassword(password2)).toBe(true);
+        // Signal that we are done.
+        done();
+    });
+
+    it("cannot change the password with an invalid password.", (done) => {
+        // Generate a new user.
+        const user = new Users();
+
+        // Set the password.
+        user.createPassword(password1);
+
+        // Attempt to change the password.
+        expect(user.changePassword(password1, invalidPassword)).toBe(false);
 
         // Signal that we are done.
         done();
