@@ -93,5 +93,10 @@ gulp.task("watch", function() {
     gulp.watch(backendDir + "/**/*.ts", ["build-ts-server"]);
 });
 
+gulp.task("test-controllers", function() {
+    //
+});
+
+gulp.task("test", ["test-controllers"]);
 gulp.task("default", ["watch", "build"]);
 gulp.task("build", ["build-ts", "build-copy", "vendor", "build-ts-server"]);

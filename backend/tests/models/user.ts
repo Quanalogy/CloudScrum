@@ -6,6 +6,8 @@ require("events").EventEmitter.prototype._maxListeners = 100;
 
 import { Users } from "../../models/UserModel";
 
+import { assert } from "chai";
+
 // Define common test data.
 const password1 = "abcde?1H";
 const password2 = "abcde!1H";
@@ -21,15 +23,15 @@ describe("The user model", () => {
         const user = new Users();
 
         // Make sure the password hash and salt are undefined to begin with.
-        expect(user["passwordHash"]).toBeUndefined();
-        expect(user["passwordSalt"]).toBeUndefined();
+        assert.isUndefined(user["passwordHash"]);
+        assert.isUndefined(user["passwordSalt"]);
 
         // Set the password.
-        expect(user.createPassword(password1)).toBe(true);
+        assert.isTrue(user.createPassword(password1));
 
         // Make sure the password hash and salt are defined and not null.
-        expect(user["passwordHash"]).toBeDefined();
-        expect(user["passwordSalt"]).toBeDefined();
+        assert.isDefined(user["passwordHash"]);
+        assert.isDefined(user["passwordSalt"]);
 
         // Signal that we are done.
         done();
@@ -40,19 +42,19 @@ describe("The user model", () => {
         const user = new Users();
 
         // Make sure the password hash and salt are undefined to begin with.
-        expect(user["passwordHash"]).toBeUndefined();
-        expect(user["passwordSalt"]).toBeUndefined();
+        assert.isUndefined(user["passwordHash"]);
+        assert.isUndefined(user["passwordSalt"]);
 
         // Set the password.
-        expect(user.createPassword(invalidPassword1)).toBe(false, invalidPassword1);
-        expect(user.createPassword(invalidPassword2)).toBe(false, invalidPassword2);
-        expect(user.createPassword(invalidPassword3)).toBe(false, invalidPassword3);
-        expect(user.createPassword(invalidPassword4)).toBe(false, invalidPassword4);
-        expect(user.createPassword(invalidPassword5)).toBe(false, invalidPassword5);
+        assert.isFalse(user.createPassword(invalidPassword1), invalidPassword1);
+        assert.isFalse(user.createPassword(invalidPassword2), invalidPassword2);
+        assert.isFalse(user.createPassword(invalidPassword3), invalidPassword3);
+        assert.isFalse(user.createPassword(invalidPassword4), invalidPassword4);
+        assert.isFalse(user.createPassword(invalidPassword5), invalidPassword5);
 
         // Make sure the password hash and salt are defined and not null.
-        expect(user["passwordHash"]).toBeUndefined();
-        expect(user["passwordSalt"]).toBeUndefined();
+        assert.isUndefined(user["passwordHash"]);
+        assert.isUndefined(user["passwordSalt"]);
 
         // Signal that we are done.
         done();
@@ -63,13 +65,13 @@ describe("The user model", () => {
         const user = new Users();
 
         // Attempt to validate the password.
-        expect(user.checkPassword(password1)).toBe(false);
+        assert.isFalse(user.checkPassword(password1));
 
         // Set the password.
         user.createPassword(password1);
 
         // Attempt to validate the password with valid data.
-        expect(user.checkPassword(password1)).toBe(true);
+        assert.isTrue(user.checkPassword(password1));
 
         // Signal that we are done.
         done();
@@ -83,10 +85,10 @@ describe("The user model", () => {
         user.createPassword(password1);
 
         // Attempt to validate the password with valid data.
-        expect(user.checkPassword(password1)).toBe(true);
+        assert.isTrue(user.checkPassword(password1));
 
         // Attempt to validate the password with invalid data.
-        expect(user.checkPassword(password2)).toBe(false);
+        assert.isFalse(user.checkPassword(password2));
 
         // Signal that we are done.
         done();
@@ -100,10 +102,10 @@ describe("The user model", () => {
         user.createPassword(password1);
 
         // Attempt to change the password.
-        expect(user.changePassword(password1, password2)).toBe(true);
+        assert.isTrue(user.changePassword(password1, password2));
 
         // Attempt to validate the password.
-        expect(user.checkPassword(password2)).toBe(true);
+        assert.isTrue(user.checkPassword(password2));
 
         // Signal that we are done.
         done();
@@ -117,7 +119,7 @@ describe("The user model", () => {
         user.createPassword(password1);
 
         // Attempt to change the password.
-        expect(user.changePassword(password2, password2)).toBe(false);
+        assert.isFalse(user.changePassword(password2, password2));
 
         // Signal that we are done.
         done();
@@ -131,7 +133,7 @@ describe("The user model", () => {
         user.createPassword(password1);
 
         // Attempt to change the password.
-        expect(user.changePassword(password1, invalidPassword1)).toBe(false);
+        assert.isFalse(user.changePassword(password1, invalidPassword1));
 
         // Signal that we are done.
         done();
