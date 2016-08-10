@@ -1,0 +1,34 @@
+/**
+ * Created by munk on 10-08-16.
+ */
+import { NgModule }       from '@angular/core';
+import { BrowserModule  } from '@angular/platform-browser';
+import { AppComponent }   from './app.component';
+import {appRouterProvider} from "./app.routes";
+import {HTTP_PROVIDERS} from "@angular/http";
+import {FormsModule} from "@angular/forms";
+import {PageNotFound} from "./page-not-found.component";
+import {LoginComponent} from "./user/login.component";
+import {CreateUserComponent} from "./user/create-user-form.component";
+import {HomeComponent} from "./home/home.component";
+import {UserPanelComponent} from "./home/userPanel.component";
+
+
+@NgModule({
+    declarations: [
+        AppComponent,
+        PageNotFound,
+        LoginComponent,
+        CreateUserComponent,
+        HomeComponent,
+        UserPanelComponent,
+    ],
+    imports:      [
+        BrowserModule,
+        FormsModule,
+        appRouterProvider,
+    ],
+    providers: [ HTTP_PROVIDERS,],
+    bootstrap: [AppComponent],
+})
+export class AppModule {}

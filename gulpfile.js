@@ -49,8 +49,8 @@ gulp.task("clean", function() {
     del(appProd + "/**/*");
 
     // Cleanup the backend.
-    del(backend + "/**/*.js");
-    del(backend + "/**/*.js.map");
+    del(backendDir + "/**/*.js");
+    del(backendDir + "/**/*.js.map");
 });
 
 gulp.task("vendor", function() {
