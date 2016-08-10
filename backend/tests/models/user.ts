@@ -201,4 +201,8 @@ describe("The user model", () => {
             done();
         });
     });
+
+    it("cannot validate an email with uppercase letters present");
+
+    it("cannot validate an email which exists in the database");
 });

@@ -5,14 +5,16 @@ export function createUser(email: string, password: string): Promise<IUserDocume
     // Create a new user object.
     const user = new Users();
 
-    // Set the email.
-    user.email = email;
-
-    // Let the user class handle the password.
-    user.createPassword(password);
+    // Set the email in lowercase.
+    user.email = email.toLowerCase();
 
     // Perform validation and save the user to the database.
     return new Promise<IUserDocument>((resolve, reject) => {
+        // Let the user class handle the password.
+        if (!user.createPassword(password)) {
+            reject("Password");
+        }
+
         user.validate((err) => {
             // Any errors on validation.
             if (err) {

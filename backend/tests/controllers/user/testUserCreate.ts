@@ -12,6 +12,13 @@ before((done) => {
     });
 });
 
+// Define test data.
+const userEmail = "a@valid.email.com";
+const userEmailInvalid = "a.valid.email.com";
+const userEmailUppercase = "A@valid.email.com";
+const userPassword = "testT1!s";
+const userPasswordInvalid = "testT1ss";
+
 describe("The user controller", function() {
     beforeEach((done) => {
         dropDatabase().catch((err) => {
@@ -20,11 +27,6 @@ describe("The user controller", function() {
             done();
         });
     });
-
-    // Define test data.
-    const userEmail = "a@valid.email.com";
-    const userEmailUppercase = "A@valid.email.com";
-    const userPassword = "testT1!s";
 
     it("can create a user in an empty database.", function(done) {
 
@@ -57,11 +59,35 @@ describe("The user controller", function() {
 
     it("cannot create a user with an existing email");
 
-    it("cannot create a user with an empty email");
+    it("cannot create a user with an empty email", (done) => {
+        createUser("", userPassword).then((fulfilled) => {
+            done(new Error("Can create a new user with an empty email."));
+        }, (rejected) => {
+            done();
+        });
+    });
 
-    it("cannot create a user with an invalid email");
+    it("cannot create a user with an invalid email", (done) => {
+        createUser(userEmailInvalid, userPassword).then((fulfilled) => {
+            done(new Error("Can create a new user with an empty email."));
+        }, (rejected) => {
+            done();
+        });
+    });
 
-    it("cannot create a user with an empty password");
+    it("cannot create a user with an empty password", (done) => {
+        createUser(userEmail, "").then((fulfilled) => {
+            done(new Error("Can create a new user with an empty password."));
+        }, (rejected) => {
+            done();
+        });
+    });
 
-    it("cannot create a user with an invalid password");
+    it("cannot create a user with an invalid password", (done) => {
+        createUser(userEmail, userPasswordInvalid).then((fulfilled) => {
+            done(new Error("Can create a new user with an invalid password."));
+        }, (rejected) => {
+            done();
+        });
+    });
 });
