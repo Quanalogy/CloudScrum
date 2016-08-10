@@ -1,3 +1,6 @@
+// Set the environment to "test".
+process.env.NODE_ENV = "test";
+
 import sap = require("supertest-as-promised");
 
 import {app} from "../../../app";
