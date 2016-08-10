@@ -21,11 +21,30 @@ describe("The user model", () => {
         expect(user["passwordSalt"]).toBeUndefined();
 
         // Set the password.
-        user.createPassword(password1);
+        expect(user.createPassword(password1)).toBe(true);
 
         // Make sure the password hash and salt are defined and not null.
         expect(user["passwordHash"]).toBeDefined();
         expect(user["passwordSalt"]).toBeDefined();
+
+        // Signal that we are done.
+        done();
+    });
+
+    it("cannot create hash from an invalid password.", (done) => {
+        // Generate a new user.
+        const user = new Users();
+
+        // Make sure the password hash and salt are undefined to begin with.
+        expect(user["passwordHash"]).toBeUndefined();
+        expect(user["passwordSalt"]).toBeUndefined();
+
+        // Set the password.
+        expect(user.createPassword(invalidPassword)).toBe(false);
+
+        // Make sure the password hash and salt are defined and not null.
+        expect(user["passwordHash"]).toBeUndefined();
+        expect(user["passwordSalt"]).toBeUndefined();
 
         // Signal that we are done.
         done();
