@@ -1,20 +1,24 @@
-import mongoose = require("mongoose");
-mongoose.Promise = require('bluebird');
+import { assert } from "chai";
 
-import * as config from "../../../config/mongodb";
+import { connect, dropDatabase } from "../../../config/mongodb";
 
 import {Users} from "../../../models/UserModel";
 
 import {createUser} from "../../../controllers/user/userControllerCreate";
 
-beforeEach((done) => {
-    config.connect().then(done);
+before((done) => {
+    connect().then(() => {
+        done();
+    });
 });
 
 describe("The user controller", function() {
-    beforeEach( (done) => {
-        // Drop the entire database.
-        mongoose.connection.db.dropDatabase(done);
+    beforeEach((done) => {
+        dropDatabase().catch((err) => {
+            console.log(err);
+        }).then(() => {
+            done();
+        });
     });
 
     // Define test data.
@@ -25,14 +29,14 @@ describe("The user controller", function() {
     it("can create a user in an empty database.", function(done) {
 
         Users.count({}).exec().then( (numberOfUsers) => {
-            expect(numberOfUsers).toBe(0);
+            assert.equal(numberOfUsers, 0);
         }).then( () => {
             return createUser(userEmail, userPassword);
         }).then( () => {
             // Check that there are 1 element in the database.
             return Users.count({}).exec();
         }).then( (numberOfUsers) => {
-            expect(numberOfUsers).toBe(1);
+            assert.equal(numberOfUsers, 1);
         }).then( () => {
             done();
         });
@@ -42,11 +46,9 @@ describe("The user controller", function() {
         createUser(userEmail, userPassword).then(fullfilled => { // this should be ok - empty database
             return createUser(userEmailUppercase, userPassword);
         }, rejected => {    // Database error
-            fail("Is the database running? Cannot create user!");
-            done();
+            done(new Error("Is the database running? Cannot create user!"));
         }).then(success => {    // Damn we can create an user with the same email!!
-            fail("Could create the user with the same uppercase email!!");
-            done();
+            done(new Error("Could create the user with the same uppercase email!!"));
         }, failure => {     // Good the request was rejected
             done();
         });
