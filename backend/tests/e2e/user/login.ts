@@ -4,16 +4,19 @@ process.env.NODE_ENV = "test";
 // We need to have more than the default 10 listeners.
 require("events").EventEmitter.prototype._maxListeners = 100;
 
+import { assert } from "chai";
 import sap = require("supertest-as-promised");
 
-import {app} from "../../../app";
-import {connect, dropDatabase} from "../../../config/mongodb";
+import { app } from "../../../app";
+import { connect, dropDatabase } from "../../../config/mongodb";
 
-beforeAll((done) => {
+before((done) => {
     // Connect to the database.
     connect().catch((err) => {
         console.log(err);
-    }).then(done);
+    }).then(() => {
+        done();
+    });
 });
 
 // Define test data.
@@ -29,7 +32,9 @@ describe("The user login route", () => {
     beforeEach((done) => {
         dropDatabase().catch((err) => {
             console.log(err);
-        }).then(done);
+        }).then(() => {
+            done();
+        });
     });
 
     it("can not authenticate with missing email.", (done) => {
@@ -43,12 +48,12 @@ describe("The user login route", () => {
             .post("/users/login")
             .send(user)
             .then((res) => {
-                expect(res.status).toBe(200);
-                expect(res.type).toBe("application/json");
+                assert.equal(res.status, 200);
+                assert.equal(res.type, "application/json");
 
-                expect(res.body).toBeDefined();
-                expect(res.body.ok).toBeDefined();
-                expect(res.body.ok).toBe(false);
+                assert.isDefined(res.body);
+                assert.isDefined(res.body.ok);
+                assert.isFalse(res.body.ok);
 
                 done();
             }).catch((err) => {
@@ -56,7 +61,7 @@ describe("The user login route", () => {
         });
     });
 
-    it("can not authenticate with missing email.", (done) => {
+    it("can not authenticate with missing password.", (done) => {
         // Create the JSON object to send.
         const user = {
             email: validEmail
@@ -67,12 +72,12 @@ describe("The user login route", () => {
             .post("/users/login")
             .send(user)
             .then((res) => {
-                expect(res.status).toBe(200);
-                expect(res.type).toBe("application/json");
+                assert.equal(res.status, 200);
+                assert.equal(res.type, "application/json");
 
-                expect(res.body).toBeDefined();
-                expect(res.body.ok).toBeDefined();
-                expect(res.body.ok).toBe(false);
+                assert.isDefined(res.body);
+                assert.isDefined(res.body.ok);
+                assert.isFalse(res.body.ok);
 
                 done();
             }).catch((err) => {
@@ -92,21 +97,21 @@ describe("The user login route", () => {
             .post("/users/")
             .send(user)
             .then((res) => {
-                expect(res.status).toBe(200);
-                expect(res.type).toBe("application/json");
+                assert.equal(res.status, 200);
+                assert.equal(res.type, "application/json");
 
                 // Perform the next call, to test authentication.
                 return sap(app)
                     .post("/users/login")
                     .send(user);
             }).then((res) => {
-                expect(res.status).toBe(200);
-                expect(res.type).toBe("application/json");
+                assert.equal(res.status, 200);
+                assert.equal(res.type, "application/json");
 
-                expect(res.body).toBeDefined();
-                expect(res.body.ok).toBeDefined();
-                expect(res.body.ok).toBe(true);
-                expect(res.body.token).toBeDefined();
+                assert.isDefined(res.body);
+                assert.isDefined(res.body.ok);
+                assert.isTrue(res.body.ok);
+                assert.isDefined(res.body.token);
 
                 done();
             }).catch((err) => {
@@ -131,20 +136,20 @@ describe("The user login route", () => {
             .post("/users/")
             .send(user)
             .then((res) => {
-                expect(res.status).toBe(200);
-                expect(res.type).toBe("application/json");
+                assert.equal(res.status, 200);
+                assert.equal(res.type, "application/json");
 
                 // Perform the next call, to test authentication.
                 return sap(app)
                     .post("/users/login")
                     .send(userInvalid);
             }).then((res) => {
-            expect(res.status).toBe(200);
-            expect(res.type).toBe("application/json");
+            assert.equal(res.status, 200);
+            assert.equal(res.type, "application/json");
 
-            expect(res.body).toBeDefined();
-            expect(res.body.ok).toBeDefined();
-            expect(res.body.ok).toBe(false);
+            assert.isDefined(res.body);
+            assert.isDefined(res.body.ok);
+            assert.isFalse(res.body.ok);
 
             done();
         }).catch((err) => {
@@ -164,12 +169,12 @@ describe("The user login route", () => {
             .post("/users/login")
             .send(user)
             .then((res) => {
-            expect(res.status).toBe(200);
-            expect(res.type).toBe("application/json");
+                assert.equal(res.status, 200);
+                assert.equal(res.type, "application/json");
 
-            expect(res.body).toBeDefined();
-            expect(res.body.ok).toBeDefined();
-            expect(res.body.ok).toBe(false);
+                assert.isDefined(res.body);
+                assert.isDefined(res.body.ok);
+                assert.isFalse(res.body.ok);
 
             done();
         }).catch((err) => {
