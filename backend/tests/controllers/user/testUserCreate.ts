@@ -45,19 +45,28 @@ describe("The user controller", function() {
     });
 
     it("can not differentiate between upper- and lowercase email", (done) => {
-        createUser(userEmail, userPassword).then(fullfilled => { // this should be ok - empty database
+        createUser(userEmail, userPassword).then(() => { // this should be ok - empty database
             return createUser(userEmailUppercase, userPassword);
-        }, rejected => {    // Database error
+        }, () => {    // Database error
             done(new Error("Is the database running? Cannot create user!"));
-        }).then(success => {    // Damn we can create an user with the same email!!
+        }).then(() => {    // Damn we can create an user with the same email!!
             done(new Error("Could create the user with the same uppercase email!!"));
-        }, failure => {     // Good the request was rejected
+        }, () => {     // Good the request was rejected
             done();
         });
-
     });
 
-    it("cannot create a user with an existing email");
+    it("cannot create a user with an existing email", (done) => {
+        createUser(userEmail, userPassword).then(() => {
+            return createUser(userEmail, userPassword);
+        }, () => {
+            done(new Error("Unspecified database error."));
+        }).then(() => {
+            done(new Error("Could create the user with the same mail."));
+        }, () => {
+            done();
+        });
+    });
 
     it("cannot create a user with an empty email", (done) => {
         createUser("", userPassword).then((fulfilled) => {

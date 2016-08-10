@@ -21,6 +21,7 @@ const invalidPassword5 = "abcdef1Habcdef1Habcdef1Habcdef1Habcdef1Habcdef1Habcdef
 
 const validEmail = "this@is.valid.com";
 const invalidEmail1 = "this.is.invalid.com";
+const invalidEmailCaps = "thIs@is.invalid.com";
 
 before((done) => {
     connect().then(() => {
@@ -202,7 +203,54 @@ describe("The user model", () => {
         });
     });
 
-    it("cannot validate an email with uppercase letters present");
+    it("cannot validate an email with uppercase letters present", (done) => {
+        // Generate a new user.
+        const user = new Users();
 
-    it("cannot validate an email which exists in the database");
+        // Assign a valid email and attempt verification.
+        user.email = invalidEmailCaps;
+
+        user.validate((err) => {
+            if (!err) {
+                done(new Error("Could validate an email containing caps."));
+            } else {
+                assert.isDefined(err);
+                assert.isDefined(err.errors);
+                assert.isDefined(err.errors.email);
+
+                done();
+            }
+        });
+    });
+
+    it("cannot validate an email which exists in the database", (done) => {
+        // Generate a new user.
+        const user = new Users();
+
+        // Set the email and password.
+        user.email = validEmail;
+        user.createPassword(password1);
+
+        // Create a second identical user.
+        const user2 = new Users();
+
+        // Set the email and password.
+        user2.email = validEmail;
+        user2.createPassword(password1);
+
+        // Store the user.
+        user.save().then(() => {
+            return user2.validate();
+        }, () => {
+            done(new Error("Unspecified database error."));
+        }).then(() => {
+            done(new Error("Can create a second user with the same email."));
+        }, (err) => {
+            assert.isDefined(err);
+            assert.isDefined(err.errors);
+            assert.isDefined(err.errors.email);
+
+            done();
+        });
+    });
 });
