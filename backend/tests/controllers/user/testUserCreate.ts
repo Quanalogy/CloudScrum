@@ -54,4 +54,14 @@ describe("The user controller", function() {
         });
 
     });
+
+    it("cannot create a user with an existing email");
+
+    it("cannot create a user with an empty email");
+
+    it("cannot create a user with an invalid email");
+
+    it("cannot create a user with an empty password");
+
+    it("cannot create a user with an invalid password");
 });

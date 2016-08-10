@@ -138,4 +138,10 @@ describe("The user model", () => {
         // Signal that we are done.
         done();
     });
+
+    it("requires an email for validation");
+
+    it("requires a valid email for validation");
+
+    it("fails on an invalid email for validation");
 });
