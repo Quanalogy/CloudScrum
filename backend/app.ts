@@ -9,6 +9,7 @@ import jwt = require("jsonwebtoken");
 
 const appRoutes = require("./routes/app.routes");
 const userRoutes = require("./routes/user.routes");
+const homeRoutes = require("./routes/home.routes");
 const catchAllRoutes = require("./routes/catchAll.routes");
 
 import * as mongoConfig from "./config/mongodb";
@@ -43,5 +44,6 @@ app.use(function (req, res, next) {
 
 app.use('/', appRoutes);
 app.use('/users', userRoutes);
+app.use('/home', homeRoutes);
 app.use('*', catchAllRoutes);
 

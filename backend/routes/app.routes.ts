@@ -1,9 +1,9 @@
-import express = require("express");
-const router = express.Router();
+import { Router, Request,Response } from "express";
+const router = Router();
 
 /* Get home page */
 
-router.get("/", (req, res, next) => {
+router.get("/", (req: Request, res: Response, next) => {
     res.render("index");
 });
 
