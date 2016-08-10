@@ -4,6 +4,7 @@ export interface IUser {
     name?: string;
     phoneNumber?: string;
 
-    createPassword(password: string);
+    changePassword(passwordOld: string, passwordNew: string): boolean;
     checkPassword(password: string): boolean;
+    createPassword(password: string): boolean;
 }

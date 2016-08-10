@@ -36,7 +36,6 @@ router.post("/login", (req: Request, res: Response) => {
         const userToken = jwt.sign({email: req.body.email}, 'L33tWallahWallah');
         JSONSendLoginOk(res, userToken);
     }, (failure) => {
-        console.log("Email and password does not match");
         JSONSendError(res);
     });
 });

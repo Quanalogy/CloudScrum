@@ -1,3 +1,9 @@
+// Set the environment to "test".
+process.env.NODE_ENV = "test";
+
+// We need to have more than the default 10 listeners.
+require("events").EventEmitter.prototype._maxListeners = 100;
+
 import sap = require("supertest-as-promised");
 
 import {app} from "../../../app";
@@ -14,7 +20,7 @@ beforeAll((done) => {
 const validEmail = "this@is.valid.com";
 const invalidEmail1 = "this.is.invalid.com";
 
-const validPassword = "test";
+const validPassword = "testT1!d";
 const invalidPassword = "";
 
 // Test the user route API.

@@ -15,6 +15,16 @@ const userSchema = new mongoose.Schema({
     phoneNumber: String,
 });
 
+userSchema.methods.changePassword = function(passwordOld: string, passwordNew: string): boolean {
+    // Check the old password.
+    if (!this.checkPassword(passwordOld)) {
+        return false;
+    }
+
+    // Generate a new password and save it.
+    return this.createPassword(passwordNew);
+};
+
 userSchema.methods.checkPassword = function(password: string) {
     // Hash the supplied password and compare it.
     const passwordHash = bcrypt.hashSync(password, this.passwordSalt);
@@ -22,12 +32,22 @@ userSchema.methods.checkPassword = function(password: string) {
     return (passwordHash === this.passwordHash);
 };
 
-userSchema.methods.createPassword = function(password: string) {
+userSchema.methods.createPassword = function(password: string): boolean {
+    // Create a new regular expression.
+    const regex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^a-zA-Z\\d])[.\\S]{8,64}");
+
+    if (!regex.test(password))
+    {
+        return false;
+    }
+
     // Generate a new salt.
     this.passwordSalt = bcrypt.genSaltSync(rounds);
 
     // Hash the password and store it.
     this.passwordHash = bcrypt.hashSync(password, this.passwordSalt);
+
+    return true;
 };
 
 // Create the document interface.
