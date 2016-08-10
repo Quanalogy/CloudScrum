@@ -29,24 +29,19 @@ router.post("/", (req: Request, res: Response) =>{
     });
 });
 
+//Login
 router.post("/login", (req: Request, res: Response) => {
-    checkPass(req.body.email, req.body.password).then((succes) => {
+    checkPass(req.body.email, req.body.password).then((success) => {
         console.log("Email and password matches");
-        JSONSendLoginOk(res, succes);
+        const userToken = jwt.sign({email: req.body.email}, 'L33tWallahWallah');
+        JSONSendLoginOk(res, userToken);
     }, (failure) => {
         console.log("Email and password does not match");
         JSONSendError(res);
     });
 });
 
-router.post("/create-user", (req: Request, res: Response) =>{
-    console.log("I got a post request");
-    console.log(req.body);
-
-    createUser(req.body.email, req.body.password).then(result => {
-        res.json(result);
-    });
-});
+//User homepage
 
 // Edit an existing user.
 router.patch("/", (req: Request, res: Response, next) => {

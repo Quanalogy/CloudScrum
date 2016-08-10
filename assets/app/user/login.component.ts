@@ -32,7 +32,7 @@ export class LoginComponent {
             .subscribe(
                 data => {
                     if(data.ok){
-                        console.log("Success", data.ok);
+                        console.log("Success", data.ok, "Token", data.token);
                         this.rejected = false;
                     } else {
                         console.log("failure", data.ok);

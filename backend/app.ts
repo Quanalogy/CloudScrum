@@ -4,6 +4,8 @@ import favicon = require("serve-favicon");
 import logger = require("morgan");
 import cookieParser = require("cookie-parser");
 import bodyParser = require("body-parser");
+import expressJWT = require("express-jwt");
+import jwt = require("jsonwebtoken");
 
 const appRoutes = require("./routes/appRoutes");
 const userRoutes = require("./routes/userRoutes");
@@ -26,6 +28,11 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
+app.use(expressJWT({secret: 'L33tWallahWallah'}).unless({path:
+    ['/', '/login','/create-user' ,'/users/create-user', '/app',
+        /^(\/users\/)(.)*/,
+        /^(\/js\/)(.)*/, '/systemjs.config.js' ]}));
+
 app.use(express.static(path.join(__dirname, '../public')));
 
 app.use(function (req, res, next) {

@@ -14,7 +14,7 @@ export class UserService{
 
     }
 
-    private createUserURL = "/users/create-user";
+    private createUserURL = "/users/";
     private loginURL = "/users/login";
 
     getUserByEmail(email: string): Observable<User>{
