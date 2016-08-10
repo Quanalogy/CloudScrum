@@ -2,7 +2,7 @@ import { bootstrap } from '@angular/platform-browser-dynamic';
 
 import { AppComponent } from './app.component';
 import {provideForms, disableDeprecatedForms} from "@angular/forms";
-import {appRouterProvider} from "./appRoutes";
+import {appRouterProvider} from "./app.routes";
 import {HTTP_PROVIDERS} from "@angular/http";
 
 bootstrap(AppComponent, [

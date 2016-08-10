@@ -42,6 +42,9 @@ router.post("/login", (req: Request, res: Response) => {
 });
 
 //User homepage
+router.get("/home", (req: Request, res: Response) => {
+    console.log("It works");
+});
 
 // Edit an existing user.
 router.patch("/", (req: Request, res: Response, next) => {

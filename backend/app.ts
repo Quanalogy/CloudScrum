@@ -7,9 +7,9 @@ import bodyParser = require("body-parser");
 import expressJWT = require("express-jwt");
 import jwt = require("jsonwebtoken");
 
-const appRoutes = require("./routes/appRoutes");
-const userRoutes = require("./routes/userRoutes");
-const catchAllRoutes = require("./routes/catchAllRoutes");
+const appRoutes = require("./routes/app.routes");
+const userRoutes = require("./routes/user.routes");
+const catchAllRoutes = require("./routes/catchAll.routes");
 
 import * as mongoConfig from "./config/mongodb";
 
