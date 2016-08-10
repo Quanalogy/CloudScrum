@@ -7,7 +7,11 @@ const rounds = 10;
 import { IUser } from "./IUser";
 
 const userSchema = new mongoose.Schema({
-    email: String,
+    email: {
+        type: String,
+        required: true,
+        validate: /^(.)*[@](.)*/
+    },
     image: String,
     name: String,
     passwordHash: String,

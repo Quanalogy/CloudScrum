@@ -4,6 +4,8 @@ process.env.NODE_ENV = "test";
 // We need to have more than the default 10 listeners.
 require("events").EventEmitter.prototype._maxListeners = 100;
 
+import { connect, dropDatabase } from "../../config/mongodb";
+
 import { Users } from "../../models/UserModel";
 
 import { assert } from "chai";
@@ -17,7 +19,24 @@ const invalidPassword3 = "abcdef1H";
 const invalidPassword4 = "abde!1H";
 const invalidPassword5 = "abcdef1Habcdef1Habcdef1Habcdef1Habcdef1Habcdef1Habcdef1Habcdef1Ha";
 
+const validEmail = "this@is.valid.com";
+const invalidEmail1 = "this.is.invalid.com";
+
+before((done) => {
+    connect().then(() => {
+        done();
+    });
+});
+
 describe("The user model", () => {
+    beforeEach((done) => {
+        dropDatabase().catch((err) => {
+            console.log(err);
+        }).then(() => {
+            done();
+        });
+    });
+
     it("can generate a new password salt, and hash the passed password.", (done) => {
         // Generate a new user.
         const user = new Users();
@@ -139,9 +158,47 @@ describe("The user model", () => {
         done();
     });
 
-    it("requires an email for validation");
+    it("requires an email for validation", (done) => {
+        // Generate a new user.
+        const user = new Users();
 
-    it("requires a valid email for validation");
+        // Do not assign an email and attempt to validate it.
+        user.validate((err) => {
+            assert.isDefined(err);
+            assert.isDefined(err.errors);
+            assert.isDefined(err.errors.email);
 
-    it("fails on an invalid email for validation");
+            done();
+        })
+    });
+
+    it("requires a valid email for validation", (done) => {
+        // Generate a new user.
+        const user = new Users();
+
+        // Assign a valid email and attempt verification.
+        user.email = validEmail;
+
+        user.validate((err) => {
+            assert.isNull(err);
+
+            done();
+        });
+    });
+
+    it("fails on an invalid email for validation", (done) => {
+        // Generate a new user.
+        const user = new Users();
+
+        // Assign a valid email and attempt verification.
+        user.email = invalidEmail1;
+
+        user.validate((err) => {
+            assert.isDefined(err);
+            assert.isDefined(err.errors);
+            assert.isDefined(err.errors.email);
+
+            done();
+        });
+    });
 });
