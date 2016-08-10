@@ -15,6 +15,18 @@ const userSchema = new mongoose.Schema({
     phoneNumber: String,
 });
 
+userSchema.methods.changePassword = function(passwordOld: string, passwordNew: string): boolean {
+    // Check the old password.
+    if (!this.checkPassword(passwordOld)) {
+        return false;
+    }
+
+    // Generate a new password and save it.
+    this.createPassword(passwordNew);
+
+    return true;
+};
+
 userSchema.methods.checkPassword = function(password: string) {
     // Hash the supplied password and compare it.
     const passwordHash = bcrypt.hashSync(password, this.passwordSalt);
