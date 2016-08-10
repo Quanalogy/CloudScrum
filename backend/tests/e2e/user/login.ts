@@ -20,7 +20,7 @@ beforeAll((done) => {
 const validEmail = "this@is.valid.com";
 const invalidEmail1 = "this.is.invalid.com";
 
-const validPassword = "test";
+const validPassword = "testT1!d";
 const invalidPassword = "";
 
 // Test the user route API.

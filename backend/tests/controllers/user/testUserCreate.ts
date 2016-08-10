@@ -20,7 +20,7 @@ describe("", function() {
     it("Can create a user in an empty database.", function(done) {
         // Define test data.
         const userEmail = "a@valid.email.com";
-        const userPassword = "test";
+        const userPassword = "testT1!s";
 
         Users.count({}).exec().then( (numberOfUsers) => {
             expect(numberOfUsers).toBe(0);
