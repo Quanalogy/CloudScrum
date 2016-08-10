@@ -1,6 +1,9 @@
 // Set the environment to "test".
 process.env.NODE_ENV = "test";
 
+// We need to have more than the default 10 listeners.
+require("events").EventEmitter.prototype._maxListeners = 100;
+
 import sap = require("supertest-as-promised");
 
 import {app} from "../../../app";
