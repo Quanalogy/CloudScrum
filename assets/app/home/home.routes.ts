@@ -11,6 +11,5 @@ export const HomeRoutes: Routes = [{
         children: [
             {path: '', redirectTo: 'userpanel', pathMatch: 'full'},
             {path: 'userpanel', component: UserPanelComponent},
-            //{path: ''}
         ]
 }];

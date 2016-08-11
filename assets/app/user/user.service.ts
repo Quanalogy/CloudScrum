@@ -10,8 +10,10 @@ import {ILoginOk} from "../../../interfaces/ILoginOk";    // needed for toPromis
 @Injectable()
 export class UserService{
 
-    constructor(private http: Http){
+    private loggedIn = false;
 
+    constructor(private http: Http){
+        this.loggedIn = !!localStorage.getItem('token');
     }
 
     private createUserURL = "/users/";
@@ -45,14 +47,22 @@ export class UserService{
 
         return this.http.post(
             this.loginURL, body, options
-        ).map(res => res.json());
-        //res => res.json().ok this.extractData
+        ).map(res => res.json()).map((res) => {
+            if (res.ok) {       // Handling request, in order for saving the token
+                localStorage.setItem('token', res.token);   // The right place :)
+                this.loggedIn = true;
+            }
+            return res.ok;
+        });
     }
 
-    private extractData(res: Response) {
-        let body = res.json();
-        console.log(body.ok);
-        return body.data || { };
+    logout(){
+        localStorage.removeItem("token");
+        this.loggedIn = false;
+    }
+
+    isLoggedIn(){
+        return this.loggedIn;
     }
 
 }

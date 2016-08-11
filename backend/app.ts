@@ -37,7 +37,8 @@ app.use(cookieParser());
 app.use(expressJWT({secret: 'L33tWallahWallah'}).unless({path:
     ['/', '/login','/create-user' ,'/users/create-user', '/app',
         /^(\/users\/)(.)*/,
-        /^(\/js\/)(.)*/, '/systemjs.config.js', '/traceur', '/favicon.ico' ]}));
+        /^(\/js\/)(.)*/, '/systemjs.config.js', '/traceur', '/favicon.ico',
+    '/jsonwebtoken']}));
 
 app.use(express.static(path.join(__dirname, '../public')));
 

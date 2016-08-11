@@ -29,19 +29,15 @@ export class LoginComponent {
             return;
         }
 
-        this.userService.login(email.toLowerCase(), password)
-            .subscribe(
-                data => {
-                    if(data.ok){
-                        this.rejected = false;
-                        this.router.navigateByUrl("/home");
-                    } else {
-                        this.rejected = true;
-                    }
-                },
-                err => {
+        this.userService.login(email.toLowerCase(), password).subscribe(
+            (result) => {
+                if(result){
+                    this.rejected = false;
+                    this.router.navigateByUrl("/home");
+                } else {
                     this.rejected = true;
                 }
-            );
+            }
+        );
     }
 }
