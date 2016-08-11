@@ -12,6 +12,8 @@ import {LoginComponent} from "./user/login.component";
 import {CreateUserComponent} from "./user/create-user-form.component";
 import {HomeComponent} from "./home/home.component";
 import {UserPanelComponent} from "./home/userPanel.component";
+import {HomeGuard} from "./home/home.guard";
+import {UserService} from "./user/user.service";
 
 
 @NgModule({
@@ -28,7 +30,11 @@ import {UserPanelComponent} from "./home/userPanel.component";
         FormsModule,
         appRouterProvider,
     ],
-    providers: [ HTTP_PROVIDERS,],
+    providers: [
+        HTTP_PROVIDERS,
+        HomeGuard,
+        UserService
+    ],
     bootstrap: [AppComponent],
 })
 export class AppModule {}
