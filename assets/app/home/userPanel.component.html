@@ -3,7 +3,7 @@
     <form>
         <div class="form-group">
             <label for="email">E-mail</label>
-            <input type="email" class="form-control" name="email"
+            <input type="email" class="form-control" name="email" [(ngModel)]="patchUser.email"
                    pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
         </div>
         <div *ngIf="emailInUse" class="alert alert-dismissible fade in"
@@ -11,22 +11,32 @@
             The email is already in use!
         </div>
         <div class="form-group">
-            <label for="password">Password</label>
+            <label for="currentPassword">Current password</label>
             <input type="password" class="form-control"
-                    name="password">
+                    name="currentPassword" [(ngModel)]="patchUser.currentPassword"
+                    #spyCurrentPassword>
+        </div>
+        <div class="form-group">
+            <label for="newPassword">New password</label>
+            <input type="password" class="form-control"
+                    name="newPassword" [(ngModel)]="patchUser.newPassword">
         </div>
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control" name="name">
+            <input type="text" class="form-control" name="name"
+                   [(ngModel)]="patchUser.name">
         </div>
         <div class="form-group">
             <label for="phonenumber">Phone number</label>
-            <input type="text" class="form-control" name="phonenumber">
+            <input type="text" class="form-control" name="phonenumber"
+                   [(ngModel)]="patchUser.phoneNumber">
         </div>
         <div class="form-group">
             <label for="picture">Picture</label>
             <button type="button" name="picture" class="btn">Browse computer</button>
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="submit" class="btn btn-default"
+                (click)="updateUserDetails(patchUser)">
+            Submit</button>
     </form>
 </div>

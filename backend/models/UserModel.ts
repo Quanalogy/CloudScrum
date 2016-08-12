@@ -20,6 +20,7 @@ userSchema.methods.changePassword = function(passwordOld: string, passwordNew: s
     if (!this.checkPassword(passwordOld)) {
         return false;
     }
+    console.log("pw OK");
 
     // Generate a new password and save it.
     return this.createPassword(passwordNew);
@@ -38,8 +39,10 @@ userSchema.methods.createPassword = function(password: string): boolean {
 
     if (!regex.test(password))
     {
+        console.log("New PW failed");
         return false;
     }
+    console.log("New PW passed");
 
     // Generate a new salt.
     this.passwordSalt = bcrypt.genSaltSync(rounds);

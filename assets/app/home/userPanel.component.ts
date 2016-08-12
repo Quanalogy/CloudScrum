@@ -4,34 +4,53 @@
 import {Component, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {JwtHelper} from "angular2-jwt";
-
-const secret = 'L33tWallahWallah';
+import {PatchUser} from "./patchUser";
+import {HomeService} from "./home.service";
 
 @Component({
     selector: 'userPanel-component',
     templateUrl: '/js/app/home/userPanel.component.html',
-    directives: [ROUTER_DIRECTIVES]
+    directives: [ROUTER_DIRECTIVES],
+    providers: [
+        /*HomeService,
+        AuthHttp,
+        AuthConfig,
+        UserService,*/
+        JwtHelper]
 })
 
 export class UserPanelComponent implements OnInit {
 
-
+    patchUser = new PatchUser('','','','','','');
     emailInUse = false;
-    userMail = "";
+    pwChangeFail = false;
 
-    constructor(private jwtHelper: JwtHelper){
+    constructor(private jwtHelper: JwtHelper,
+                public homeService: HomeService){
 
     }
-    /*
-    updateUserDetails(email?: string, password?: string, name?: string, phonenumber?: string){
-        if(!email && !password && !name && !phonenumber){
+
+    updateUserDetails(userPatch: PatchUser){
+        if(userPatch.email.length < 5){
             return;
         }
-    }*/
+
+        if(userPatch.currentPassword && userPatch.newPassword){
+            this.homeService.patchUserPassword(userPatch.email,
+            userPatch.currentPassword, userPatch.newPassword)
+                .subscribe(res => {
+                    console.log("Response of change pw is ", res.ok);
+                    if(res.ok){
+                        this.pwChangeFail = false;
+                    } else {
+                        this.pwChangeFail = true;
+                    }
+                });
+        }
+    }
 
     ngOnInit() {
         const token = localStorage.getItem("token");
-
-        console.log(this.jwtHelper.decodeToken(token).email);
+        this.patchUser.email = this.jwtHelper.decodeToken(token).email;
     }
 }

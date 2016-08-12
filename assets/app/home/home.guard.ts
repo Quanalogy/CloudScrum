@@ -6,6 +6,7 @@
 import {Injectable} from "@angular/core";
 import {CanActivate} from "@angular/router";
 import {UserService} from "../user/user.service";
+import {tokenNotExpired} from "angular2-jwt";
 
 @Injectable()
 export class HomeGuard implements CanActivate {
@@ -14,6 +15,6 @@ export class HomeGuard implements CanActivate {
     }
 
     canActivate(){
-        return this.userService.isLoggedIn();
+        return (this.userService.isLoggedIn() && tokenNotExpired('token'));
     }
 }
