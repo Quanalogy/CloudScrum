@@ -12,10 +12,9 @@ export function patchUserPassword(email: string, oldPassword: string,
         }
         getUser(email).then((user) => {
             if(user.changePassword(oldPassword, newPassword)){
-                console.log("Changed the pw");
+                user.save();
                 resolve(true);
             } else {
-                console.log("!Changed the pw");
                 resolve(false);
             }
         }, (err) => {
