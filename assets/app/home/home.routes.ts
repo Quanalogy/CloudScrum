@@ -1,10 +1,19 @@
 /**
  * Created by munk on 10-08-16.
  */
-import {RouterConfig} from "@angular/router";
+import {Routes} from "@angular/router";
 import {HomeComponent} from "./home.component";
+import {UserPanelComponent} from "./userPanel.component";
+import {HomeGuard} from "./home.guard";
+import {ScrumboardComponent} from "./scrumboard.component";
 
-
-export const HomeRoutes: RouterConfig = [
-    {path: 'home', component: HomeComponent}
-];
+export const HomeRoutes: Routes = [{
+        path: 'home',
+        component: HomeComponent,
+        canActivate: [HomeGuard],
+        children: [
+            {path: '', redirectTo: 'userpanel', pathMatch: 'full'},
+            {path: 'userpanel', component: UserPanelComponent},
+            {path: 'scrumboard', component: ScrumboardComponent}
+        ]
+}];

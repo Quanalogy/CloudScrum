@@ -1,5 +1,6 @@
 import {Response} from "express";
 import {ILoginOk} from "../../interfaces/ILoginOk";
+import {IJSONOk} from "../../interfaces/IJSONOk";
 
 export function JSONSendError(res: Response, err?: Error | Error[]) {
     // Check if we got any specific errors attached.
@@ -26,6 +27,14 @@ export function JSONSendLoginOk(res: Response, token: string) {
     // Send the response.
     sendResponse(res, message);
 }
+
+export function JSONSendPatchResponse(res: Response, success: boolean){
+    const message: IJSONOk = {
+        ok: success
+    };
+    sendResponse(res, message);
+}
+
 
 function sendResponse(res: Response, message: any) {
     // Convert the message to JSON and send it.
