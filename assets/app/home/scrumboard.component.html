@@ -1,1 +1,13 @@
-Welcome to the scrumboard.
+<div class="container">
+    <label for="itemInput">Lav et nyt item</label>
+    <input type="text" name="itemInput" [(ngModel)]="inputName">
+    <button type="button" class="btn" (click)="addItem(inputName)">+</button>
+</div>
+
+<div class="container">
+    <ul>
+        <li *ngFor="let item of itemArray">
+            {{item.itemName}}
+        </li>
+    </ul>
+</div>
