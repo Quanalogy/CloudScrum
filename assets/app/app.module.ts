@@ -14,8 +14,10 @@ import {HomeComponent} from "./home/home.component";
 import {UserPanelComponent} from "./home/userPanel.component";
 import {HomeGuard} from "./home/home.guard";
 import {UserService} from "./user/user.service";
+import {JwtHelper} from "angular2-jwt";
 
-
+// For info abot @NgModule
+// https://angular.io/docs/ts/latest/guide/ngmodule.html
 @NgModule({
     declarations: [
         AppComponent,
@@ -28,12 +30,13 @@ import {UserService} from "./user/user.service";
     imports:      [
         BrowserModule,
         FormsModule,
-        appRouterProvider,
+        appRouterProvider
     ],
     providers: [
         HTTP_PROVIDERS,
         HomeGuard,
-        UserService
+        UserService,
+        JwtHelper
     ],
     bootstrap: [AppComponent],
 })

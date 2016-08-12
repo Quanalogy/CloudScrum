@@ -80,6 +80,10 @@ gulp.task("vendor", function() {
     gulp.src("node_modules/moment/**")
         .pipe(gulp.dest(vendor + "/moment/"));
 
+    // angular2-jwt
+    gulp.src("node_modules/angular2-jwt/**")
+        .pipe(gulp.dest(vendor + "/angular2-jwt/"));
+
     //zonejs
     return gulp.src("node_modules/zone.js/**")
         .pipe(gulp.dest(vendor + "/zone.js/"));
