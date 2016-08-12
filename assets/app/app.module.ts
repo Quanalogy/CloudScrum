@@ -5,7 +5,7 @@ import {NgModule, provide}       from '@angular/core';
 import { BrowserModule  } from '@angular/platform-browser';
 import { AppComponent }   from './app.component';
 import {appRouterProvider} from "./app.routes";
-import {HTTP_PROVIDERS, Http} from "@angular/http";
+import {HTTP_PROVIDERS} from "@angular/http";
 import {FormsModule} from "@angular/forms";
 import {PageNotFound} from "./page-not-found.component";
 import {LoginComponent} from "./user/login.component";
@@ -17,6 +17,8 @@ import {UserService} from "./user/user.service";
 import {JwtHelper, AuthHttp, AuthConfig} from "angular2-jwt";
 import {HomeService} from "./home/home.service";
 import {ScrumboardComponent} from "./home/scrumboard.component";
+import {DragulaService} from 'ng2-dragula/ng2-dragula';
+
 
 // For info abot @NgModule
 // https://angular.io/docs/ts/latest/guide/ngmodule.html
@@ -37,6 +39,7 @@ import {ScrumboardComponent} from "./home/scrumboard.component";
     ],
     providers: [
         HTTP_PROVIDERS,
+        DragulaService,
         HomeGuard,
         UserService,
         HomeService,

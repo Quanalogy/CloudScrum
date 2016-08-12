@@ -84,6 +84,18 @@ gulp.task("vendor", function() {
     gulp.src("node_modules/angular2-jwt/**")
         .pipe(gulp.dest(vendor + "/angular2-jwt/"));
 
+    // dragula
+    gulp.src("node_modules/dragula/**")
+        .pipe(gulp.dest(vendor + "/dragula/"));
+
+    // ng-dragula
+    gulp.src("node_modules/ng-dragula/**")
+        .pipe(gulp.dest(vendor + "/ng-dragula/"));
+
+    // ng2-dragula
+    gulp.src("node_modules/ng2-dragula/**")
+        .pipe(gulp.dest(vendor + "/ng2-dragula/"));
+
     //zonejs
     return gulp.src("node_modules/zone.js/**")
         .pipe(gulp.dest(vendor + "/zone.js/"));
