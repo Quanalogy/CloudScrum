@@ -3,8 +3,9 @@
  */
 
 import {Component} from "@angular/core";
-import {ROUTER_DIRECTIVES, CanActivate} from "@angular/router";
+import {ROUTER_DIRECTIVES, CanActivate, Router} from "@angular/router";
 import {tokenNotExpired} from "angular2-jwt";
+import {HTTP_PROVIDERS, Http} from "@angular/http";
 
 
 @Component({
@@ -15,5 +16,13 @@ import {tokenNotExpired} from "angular2-jwt";
 
 
 export class HomeComponent {
+    constructor(public router: Router){
 
+    }
+
+
+    logout(){
+        localStorage.removeItem('token');
+        this.router.navigateByUrl('');
+    }
 }

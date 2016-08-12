@@ -16,6 +16,7 @@ import {HomeGuard} from "./home/home.guard";
 import {UserService} from "./user/user.service";
 import {JwtHelper, AuthHttp, AuthConfig} from "angular2-jwt";
 import {HomeService} from "./home/home.service";
+import {ScrumboardComponent} from "./home/scrumboard.component";
 
 // For info abot @NgModule
 // https://angular.io/docs/ts/latest/guide/ngmodule.html
@@ -27,6 +28,7 @@ import {HomeService} from "./home/home.service";
         CreateUserComponent,
         HomeComponent,
         UserPanelComponent,
+        ScrumboardComponent
     ],
     imports:      [
         BrowserModule,

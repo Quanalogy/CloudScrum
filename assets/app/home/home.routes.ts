@@ -5,6 +5,7 @@ import {Routes} from "@angular/router";
 import {HomeComponent} from "./home.component";
 import {UserPanelComponent} from "./userPanel.component";
 import {HomeGuard} from "./home.guard";
+import {ScrumboardComponent} from "./scrumboard.component";
 
 export const HomeRoutes: Routes = [{
         path: 'home',
@@ -13,5 +14,6 @@ export const HomeRoutes: Routes = [{
         children: [
             {path: '', redirectTo: 'userpanel', pathMatch: 'full'},
             {path: 'userpanel', component: UserPanelComponent},
+            {path: 'scrumboard', component: ScrumboardComponent}
         ]
 }];
