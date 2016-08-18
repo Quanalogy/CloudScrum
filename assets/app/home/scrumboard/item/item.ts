@@ -6,10 +6,10 @@ export class Item{
     constructor(
         public itemName: string,
         public itemId: number,
-        public priority: number,
-        public assignee: string,
-        public progress: number,
-        public catagory: string
+        public priority = 0,
+        public assignee = "",
+        public progress = 0,
+        public catagory = ""
     ) {
         //
     }
