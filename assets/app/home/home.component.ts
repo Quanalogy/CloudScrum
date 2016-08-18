@@ -14,7 +14,6 @@ import {HTTP_PROVIDERS, Http} from "@angular/http";
     directives: [ROUTER_DIRECTIVES]
 })
 
-
 export class HomeComponent {
     constructor(public router: Router){
 

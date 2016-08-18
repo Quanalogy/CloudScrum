@@ -3,8 +3,14 @@
  */
 
 export class Item{
-    constructor(public itemName: string,
-                public itemId: number){
-
+    constructor(
+        public itemName: string,
+        public itemId: number,
+        public priority: number,
+        public assignee: string,
+        public progress: number,
+        public catagory: string
+    ) {
+        //
     }
 }

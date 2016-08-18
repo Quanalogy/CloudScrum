@@ -67,7 +67,6 @@ gulp.task("stylesheets", function() {
 
 gulp.task("watch", ["build-ts-watch"], function() {
     gulp.watch(appDev + "**/*.ts", ["build-ts"]);
-    gulp.watch(appDev + "**/*.{html,htm,css}", ["build-copy"]);
     gulp.watch(path.join(assets + "/**/*.ts"), ["stylesheets"]);
     gulp.watch(backendDir + "/**/*.ts", ["build-ts-server"]);
 });

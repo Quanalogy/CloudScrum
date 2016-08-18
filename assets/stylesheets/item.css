@@ -1,0 +1,9 @@
+.item {
+    min-height: 100px;
+    min-width: 200px;
+    border: black dashed medium;
+}
+
+.item-header {
+
+}
