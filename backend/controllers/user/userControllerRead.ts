@@ -14,7 +14,6 @@ export function getUser(email: string): Promise<IUserDocument>  {
             if(!res){
                 reject(res);
             }
-
             // Return the user.
             resolve(res);
         });
