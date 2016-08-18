@@ -40,7 +40,7 @@ module.exports = {
     },
     output: {
         filename: "[name].bundle.js",
-        path: "public/",
+        path: "public/js",
 
         // The name of the global variable which the library's
         // require() function will be assigned to

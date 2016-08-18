@@ -9,7 +9,7 @@ import {HomeService} from "./home.service";
 
 @Component({
     selector: 'userPanel-component',
-    templateUrl: '/js/app/home/userPanel.component.html',
+    template: require("./userPanel.component.html"),
     directives: [ROUTER_DIRECTIVES],
     providers: [
         /*HomeService,
