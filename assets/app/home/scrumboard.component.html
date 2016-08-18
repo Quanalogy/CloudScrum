@@ -4,6 +4,18 @@
     <button type="button" class="btn" (click)="addItem(inputName)">+</button>
 </div>
 
+<!--
+<div class='wrapper'>
+    <div class='container left' [dragula]='"another-bag"' [dragulaModel]='many'>
+        <div *ngFor='#text of many' [innerHtml]='text'></div>
+    </div>
+    <div class='container right' [dragula]='"another-bag"' [dragulaModel]='many2'>
+        <div *ngFor='#text of many2' [innerHtml]='text'></div>
+        &nbsp;
+    </div>
+</div>
+-->
+
 <!--http://valor-software.com/ng2-dragula/index.html -->
 <!--https://github.com/valor-software/ng2-dragula -->
 <!--<div class="wrapper" >
@@ -28,34 +40,35 @@
 
 <div class="container">
     <ul>
-        <li class="menubar" >
-            <h3>Backlog </h3>
-            <ul>
-                <li class="scrummenu" *ngFor="let item of itemArray" [dragula]='"first-bag"' [dragulaModel]='itemArray'>
-                    {{item.itemName}}
+        <li class="menubar">
+            <ul [dragula]='"bag-one"' [dragulaModel]='itemArray'>
+                <h3 class="doNotMove">Backlog size {{itemArraySize}}</h3>
+                <li *ngFor="let item of itemArray">
+                        {{item.itemName}}
                 </li>
             </ul>
         </li>
-        <li class="menubar">
-            <h3>In progress</h3>
-            <ul>
-                <li class="scrummenu" *ngFor="let progress of inprogressArray" [dragula]='"first-bag"' [dragulaModel]='inprogressArray'>
-                    {{item.itemName}}
+        <li class="menubar bag2">
+            <ul [dragula]='"bag-one"' [dragulaModel]='inprogressArray'>
+                <h3 class="doNotMove">In progress size {{inprogressArraySize}}</h3>
+                <li *ngFor="let progress of inprogressArray" >
+                        {{progress.itemName}}
                 </li>
             </ul>
         </li>
-        <li class="menubar">
-            <h3>Review</h3>
-            <ul>
+        <li class="menubar bag3" >
+            <h3 class="doNotMove">Review size {{reviewArraySize}}</h3>
+            <ul [dragula]='"bag-three"'>
                 <li class="scrummenu" *ngFor="let review of reviewArray" [dragula]='"first-bag"' [dragulaModel]='reviewArray'>
-                    {{item.itemName}}
+                    {{review.itemName}}
                 </li>
             </ul>
         </li>
-        <li class="menubar"><h3>Done</h3>
+        <li class="menubar bag4" [dragula]='"bag-four"'>
+            <h3 class="doNotMove">Done size {{doneArraySize}}</h3>
             <ul>
                 <li class="scrummenu" *ngFor="let done of doneArray" [dragula]='"first-bag"' [dragulaModel]='doneArray'>
-                    {{item.itemName}}
+                    {{done.itemName}}
                 </li>
             </ul>
         </li>

@@ -19,6 +19,12 @@ import {DragulaService, Dragula} from 'ng2-dragula/ng2-dragula';
 
 export class ScrumboardComponent implements OnInit{
 
+    public many: Array<string> = ['The', 'possibilities', 'are', 'endless!'];
+    public many2: Array<string> = ['Explore', 'them'];
+    itemArraySize = 0;
+    inprogressArraySize = 0;
+    reviewArraySize = 0;
+    doneArraySize = 0;
 
     itemArray: Array<Item> = [];
     inprogressArray: Array<Item> = [];
@@ -28,56 +34,49 @@ export class ScrumboardComponent implements OnInit{
     id = 0;
     inputName = "";
 
+
     constructor(private dragulaService: DragulaService){
-        /*dragulaService.setOptions('second-bag',{
-            accepts: function (el, target, source, sibling) {
-                // if (el.id < 10)
-                    return true;
-                // return false;
-            }
-        });*/
-
-
-        /*dragulaService.setOptions('first-bag', {
-            copy: false,
-            copySortSource: true
-        });
-
-        dragulaService.setOptions('first2-bag', {
+        /*dragulaService.setOptions("bag-two", {
             accepts: (el, target, source, sibling) => {
-                if(source === 'first-bag'){
+                console.log("This is el:", el, "This is target", target, "this is source",
+                source.className, "This is sibling", sibling);
+                if(source.className === "menubar" || source.className === "menubar"){
                     return true;
+                } else {
+                    console.log("False");
+                    return false;
                 }
-                return false;
             }
-        });
-
-        dragulaService.drop.subscribe((value) => {
-            this.onDrop(value);
-        });
-
-        //setup dragNdrop for creating content
-        dragulaService.setOptions('page-bag', {
-            copy: true,
-            copySortSource: true
+        });*/
+        /*dragulaService.setOptions("bag-one", {
+            accepts: (el, target, source, sibling) => {
+                console.log("This is el:", el, "This is target", target, "this is source",
+                    source.className, "This is sibling", sibling);
+                if(source.className === "menubar bag2" || source.className === "menubar bag3"){
+                    return true;
+                } else {
+                    console.log("False");
+                    return false;
+                }
+            }
         });*/
     }
 
-    //(0 - bagname, 1 - el, 2 - target, 3 - source, 4 - sibling)
-    private onDrop(value) {
-        console.log(value);
-        /*if (value[2] == null) //dragged outside any of the bags
-            return;
-        if (value[2].id !== "content" && value[2].id !== value[3].id) //dragged to a container that should not add the element
-            value[1].remove();*/
-    }
 
     ngOnInit() {
+
 /*        this.dragulaService.setOptions('first-bag', {
             accepts: function (el, target, source, sibling) {
                 return (target.id)
             }
         })*/
+    }
+
+    updateSize(){
+        this.itemArraySize = this.itemArray.length;
+        this.inprogressArraySize = this.inprogressArray.length;
+        this.reviewArraySize = this.reviewArray.length;
+        this.doneArraySize = this.doneArray.length;
     }
 
     addItem(itemName: string){
@@ -87,6 +86,7 @@ export class ScrumboardComponent implements OnInit{
         this.itemArray.push(new Item(itemName, this.id));
         this.id = this.id +1;
         this.inputName = "";
+        this.updateSize();
     }
 
 }
