@@ -49,11 +49,15 @@
     "zone.js": "^0.6.12"
   },
   "devDependencies": {
+    "angular2-template-loader": "^0.4.0",
     "del": "^2.2.0",
+    "extract-text-webpack-plugin": "^1.0.1",
     "gulp": "^3.9.1",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-typescript": "^2.13.6",
     "supertest-as-promised": "^3.2.0",
-    "systemjs-builder": "^0.15.19"
+    "systemjs-builder": "^0.15.19",
+    "ts-loader": "^0.8.2",
+    "webpack": "^1.13.2"
   }
 }
