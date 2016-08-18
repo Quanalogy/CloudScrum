@@ -6,6 +6,7 @@ import {Component, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {Item} from "./scrumboard/item/item";
 import {DragulaService, Dragula} from 'ng2-dragula/ng2-dragula';
+import {fromStringToEnum, EItemCategory} from "../../../backend/controllers/item/EItemCategory";
 
 @Component({
     selector: 'scrumboard-component',
@@ -36,8 +37,6 @@ export class ScrumboardComponent implements OnInit{
     constructor(private dragulaService: DragulaService){
         dragulaService.setOptions("bag-one", {
             accepts: (el, target, source, sibling) => { // Makes sure that the direction of the elements is correct
-                console.log("This is el:", el, "This is target", target, "this is source",
-                    source, "This is sibling", sibling);
                 if(source.id === "backlog" && target.id === "inProgress"){
                     return true;
                 } else if(source.id === "inProgress" && target.id === "review"){
@@ -54,8 +53,8 @@ export class ScrumboardComponent implements OnInit{
 
         dragulaService.drop.subscribe(value => {
             const el = value.slice(0);
-            const target = value.slice(1).id;
-            // el.itemCategory = fromStringToEnum(target);
+            const target = value.slice(2).id;
+            el.itemCategory = fromStringToEnum(target);
         });
     }
 
@@ -75,7 +74,7 @@ export class ScrumboardComponent implements OnInit{
         if(!itemName){
             return;
         }
-        this.itemArray.push(new Item(itemName, this.id));
+        this.itemArray.push(new Item(itemName, this.id, EItemCategory.backlog));
         this.id = this.id +1;
         this.inputName = "";
         this.updateSize();

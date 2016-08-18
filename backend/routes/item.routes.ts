@@ -1,13 +1,13 @@
 /**
- * Created by munk on 10-08-16.
+ * Created by munk on 18-08-16.
  */
 import { Router, Request,Response } from "express";
 
 const router = Router();
 
-//User homepage
+//get scrumboard items
 router.get("/", (req: Request, res: Response) => {
-    res.render("index");
+
 });
 
 

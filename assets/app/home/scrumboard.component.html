@@ -10,7 +10,7 @@
             <h3 class="doNotMove">Backlog size {{itemArraySize}}</h3>
             <ul [dragula]='"bag-one"' id="backlog" [dragulaModel]='itemArray'>
                 <li *ngFor="let item of itemArray">
-                    {{item.itemName}}
+                    {{item.name}}
                 </li>
             </ul>
         </li>
@@ -18,7 +18,7 @@
             <h3 class="doNotMove">In progress size {{inprogressArraySize}}</h3>
             <ul [dragula]='"bag-one"' id="inProgress" [dragulaModel]='inprogressArray'>
                 <li *ngFor="let progress of inprogressArray" >
-                    {{progress.itemName}}
+                    {{progress.name}}
                 </li>
             </ul>
         </li>
@@ -26,7 +26,7 @@
             <h3 class="doNotMove">Review size {{reviewArraySize}}</h3>
             <ul [dragula]='"bag-one"' id="review" [dragulaModel]='reviewArray'>
                 <li *ngFor="let review of reviewArray" >
-                    {{review.itemName}}
+                    {{review.name}}
                 </li>
             </ul>
         </li>
@@ -34,7 +34,7 @@
             <h3 class="doNotMove">Done size {{doneArraySize}}</h3>
             <ul [dragula]='"bag-one"' id="done" [dragulaModel]='doneArray'>
                 <li *ngFor="let done of doneArray" >
-                    {{done.itemName}}
+                    {{done.name}}
                 </li>
             </ul>
         </li>
