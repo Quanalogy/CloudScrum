@@ -3,7 +3,7 @@ import {ROUTER_DIRECTIVES} from "@angular/router"
 
 @Component({
     selector: 'my-app',
-    templateUrl: '/js/app/app.component.html',
+    template: require("./app.component.html"),
     directives: [ROUTER_DIRECTIVES]
 })
 

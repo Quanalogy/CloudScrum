@@ -9,7 +9,7 @@ import {DragulaService, Dragula} from 'ng2-dragula/ng2-dragula';
 
 @Component({
     selector: 'scrumboard-component',
-    templateUrl: '/js/app/home/scrumboard.component.html',
+    template: require("./scrumboard.component.html"),
     directives: [ROUTER_DIRECTIVES,Dragula],
     providers: [
         DragulaService

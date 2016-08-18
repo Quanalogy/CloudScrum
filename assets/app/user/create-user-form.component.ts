@@ -8,7 +8,7 @@ import {UserService} from "./user.service";
 
 @Component({
     selector: 'user-form',
-    templateUrl: '/js/app/user/create-user-form.component.html',
+    template: require("./create-user-form.component.html"),
     directives: [ROUTER_DIRECTIVES],
     providers: [UserService]
 })

@@ -4,7 +4,7 @@
 
 import {Component} from "@angular/core";
 @Component({
-    templateUrl: '/js/app/page-not-found.component.html'
+    template: require("./page-not-found.component.html")
 })
 
 export class PageNotFound{
