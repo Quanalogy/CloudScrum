@@ -36,8 +36,6 @@ export class ScrumboardComponent implements OnInit{
     constructor(private dragulaService: DragulaService){
         dragulaService.setOptions("bag-one", {
             accepts: (el, target, source, sibling) => { // Makes sure that the direction of the elements is correct
-                console.log("This is el:", el, "This is target", target, "this is source",
-                    source, "This is sibling", sibling);
                 if(source.id === "backlog" && target.id === "inProgress"){
                     return true;
                 } else if(source.id === "inProgress" && target.id === "review"){
