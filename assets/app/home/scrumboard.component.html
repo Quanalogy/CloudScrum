@@ -38,7 +38,7 @@
 </div>-->
 
 
-<div class="container">
+<div>
     <ul>
         <li class="menubar">
             <h3 class="doNotMove">Backlog size {{itemArraySize}}</h3>
@@ -58,16 +58,16 @@
         </li>
         <li class="menubar bag3" >
             <h3 class="doNotMove">Review size {{reviewArraySize}}</h3>
-            <ul [dragula]='"bag-three"'>
-                <li class="scrummenu" *ngFor="let review of reviewArray" [dragula]='"first-bag"' [dragulaModel]='reviewArray'>
+            <ul [dragula]='"bag-one"' [dragulaModel]='reviewArray'>
+                <li *ngFor="let review of reviewArray" >
                     {{review.itemName}}
                 </li>
             </ul>
         </li>
         <li class="menubar bag4" [dragula]='"bag-four"'>
             <h3 class="doNotMove">Done size {{doneArraySize}}</h3>
-            <ul>
-                <li class="scrummenu" *ngFor="let done of doneArray" [dragula]='"first-bag"' [dragulaModel]='doneArray'>
+            <ul [dragula]='"bag-one"' [dragulaModel]='doneArray'>
+                <li *ngFor="let done of doneArray" >
                     {{done.itemName}}
                 </li>
             </ul>
