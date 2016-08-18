@@ -48,18 +48,23 @@ export class ScrumboardComponent implements OnInit{
                 }
             }
         });*/
-        /*dragulaService.setOptions("bag-one", {
+        dragulaService.setOptions("bag-one", {
             accepts: (el, target, source, sibling) => {
                 console.log("This is el:", el, "This is target", target, "this is source",
-                    source.className, "This is sibling", sibling);
-                if(source.className === "menubar bag2" || source.className === "menubar bag3"){
+                    source, "This is sibling", sibling);
+                if(source.id === "backlog" && target.id === "inprogress"){
+                    return true;
+                } else if(source.id === "inprogress" && target.id === "review"){
+                    return true;
+                } else if(source.id === "review" && target.id === "done"){
+                    return true;
+                } else if(source.id === "review" && target.id === "inprogress"){
                     return true;
                 } else {
-                    console.log("False");
                     return false;
                 }
             }
-        });*/
+        });
     }
 
 

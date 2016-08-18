@@ -21,30 +21,3 @@ a {
     min-height: 10px;
     min-width: 10px;
 }
-
-.topelement {
-    display: none;
-}
-
-.left{
-    background-color: #90c;
-    min-height: 10px;
-    min-width: 10px;
-}
-
-.right{
-    background-color: #00c853;
-
-}
-
-/*
-.wrapper div {
-    float: left;
-    list-style-type: none;
-    margin: 0;
-    padding-left: 10%;
-}
-
-.wrapper div div{
-    list-style-type: none;
-}*/
