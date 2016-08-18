@@ -1,8 +1,34 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+    color: #00B7FF;
+}
+
+.menubar {
+    float: left;
+    list-style-type: none;
+    margin: 0;
+    padding-left: 10%;
+}
+
+.menubar ul {
+    list-style-type: none;
+}
+
+.topelement {
+    display: none;
+}
+
+.wrapper div {
+    float: left;
+    list-style-type: none;
+    margin: 0;
+    padding-left: 10%;
+}
+
+.wrapper div div{
+    list-style-type: none;
 }

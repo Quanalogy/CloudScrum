@@ -4,42 +4,60 @@
     <button type="button" class="btn" (click)="addItem(inputName)">+</button>
 </div>
 
-
-<div>
-    <div class='wrapper'>
-        <div class='container' [dragula]='"first-bag"'>
-            <div>You can move these elements between these two containers</div>
-            <div>Moving them anywhere else isn't quite possible</div>
-            <div>There's also the possibility of moving elements around in the same container, changing their position</div>
-        </div>
-        <div class='container' [dragula]='"first-bag"'>
-            <div>This is the default use case. You only need to specify the containers you want to use</div>
-            <div>More interactive use cases lie ahead</div>
-            <div>Make sure to check out the <a href='https://github.com/bevacqua/dragula#readme'>documentation on GitHub!</a></div>
-        </div>
+<!--http://valor-software.com/ng2-dragula/index.html -->
+<!--https://github.com/valor-software/ng2-dragula -->
+<!--<div class="wrapper" >
+    <div [dragula]='"first-bag"' [dragulaModel]='itemArray' style="border: 1px solid #7896b1;">
+        <h3>Backlog </h3>
+        <div *ngFor="let item of itemArray" [innerHtml]='item.itemName'></div>
     </div>
-</div>
+    <div [dragula]='"first-bag"' [dragulaModel]='inprogressArray'>
+        <h3>In progress</h3>
+        <div *ngFor="let item of inprogressArray" [innerHtml]='item.itemName'></div>
+    </div>
+    <div [dragula]='"second-bag"' [dragulaModel]='reviewArray'>
+        <h3>Review</h3>
+        <div *ngFor="let item of reviewArray" [innerHtml]='item.itemName'></div>
+    </div>
+    <div [dragula]='"first3-bag"' [dragulaModel]='doneArray'>
+        <h3>Done</h3>
+        <div *ngFor="let item of doneArray" [innerHtml]='item.itemName'></div>
+    </div>
+</div>-->
+
 
 <div class="container">
     <ul>
-        <li *ngFor="let item of itemArray">
-            {{item.itemName}}
+        <li class="menubar" >
+            <h3>Backlog </h3>
+            <ul>
+                <li class="scrummenu" *ngFor="let item of itemArray" [dragula]='"first-bag"' [dragulaModel]='itemArray'>
+                    {{item.itemName}}
+                </li>
+            </ul>
+        </li>
+        <li class="menubar">
+            <h3>In progress</h3>
+            <ul>
+                <li class="scrummenu" *ngFor="let progress of inprogressArray" [dragula]='"first-bag"' [dragulaModel]='inprogressArray'>
+                    {{item.itemName}}
+                </li>
+            </ul>
+        </li>
+        <li class="menubar">
+            <h3>Review</h3>
+            <ul>
+                <li class="scrummenu" *ngFor="let review of reviewArray" [dragula]='"first-bag"' [dragulaModel]='reviewArray'>
+                    {{item.itemName}}
+                </li>
+            </ul>
+        </li>
+        <li class="menubar"><h3>Done</h3>
+            <ul>
+                <li class="scrummenu" *ngFor="let done of doneArray" [dragula]='"first-bag"' [dragulaModel]='doneArray'>
+                    {{item.itemName}}
+                </li>
+            </ul>
         </li>
     </ul>
-</div>
-
-
-<div>
-    <div class='wrapper'>
-        <div class='container' [dragula]='"first-bag"'>
-            <div>You can move these elements between these two containers</div>
-            <div>Moving them anywhere else isn't quite possible</div>
-            <div>There's also the possibility of moving elements around in the same container, changing their position</div>
-        </div>
-        <div class='container' [dragula]='"first-bag"'>
-            <div>This is the default use case. You only need to specify the containers you want to use</div>
-            <div>More interactive use cases lie ahead</div>
-            <div>Make sure to check out the <a href='https://github.com/bevacqua/dragula#readme'>documentation on GitHub!</a></div>
-        </div>
-    </div>
 </div>
