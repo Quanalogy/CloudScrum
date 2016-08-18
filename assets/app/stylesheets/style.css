@@ -12,10 +12,14 @@ a {
     list-style-type: none;
     margin: 0;
     padding-left: 10%;
+    min-height: 10px;
+    min-width: 10px;
 }
 
 .menubar ul {
     list-style-type: none;
+    min-height: 10px;
+    min-width: 10px;
 }
 
 .topelement {

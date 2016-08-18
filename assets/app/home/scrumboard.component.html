@@ -41,16 +41,16 @@
 <div class="container">
     <ul>
         <li class="menubar">
+            <h3 class="doNotMove">Backlog size {{itemArraySize}}</h3>
             <ul [dragula]='"bag-one"' [dragulaModel]='itemArray'>
-                <h3 class="doNotMove">Backlog size {{itemArraySize}}</h3>
                 <li *ngFor="let item of itemArray">
                         {{item.itemName}}
                 </li>
             </ul>
         </li>
         <li class="menubar bag2">
+            <h3 class="doNotMove">In progress size {{inprogressArraySize}}</h3>
             <ul [dragula]='"bag-one"' [dragulaModel]='inprogressArray'>
-                <h3 class="doNotMove">In progress size {{inprogressArraySize}}</h3>
                 <li *ngFor="let progress of inprogressArray" >
                         {{progress.itemName}}
                 </li>
