@@ -1,0 +1,23 @@
+body {
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+    color: #00B7FF;
+}
+
+.menubar {
+    float: left;
+    list-style-type: none;
+    margin: 0;
+    padding-left: 10%;
+    min-height: 10px;
+    min-width: 10px;
+}
+
+.menubar ul {
+    list-style-type: none;
+    min-height: 10px;
+    min-width: 10px;
+}

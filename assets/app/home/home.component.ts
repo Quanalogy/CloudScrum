@@ -10,7 +10,7 @@ import {HTTP_PROVIDERS, Http} from "@angular/http";
 
 @Component({
     selector: 'home-component',
-    templateUrl: '/js/app/home/home.component.html',
+    template: require("./home.component.html"),
     directives: [ROUTER_DIRECTIVES]
 })
 
