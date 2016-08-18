@@ -19,8 +19,6 @@ import {DragulaService, Dragula} from 'ng2-dragula/ng2-dragula';
 
 export class ScrumboardComponent implements OnInit{
 
-    public many: Array<string> = ['The', 'possibilities', 'are', 'endless!'];
-    public many2: Array<string> = ['Explore', 'them'];
     itemArraySize = 0;
     inprogressArraySize = 0;
     reviewArraySize = 0;
