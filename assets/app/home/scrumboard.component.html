@@ -44,15 +44,15 @@
             <h3 class="doNotMove">Backlog size {{itemArraySize}}</h3>
             <ul [dragula]='"bag-one"' id="backlog" [dragulaModel]='itemArray'>
                 <li *ngFor="let item of itemArray">
-                        {{item.itemName}}
+                    {{item.itemName}}
                 </li>
             </ul>
         </li>
         <li class="menubar bag2">
             <h3 class="doNotMove">In progress size {{inprogressArraySize}}</h3>
-            <ul [dragula]='"bag-one"' id="inprogress" [dragulaModel]='inprogressArray'>
+            <ul [dragula]='"bag-one"' id="inProgress" [dragulaModel]='inprogressArray'>
                 <li *ngFor="let progress of inprogressArray" >
-                        {{progress.itemName}}
+                    {{progress.itemName}}
                 </li>
             </ul>
         </li>

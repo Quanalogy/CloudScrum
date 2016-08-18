@@ -36,45 +36,34 @@ export class ScrumboardComponent implements OnInit{
 
 
     constructor(private dragulaService: DragulaService){
-        /*dragulaService.setOptions("bag-two", {
-            accepts: (el, target, source, sibling) => {
-                console.log("This is el:", el, "This is target", target, "this is source",
-                source.className, "This is sibling", sibling);
-                if(source.className === "menubar" || source.className === "menubar"){
-                    return true;
-                } else {
-                    console.log("False");
-                    return false;
-                }
-            }
-        });*/
         dragulaService.setOptions("bag-one", {
-            accepts: (el, target, source, sibling) => {
+            accepts: (el, target, source, sibling) => { // Makes sure that the direction of the elements is correct
                 console.log("This is el:", el, "This is target", target, "this is source",
                     source, "This is sibling", sibling);
-                if(source.id === "backlog" && target.id === "inprogress"){
+                if(source.id === "backlog" && target.id === "inProgress"){
                     return true;
-                } else if(source.id === "inprogress" && target.id === "review"){
+                } else if(source.id === "inProgress" && target.id === "review"){
                     return true;
                 } else if(source.id === "review" && target.id === "done"){
                     return true;
-                } else if(source.id === "review" && target.id === "inprogress"){
+                } else if(source.id === "review" && target.id === "inProgress"){
                     return true;
                 } else {
                     return false;
                 }
             }
         });
+
+        dragulaService.drop.subscribe(value => {
+            const el = value.slice(0);
+            const target = value.slice(1).id;
+            // el.itemCategory = fromStringToEnum(target);
+        });
     }
 
 
     ngOnInit() {
 
-/*        this.dragulaService.setOptions('first-bag', {
-            accepts: function (el, target, source, sibling) {
-                return (target.id)
-            }
-        })*/
     }
 
     updateSize(){
