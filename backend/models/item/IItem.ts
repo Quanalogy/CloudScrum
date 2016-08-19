@@ -1,4 +1,4 @@
-import {EItemCategory} from "../controllers/item/EItemCategory";
+import {EItemCategory} from "./EItemCategory";
 /**
  * Created by munk on 18-08-16.
  */

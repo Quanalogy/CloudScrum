@@ -6,7 +6,7 @@ import {Component, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {Item} from "./scrumboard/item/item";
 import {DragulaService, Dragula} from 'ng2-dragula/ng2-dragula';
-import {fromStringToEnum, EItemCategory} from "../../../backend/controllers/item/EItemCategory";
+import {fromStringToEnum, EItemCategory} from "../../../backend/models/item/EItemCategory";
 
 @Component({
     selector: 'scrumboard-component',
