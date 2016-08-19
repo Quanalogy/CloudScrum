@@ -18,6 +18,7 @@ export class HomeService{
 
     }
 
+
     patchUserPassword(email: string, currentPassword: string, newPassword: string): Observable<IJSONOk>{
         let body = JSON.stringify({email: email, currentPassword: currentPassword, newPassword: newPassword});
         let token = 'bearer ' + localStorage.getItem("token");
