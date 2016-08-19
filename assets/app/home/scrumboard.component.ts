@@ -74,7 +74,7 @@ export class ScrumboardComponent implements OnInit{
         if(!itemName){
             return;
         }
-        this.itemArray.push(new Item(itemName, this.id, EItemCategory.backlog));
+        this.itemArray.push(new Item(itemName, this.id, EItemCategory.backlog, 0, 0));
         this.id = this.id +1;
         this.inputName = "";
         this.updateSize();
