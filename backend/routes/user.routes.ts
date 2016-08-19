@@ -42,14 +42,7 @@ router.post("/login", (req: Request, res: Response) => {
 
 
 
-// Edit an existing user.
-router.patch("/", (req: Request, res: Response, next) => {
-    patchUserPassword(req.body.email, req.body.currentPassword, req.body.newPassword).then(
-        (result) => {
-            JSONSendPatchResponse(res, result);
-        }
-    );
-});
+
 
 // Overwrite an existing user.
 router.put("/", (req: Request, res: Response, next) => {
