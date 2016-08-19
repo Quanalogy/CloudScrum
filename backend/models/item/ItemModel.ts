@@ -22,15 +22,7 @@ const itemSchema = new mongoose.Schema({
     assignee: String,
     priority: Number
 });
-/*{
- type: String,
- enum: ['backlog', 'inProgress', 'review','done']
- }*/
 
-/*type: [{
- type: String,
- enum: [EItemCategory.backlog, EItemCategory.inProgress, EItemCategory.review, EItemCategory.done]
- }]*/
 
 itemSchema.methods.addItem = function(name: String, id: Number, category: String, estimate: Number, progress: Number,
                                       assignee: String, priority: Number): boolean {

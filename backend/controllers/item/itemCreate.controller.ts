@@ -5,13 +5,13 @@ import {fromStringToEnum} from "../../models/item/EItemCategory";
  */
 
 export function addItem(name: string, id: number, category: string, estimate: number, progress: number,
-                        assignee: string, priority: number): Promise<IItemDocument>{
+                        assignee: string, priority: number): Promise<boolean>{
 
     //Test if the enum is valid
     //TODO make a better reject
-    if(!fromStringToEnum(category)){
-        return new Promise<IItemDocument>((resolve, reject) => {
-            reject();
+    if(!fromStringToEnum(category) && fromStringToEnum(category) !== 0){
+        return new Promise<boolean>((resolve, reject) => {
+            resolve(false);
         });
     }
 
@@ -35,12 +35,13 @@ export function addItem(name: string, id: number, category: string, estimate: nu
     assignee, "= assignee;",
     priority, "= priority;");
 
-    return new Promise<IItemDocument>((resolve, reject) => {
+    return new Promise<boolean>((resolve, reject) => {
         item.save((err: any, res: IItemDocument) => {
             if(err){
                 reject(err);
             }
-            resolve(res);
+            resolve(true);
         });
     });
 }
+

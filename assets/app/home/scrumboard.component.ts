@@ -6,7 +6,8 @@ import {Component, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {Item} from "./scrumboard/item/item";
 import {DragulaService, Dragula} from 'ng2-dragula/ng2-dragula';
-import {fromStringToEnum, EItemCategory} from "../../../backend/models/item/EItemCategory";
+import {fromStringToEnum, EItemCategory, fromEnumToString} from "../../../backend/models/item/EItemCategory";
+import {HomeService} from "./home.service";
 
 @Component({
     selector: 'scrumboard-component',
@@ -19,6 +20,9 @@ import {fromStringToEnum, EItemCategory} from "../../../backend/models/item/EIte
 })
 
 export class ScrumboardComponent implements OnInit{
+
+    itemModel = new Item('', 0, EItemCategory.backlog, 0, 0);
+    addingMode = false;
 
     itemArraySize = 0;
     inprogressArraySize = 0;
@@ -34,7 +38,10 @@ export class ScrumboardComponent implements OnInit{
     inputName = "";
 
 
-    constructor(private dragulaService: DragulaService){
+    constructor(
+        private dragulaService: DragulaService,
+        private homeService: HomeService
+    ){
         dragulaService.setOptions("bag-one", {
             accepts: (el, target, source, sibling) => { // Makes sure that the direction of the elements is correct
                 if(source.id === "backlog" && target.id === "inProgress"){
@@ -78,6 +85,22 @@ export class ScrumboardComponent implements OnInit{
         this.id = this.id +1;
         this.inputName = "";
         this.updateSize();
+        this.addingMode = false;
+    }
+
+    postItem(){
+
+        if(!this.itemModel.name || !this.itemModel.itemId || !this.itemModel.estimate){
+            return;
+        }
+
+        this.homeService.postItem(this.itemModel.name, this.itemModel.itemId, fromEnumToString(this.itemModel.category),
+            this.itemModel.estimate, this.itemModel.progress, this.itemModel.assignee, this.itemModel.priority)
+            .subscribe((res) => {
+                console.log(res);
+            }, (err) => {
+                console.log(err);
+        });
     }
 
 }

@@ -1,8 +1,26 @@
-<div class="container">
+<!--<div class="container" *ngIf="addingMode">
     <label for="itemInput">Lav et nyt item</label>
     <input type="text" name="itemInput" [(ngModel)]="inputName">
     <button type="button" class="btn" (click)="addItem(inputName)">+</button>
+</div>-->
+
+<div class="container" *ngIf="addingMode">
+    <form>
+        <label for="itemName">Name of new item</label>
+        <input type="text" name="itemName" [(ngModel)]="itemModel.name" required>
+        <label for="itemId">Id</label>
+        <input type="number" name="itemId" [(ngModel)]="itemModel.itemId" required>
+        <label for="itemEstimate">Estimate</label>
+        <input type="number" name="itemEstimate" [(ngModel)]="itemModel.estimate" required>
+        <label for="itemAssignee">Assignee</label>
+        <input type="text" name="itemAssignee" [(ngModel)]="itemModel.assignee">
+        <label for="itemPriority">Priority</label>
+        <input type="number" name="itemPriority" [(ngModel)]="itemModel.priority">
+        <button type="submit" class="btn btn-default" (click)="postItem()">+</button>
+    </form>
 </div>
+
+<button type="button" class="btn" (click)="addingMode=true" *ngIf="!addingMode">+</button>
 
 <div>
     <ul>

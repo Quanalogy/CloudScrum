@@ -4,6 +4,7 @@
 import { Router, Request,Response } from "express";
 import {getItems} from "../controllers/item/itemRead.controller";
 import {addItem} from "../controllers/item/itemCreate.controller";
+import {JSONSendItemResponse} from "../utilities/JSONSender";
 
 const router = Router();
 
@@ -17,15 +18,18 @@ router.get("/", (req: Request, res: Response) => {
 });
 
 router.post("/", (req: Request, res: Response) => {
-    console.log(req.body.name, req.body.id, req.body.category, req.body.estimate, req.body.progress, req.body.assignee, req.body.priority);
+    console.log(req.body.name, req.body.id, req.body.category, req.body.estimate
+        , req.body.progress, req.body.assignee, req.body.priority);
 
     addItem(req.body.name, req.body.id, req.body.category, req.body.estimate
         , req.body.progress, req.body.assignee, req.body.priority)
         .then(result => {
-            res.json(result);
-        }, err => {
-            res.json(err);
+            JSONSendItemResponse(res, result);
         });
+});
+
+router.patch("/", (req: Request, res: Response) => {
+
 });
 
 module.exports = router;

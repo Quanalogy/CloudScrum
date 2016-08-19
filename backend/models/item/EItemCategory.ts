@@ -20,3 +20,16 @@ export function fromStringToEnum(value: string){
             return EItemCategory.done;
     }
 }
+
+export function fromEnumToString(value: EItemCategory){
+    switch (value){
+        case EItemCategory.backlog:
+            return "backlog";
+        case EItemCategory.inProgress:
+            return "inProgress";
+        case EItemCategory.review:
+            return "review";
+        case EItemCategory.done:
+            return "done";
+    }
+}
