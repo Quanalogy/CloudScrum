@@ -12,10 +12,8 @@ const itemSchema = new mongoose.Schema({
     name: String,
     itemId: Number,
     category: {
-        type: [{
-            type: Number,
-            enum: [EItemCategory.backlog, EItemCategory.inProgress, EItemCategory.review, EItemCategory.done]
-        }]
+        type: Number,
+        enum: [EItemCategory.backlog, EItemCategory.inProgress, EItemCategory.review, EItemCategory.done]
     },
     estimate: Number,
     progress: Number,

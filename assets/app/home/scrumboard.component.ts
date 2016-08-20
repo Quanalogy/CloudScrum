@@ -24,12 +24,8 @@ export class ScrumboardComponent implements OnInit{
     itemModel = new Item('', 0, EItemCategory.backlog, 0, 0);
     addingMode = false;
 
-    itemArraySize = 0;
-    inprogressArraySize = 0;
-    reviewArraySize = 0;
-    doneArraySize = 0;
-
     itemArray: Array<Item> = [];
+    backendArray: Array<Item> = [];
     inprogressArray: Array<Item> = [];
     reviewArray: Array<Item> = [];
     doneArray: Array<Item> = [];
@@ -58,7 +54,7 @@ export class ScrumboardComponent implements OnInit{
             }
         });
 
-        dragulaService.drop.subscribe(value => {
+        dragulaService.drop.subscribe(value => {    // when element dropped into new category, the category attribute should update
             const el = value.slice(0);
             const target = value.slice(2).id;
             el.itemCategory = fromStringToEnum(target);
@@ -67,26 +63,30 @@ export class ScrumboardComponent implements OnInit{
 
 
     ngOnInit() {
-
+        this.updateItems();
     }
 
-    updateSize(){
-        this.itemArraySize = this.itemArray.length;
-        this.inprogressArraySize = this.inprogressArray.length;
-        this.reviewArraySize = this.reviewArray.length;
-        this.doneArraySize = this.doneArray.length;
+    updateItems(){
+        this.itemArray = [];
+        this.inprogressArray = [];
+        this.reviewArray = [];
+        this.doneArray = [];
+        this.homeService.getItems().subscribe((res) => {
+            res.forEach(item => {
+                switch (item.category){
+                    case EItemCategory.backlog:
+                        return this.itemArray[this.itemArray.length] = item;
+                    case EItemCategory.inProgress:
+                        return this.inprogressArray[this.inprogressArray.length] = item;
+                    case EItemCategory.review:
+                        return this.reviewArray[this.reviewArray.length] = item;
+                    case EItemCategory.done:
+                        return this.doneArray[this.doneArray.length] = item;
+                }
+            });
+        });
     }
 
-    addItem(itemName: string){
-        if(!itemName){
-            return;
-        }
-        this.itemArray.push(new Item(itemName, this.id, EItemCategory.backlog, 0, 0));
-        this.id = this.id +1;
-        this.inputName = "";
-        this.updateSize();
-        this.addingMode = false;
-    }
 
     postItem(){
 
@@ -98,6 +98,7 @@ export class ScrumboardComponent implements OnInit{
             this.itemModel.estimate, this.itemModel.progress, this.itemModel.assignee, this.itemModel.priority)
             .subscribe((res) => {
                 console.log(res);
+                this.updateItems();
             }, (err) => {
                 console.log(err);
         });
