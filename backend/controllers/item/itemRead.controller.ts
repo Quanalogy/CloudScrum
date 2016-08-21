@@ -20,3 +20,20 @@ export function getItems(): Promise<Array<IItemDocument>> {
         });
     });
 }
+
+export function getItem(name: string, id: number, category: string, estimate: number, progress: number,
+                        assignee: string, priority: number): Promise<IItemDocument>{
+    return new Promise<IItemDocument>((resolve, reject) => {
+        Items.findOne({name: name, itemId: id, category: category, estimate: estimate, progress: progress,
+            assignee: assignee, priority: priority}, (err: any, res: IItemDocument) => {
+            if(err){
+                reject();
+            }
+
+            if(!res){
+                reject(res);
+            }
+            resolve(res);
+        })
+    })
+}

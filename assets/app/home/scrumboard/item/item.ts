@@ -8,25 +8,13 @@ import {EItemCategory} from "../../../../../backend/models/item/EItemCategory";
 export class Item implements IItem{
     constructor(
         public name: string,
-        public itemId: number,
+        public description: string,
         public category: EItemCategory,
         public estimate: number,
         public progress: number,
+        public creationDate: Date,
+        public revisionDate: Date,
         public assignee?: string,
         public priority?: number
     ){}
-
-    removeItem(id: number): boolean{
-        return false;
-    }
-
-    patchItem(name: string, id: number, category: string, estimate: number, progress: number,
-              assignee: string, priority: number): boolean{
-        return false;
-    }
-    addItem(name: string, id: number, category: string, estimate: number, progress: number,
-            assignee: string, priority: number): boolean{
-        return false;
-    }
-
 }

@@ -21,7 +21,7 @@ import {HomeService} from "./home.service";
 
 export class ScrumboardComponent implements OnInit{
 
-    itemModel = new Item('', 0, EItemCategory.backlog, 0, 0);
+    itemModel = new Item('', '', EItemCategory.backlog, 0, 0, new Date(Date.now()), new Date(Date.now()));
     addingMode = false;
 
     itemArray: Array<Item> = [];
@@ -90,18 +90,17 @@ export class ScrumboardComponent implements OnInit{
 
     postItem(){
 
-        if(!this.itemModel.name || !this.itemModel.itemId || !this.itemModel.estimate){
+        if(!this.itemModel.name || !this.itemModel.estimate){
             return;
         }
 
-        this.homeService.postItem(this.itemModel.name, this.itemModel.itemId, fromEnumToString(this.itemModel.category),
-            this.itemModel.estimate, this.itemModel.progress, this.itemModel.assignee, this.itemModel.priority)
-            .subscribe((res) => {
-                console.log(res);
-                this.updateItems();
-            }, (err) => {
-                console.log(err);
+        this.homeService.postNewItem(this.itemModel).subscribe((res) => {
+            console.log(res);
+            this.updateItems();
+        }, (err) => {
+            console.log(err);
         });
+
     }
 
 }

@@ -18,6 +18,7 @@ a {
 
 .menubar ul {
     list-style-type: none;
+    padding-left: 0;
     min-height: 10px;
     min-width: 10px;
 }

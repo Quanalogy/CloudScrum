@@ -1,16 +1,22 @@
-import {fromStringToEnum} from "../../models/item/EItemCategory";
-import {Items} from "../../models/item/ItemModel";
+import {Items, IItemDocument} from "../../models/item/ItemModel";
 /**
  * Created by munk on 19-08-16.
  */
-export function patchItem(name: string, id: number, category: string, estimate: number, progress: number,
-                        assignee: string, priority: number): Promise<boolean>{
+
+
+export function patchItem(item: IItemDocument): Promise<boolean>{
 
     return new Promise<boolean>((resolve, reject) => {
-        if(!name || !id || (!fromStringToEnum(category) && fromStringToEnum(category) !== 0) ||
-            !estimate){
+        if(!item.name  || (!item.category && item.category !== 0) || !item.estimate){
             reject(false);
         }
-        // Items.findById()
-    })
+        Items.findByIdAndUpdate(item._id, item, (err, res) => {
+            //TODO update this with error handling
+            if(err){
+                console.log(err);
+                reject(false);
+            }
+            resolve(true);
+        });
+    });
 }

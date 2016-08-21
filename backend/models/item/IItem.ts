@@ -4,16 +4,13 @@ import {EItemCategory} from "./EItemCategory";
  */
 export interface IItem {
     name: string,
-    itemId: number,
+    description: string,
     category: EItemCategory,
     estimate: number,
     progress: number,
+    creationDate: Date,
+    revisionDate: Date,
     assignee?: string,
     priority?: number
 
-    addItem(name: String, id: Number, category: String, estimate: Number, progress: Number,
-                                  assignee: String, priority: Number): boolean;
-    removeItem(id: Number): boolean;
-    patchItem(name: String, id: Number, category: String, estimate: Number, progress: Number,
-              assignee: String, priority: Number): boolean;
 }

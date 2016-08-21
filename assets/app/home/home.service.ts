@@ -13,7 +13,7 @@ import {Item} from "./scrumboard/item/item";
 @Injectable()
 export class HomeService{
     patchPWURL = "/home/";
-    items = "/items";
+    itemsURL = "/items";
 
     constructor(public http: Http){
 
@@ -38,7 +38,16 @@ export class HomeService{
         let headers = new Headers({'Authorization': token, 'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});
 
-        return this.http.post(this.items, body, options).map(res => res.json());
+        return this.http.post(this.itemsURL, body, options).map(res => res.json());
+    }
+
+    postNewItem(item: Item): Observable<IJSONOk>{
+        let body = JSON.stringify({item: item});
+        let token = 'bearer ' + localStorage.getItem("token");
+        let headers = new Headers({'Authorization': token, 'Content-Type': 'application/json'});
+        let options = new RequestOptions({headers: headers});
+
+        return this.http.post(this.itemsURL, body, options).map(res => res.json());
     }
 
     getItems(): Observable<Array<Item>>{
@@ -46,7 +55,7 @@ export class HomeService{
         let headers = new Headers({'Authorization': token});
         let options = new RequestOptions({headers: headers});
 
-        return this.http.get(this.items, options).map(res => res.json());
+        return this.http.get(this.itemsURL, options).map(res => res.json());
     }
 
     patchItems(name: string, id: number, category: string, estimate: number, progress: number,
@@ -57,7 +66,7 @@ export class HomeService{
         let headers = new Headers({'Authorization': token, 'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});
 
-        return this.http.patch(this.items, body, options).map(res => res.json());
+        return this.http.patch(this.itemsURL, body, options).map(res => res.json());
     }
 
 }

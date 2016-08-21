@@ -10,7 +10,7 @@ import {EItemCategory} from "./EItemCategory";
 //TODO get the schema in sync with the enum EItemCategory, instead of hardcode
 const itemSchema = new mongoose.Schema({
     name: String,
-    itemId: Number,
+    description: String,
     category: {
         type: Number,
         enum: [EItemCategory.backlog, EItemCategory.inProgress, EItemCategory.review, EItemCategory.done]
@@ -18,24 +18,10 @@ const itemSchema = new mongoose.Schema({
     estimate: Number,
     progress: Number,
     assignee: String,
-    priority: Number
+    priority: Number,
+    creationDate: Date,
+    revisionDate: Date
 });
-
-
-itemSchema.methods.addItem = function(name: String, id: Number, category: String, estimate: Number, progress: Number,
-                                      assignee: String, priority: Number): boolean {
-
-    return false;
-};
-
-
-itemSchema.methods.removeItem = function(id: Number): boolean{
-    return false;
-};
-itemSchema.methods.patchItem = function(name: String, id: Number, category: String, estimate: Number, progress: Number,
-                                        assignee: String, priority: Number): boolean{
-    return false;
-};
 
 export interface IItemDocument extends IItem, mongoose.Document{}
 
