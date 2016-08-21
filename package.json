@@ -32,6 +32,7 @@
     "dragula": "^3.7.1",
     "es6-shim": "^0.35.0",
     "express": "~4.13.1",
+    "express-jwt": "^3.4.0",
     "hbs": "~3.1.0",
     "jasmine": "^2.4.1",
     "jsonwebtoken": "^7.1.7",
