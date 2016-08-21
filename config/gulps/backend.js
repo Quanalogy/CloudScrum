@@ -1,0 +1,32 @@
+var del = require("del");
+var gulp = require("gulp");
+var gulpTypescript = require("gulp-typescript");
+var gulpSourcemaps = require("gulp-sourcemaps");
+var path = require("path");
+
+var variables = require("./variables");
+
+// Build task for the backend.
+gulp.task("build-ts-backend", function() {
+    var tsconfig = gulpTypescript.createProject(variables.typingsIndex);
+
+    return gulp.src([
+        path.join(variables.backendFolder, "/**/*.ts"),
+        variables.typingsIndex
+    ])
+        .pipe(gulpSourcemaps.init())
+        .pipe(gulpTypescript(tsconfig))
+        .pipe(gulpSourcemaps.write())
+        .pipe(gulp.dest(variables.backendFolder));
+});
+
+// Clean task for the backend.
+gulp.task("clean-backend", function() {
+    del(path.join(variables.backendFolder, "/**/*.js"));
+    del(path.join(variables.backendFolder, "/**/*.js.map"));
+});
+
+// Watch task for the backend.
+gulp.task("watch-backend", function() {
+    gulp.watch(path.join(variables.backendFolder, "/**/*.ts"), ["build-ts-server"]);
+});
