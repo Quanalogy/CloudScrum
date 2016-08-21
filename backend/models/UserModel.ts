@@ -1,10 +1,9 @@
 import * as mongoose from "mongoose";
-
 import bcrypt = require("bcryptjs");
 
-const rounds = 10;
-
 import { IUser } from "./IUser";
+
+const rounds = 10;
 
 const userSchema = new mongoose.Schema({
     email: {
