@@ -44,10 +44,8 @@ userSchema.methods.createPassword = function(password: string): boolean {
 
     if (!regex.test(password))
     {
-        console.log("New PW failed");
         return false;
     }
-    console.log("New PW passed");
 
     // Generate a new salt.
     this.passwordSalt = bcrypt.genSaltSync(rounds);
