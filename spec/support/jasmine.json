@@ -1,0 +1,12 @@
+{
+  // TODO How to get the frontend tests into this as well?
+  "spec_dir": "backend/tests/",
+  "spec_files": [
+    "**/*.js"
+  ],
+  "helpers": [
+    "helpers/**/*.js"
+  ],
+  "stopSpecOnExpectationFailure": false,
+  "random": false
+}
