@@ -6,6 +6,11 @@ var path = require("path");
 
 var variables = require("./variables");
 
+// Common shared items build task.
+gulp.task("build-shared", ["build-ts-shared"], function() {
+    //
+});
+
 // Build task for shared items.
 gulp.task("build-ts-shared", function() {
     var tsconfig = gulpTypescript.createProject(variables.tsconfigPath);

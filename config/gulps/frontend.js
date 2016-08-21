@@ -7,9 +7,14 @@ var webpack = require("webpack");
 
 var variables = require("./variables");
 
+// Common frontend build task.
+gulp.task("build-frontend", ["build-ts-frontend", "build-stylesheets", "build-webpack-dll", "build-webpack"], function() {
+    //
+});
+
 // Build task for the frontend.
 gulp.task("build-ts-frontend", function() {
-    var tsconfig = gulpTypescript.createProject(variables.typingsIndex);
+    var tsconfig = gulpTypescript.createProject(variables.tsconfigPath);
 
     return gulp.src([
         path.join(variables.frontendFolder, "/**/*.ts"),
@@ -33,12 +38,12 @@ gulp.task("build-stylesheets", function() {
 });
 
 // Build task for webpack.
-gulp.task("build-webpack-dll", ["build-webpack-dll"], function(done) {
+gulp.task("build-webpack", ["build-webpack-dll", "build-ts-frontend"], function(done) {
     webpack(require(path.join(variables.webpackFolder, "webpack.dev"))).run(variables.onBuild(done));
 });
 
 // Build task for webpack static assets (Vendor).
-gulp.task("build-webpack-dll", function(done) {
+gulp.task("build-webpack-dll", ["build-ts-frontend"], function(done) {
     webpack(require(path.join(variables.webpackFolder, "webpack.dll"))).run(variables.onBuild(done));
 });
 

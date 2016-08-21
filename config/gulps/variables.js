@@ -1,6 +1,6 @@
 var path = require("path");
 
-var projectRoot = path.join(__dirname, "..");
+var projectRoot = path.join(__dirname, "../..");
 
 // Variables to help with the paths for the different parts of the project.
 var backendFolder = path.join(projectRoot, "backend/");
@@ -8,6 +8,7 @@ var frontendFolder = path.join(projectRoot, "assets/app/");
 var interfaceFolder = path.join(projectRoot, "interfaces/");
 var publicFolder = path.join(projectRoot, "public/");
 var stylesheetsFolder = path.join(projectRoot, "assets/stylesheet/")
+var tsconfigPath = path.join(projectRoot, "tsconfig.json");
 var webpackFolder = path.join(projectRoot, "config/webpack/");
 
 // Variabels to the components in the public folder.
@@ -24,6 +25,7 @@ exports.interfaceFolder = interfaceFolder;
 exports.projectRoot = projectRoot;
 exports.stylesheetsFolder = stylesheetsFolder;
 exports.stylesheetsFolderPublic = stylesheetsFolderPublic;
+exports.tsconfigPath = tsconfigPath;
 exports.typingsIndex = typingsIndex;
 exports.webpackFolder = webpackFolder;
 

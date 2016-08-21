@@ -6,9 +6,14 @@ var path = require("path");
 
 var variables = require("./variables");
 
+// Common backend build task.
+gulp.task("build-backend", ["build-ts-backend"], function() {
+    //
+});
+
 // Build task for the backend.
 gulp.task("build-ts-backend", function() {
-    var tsconfig = gulpTypescript.createProject(variables.typingsIndex);
+    var tsconfig = gulpTypescript.createProject(variables.tsconfigPath);
 
     return gulp.src([
         path.join(variables.backendFolder, "/**/*.ts"),
