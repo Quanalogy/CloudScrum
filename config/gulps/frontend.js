@@ -3,6 +3,7 @@ var gulp = require("gulp");
 var gulpTypescript = require("gulp-typescript");
 var gulpSourcemaps = require("gulp-sourcemaps");
 var path = require("path");
+var spawn = require("child_process").spawn;
 var webpack = require("webpack");
 
 var variables = require("./variables");
@@ -61,7 +62,35 @@ gulp.task("clean-frontend", function() {
 });
 
 // Watch task for the frontend.
-gulp.task("watch-frontend", function() {
-    gulp.watch(path.join(variables.frontendFolder, "/**/*.ts"), ["build-ts-frontend"]);
+gulp.task("watch-frontend", ["watch-webpack"], function() {
     gulp.watch(path.join(variables.stylesheetsFolder + "/**/*.css"), ["build-stylesheets"]);
+});
+
+// Start the webpack watch task.
+gulp.task("watch-webpack", function(done) {
+    // TODO: Maybe switch to cross-spawn?
+    const webpackWatchHandle = spawn("webpack", ["--watch", "--colors", "--config", path.join(variables.webpackFolder, "webpack.dev")]);
+
+    webpackWatchHandle.stderr.on("data", function(data) {
+        console.log("stderr:" + data);
+    });
+
+    webpackWatchHandle.stdout.on("data", function(data) {
+        console.log("stdout:" + data);
+    });
+
+    webpackWatchHandle.on("close", function(exitCode, exitSignal) {
+        if (exitCode !== null) {
+            console.log("webpack exited with " + exitCode.toString() + ".");
+        } else {
+            console.log("webpack exited with signal " + exitSignal + ".");
+        }
+    });
+
+    // Register an event that will close down webpack if we stop gulp.
+    process.on("SIGINT", function () {
+        webpackWatchHandle.kill();
+    });
+
+    done();
 });
