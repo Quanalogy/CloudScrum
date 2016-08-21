@@ -58,10 +58,8 @@ export class HomeService{
         return this.http.get(this.itemsURL, options).map(res => res.json());
     }
 
-    patchItems(name: string, id: number, category: string, estimate: number, progress: number,
-               assignee: string, priority: number): Observable<IJSONOk> {
-        let body = JSON.stringify({name: name, id: id, category: category, estimate: estimate,
-            progress: progress, assignee: assignee, priority: priority});
+    patchItem(item: Item): Observable<IJSONOk> {
+        let body = JSON.stringify({item: item});
         let token = 'bearer ' + localStorage.getItem("token");
         let headers = new Headers({'Authorization': token, 'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});

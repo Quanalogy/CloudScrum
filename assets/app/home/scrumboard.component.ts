@@ -54,17 +54,39 @@ export class ScrumboardComponent implements OnInit{
             }
         });
 
+
+
         dragulaService.drop.subscribe(value => {    // when element dropped into new category, the category attribute should update
-            const el = value.slice(0);
-            const target = value.slice(2).id;
-            el.itemCategory = fromStringToEnum(target);
+            this.onDrop(value.slice(1), value.slice(2).id);
+            let patchItem: Item = value.slice(1)[0];
+            console.log(value.slice(1).slice(0));
+            console.log(patchItem.category);
+            console.log(value.slice(1)[0].innerHTML);
         });
+    }
+
+    private onDrop(args, id) {
+        let [e, el] = args;
+        // do something
+        // el.itemCategory = fromStringToEnum(id);
+        let patchItem: Item = el;
+        patchItem.category = fromStringToEnum(id);
+        console.log("item",patchItem,"category", patchItem.category);
     }
 
 
     ngOnInit() {
         this.updateItems();
     }
+
+    patchItem(item: Item){
+        this.homeService.patchItem(item).subscribe(res => {
+            console.log(res);
+        }, err => {
+            console.log(err);
+        });
+    }
+
 
     updateItems(){
         this.itemArray = [];
@@ -95,7 +117,6 @@ export class ScrumboardComponent implements OnInit{
         }
 
         this.homeService.postNewItem(this.itemModel).subscribe((res) => {
-            console.log(res);
             this.updateItems();
         }, (err) => {
             console.log(err);
