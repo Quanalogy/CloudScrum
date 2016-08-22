@@ -24,7 +24,6 @@ userSchema.methods.changePassword = function(passwordOld: string, passwordNew: s
     if (!this.checkPassword(passwordOld)) {
         return false;
     }
-    console.log("pw OK");
 
     // Generate a new password and save it.
     return this.createPassword(passwordNew);
