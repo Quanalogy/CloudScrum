@@ -114,6 +114,16 @@ describe("The user controller", () => {
     });
 
     describe("utility module", () => {
+        describe("changePass function", () => {
+            it("can change a password of an existing user with a new valid password.");
+
+            it("cannot change a password of an existing user with a new invalid password.");
+
+            it("cannot change a password of an existing user with the wrong old password.");
+
+            it("cannot change a password of a non-existing user.");
+        });
+
         describe("checkPass function", () => {
             beforeAll((done) => {
                 // Define common test data.
