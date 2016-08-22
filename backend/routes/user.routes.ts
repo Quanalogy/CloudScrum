@@ -4,9 +4,7 @@ import jwt = require("jsonwebtoken");
 import {getUser} from "../controllers/user/userControllerRead";
 import {createUser} from "../controllers/user/userControllerCreate";
 import {JSONSendLoginOk, JSONSendError, JSONSendPatchResponse} from "../utilities/JSONSender";
-import {patchUserPassword} from "../controllers/user/userPatch.controller";
-import {checkPass} from "../controllers/user/controller.user.utility";
-
+import {changePass, checkPass} from "../controllers/user/controller.user.utility";
 
 const router = Router();
 
@@ -41,15 +39,13 @@ router.post("/login", (req: Request, res: Response) => {
     });
 });
 
-
-
 // Edit an existing user.
 router.patch("/", (req: Request, res: Response, next) => {
-    patchUserPassword(req.body.email, req.body.currentPassword, req.body.newPassword).then(
-        (result) => {
+    changePass(req.body.email, req.body.currentPassword, req.body.newPassword).then((result) => {
+        if (result) {
             JSONSendPatchResponse(res, result);
         }
-    );
+    });
 });
 
 // Overwrite an existing user.
