@@ -1,4 +1,4 @@
-import {Users, IUserDocument} from "../../models/UserModel";
+import {Users, IUserDocument} from "../../models/user/UserModel";
 
 // possibility of returning null if the user does not exist,
 // therefor please make a null check when using this method.

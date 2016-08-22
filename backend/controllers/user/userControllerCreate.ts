@@ -1,4 +1,4 @@
-import {Users, IUserDocument} from "../../models/UserModel";
+import {Users, IUserDocument} from "../../models/user/UserModel";
 import Promise = require("bluebird");
 
 

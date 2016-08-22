@@ -33,7 +33,9 @@ router.post("/", (req: Request, res: Response) =>{
 //Login
 router.post("/login", (req: Request, res: Response) => {
     checkPass(req.body.email, req.body.password).then((success) => {
-        const userToken = jwt.sign({email: req.body.email}, 'L33tWallahWallah');
+        const userToken = jwt.sign({email: req.body.email}, 'L33tWallahWallah', {
+            expiresIn: 3600
+        });
         JSONSendLoginOk(res, userToken);
     }, (failure) => {
         JSONSendError(res);
