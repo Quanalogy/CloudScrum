@@ -3,6 +3,7 @@ import {createUser} from "../../controllers/user/userControllerCreate";
 
 import Promise = require("bluebird");
 import {Users} from "../../models/UserModel";
+import {getUser} from "../../controllers/user/userControllerRead";
 
 beforeAll((done) => {
     // Connect to the database.
@@ -112,6 +113,49 @@ describe("The user controller", () => {
     });
 
     describe("read module", () => {
+        beforeEach((done) => {
+            // Define common test data.
+            this.testData = {
+                validEmail1: "this@is.valid.com",
+                validEmail2: "this@is.also.valid.com",
+                validEmail3: "so@is.this.com",
+                validPassword: "abcdeF1!",
+            };
 
+            // Stub the password creation in the model, to save time during tests. This is already tested in the model.
+            spyOn(Users.prototype, "createPassword").and.returnValue(true);
+
+            // Cleanup the database before each test.
+            dropDatabase().then(done);
+        });
+
+        it("should get the requested user if it exists.", (done) => {
+            // Create a new user.
+            createUser(this.testData.validEmail1, this.testData.validPassword).then(() => {
+                return getUser(this.testData.validEmail1);
+            }).then((user) => {
+                // Check that the data matches the injected user.
+                expect(user.email).toBe(this.testData.validEmail1);
+            }, () => {
+                fail("Promise should be fulfilled.");
+            }).finally(() => {
+                done();
+            });
+        });
+
+        it("should get no user if the requested user does not exist.", (done) => {
+            // Create a new user.
+            createUser(this.testData.validEmail1, this.testData.validPassword).then(() => {
+                return getUser(this.testData.validEmail2);
+            }).then(() => {
+                fail("Promise should not be fulfilled.");
+            }).finally(() => {
+                done();
+            });
+        });
+
+        it("should get no users in an empty database.");
+
+        it("should get all users.");
     });
 });
