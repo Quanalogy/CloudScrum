@@ -1,5 +1,6 @@
-import Promise = require("bluebird");
+import sap = require("supertest-as-promised");
 
+import {app} from "../../app";
 import {connect, dropDatabase} from "../../config/mongodb";
 
 beforeAll((done) => {
@@ -45,7 +46,7 @@ describe("The /users route", () => {
 
         it("can patch multiple parameters on the specified user.");
 
-        it("cannot patch a non-existant user.");
+        it("cannot patch a non-existing user.");
     });
 
     describe("post /", () => {
