@@ -3,7 +3,8 @@ import {createUser} from "../../controllers/user/userControllerCreate";
 
 import Promise = require("bluebird");
 import {Users} from "../../models/UserModel";
-import {getUser} from "../../controllers/user/userControllerRead";
+import * as userRead from "../../controllers/user/userControllerRead";
+import {checkPass} from "../../controllers/user/controller.user.utility";
 
 beforeAll((done) => {
     // Connect to the database.
@@ -112,6 +113,68 @@ describe("The user controller", () => {
 
     });
 
+    describe("utility module", () => {
+
+        describe("checkPass function", () => {
+            beforeAll((done) => {
+                // Define common test data.
+                this.testData = {
+                    validEmail1: "this@is.valid.com",
+                    validEmail2: "this@is.also.valid.com",
+                    validEmail3: "so@is.this.com",
+                    validPassword1: "abcdeF1!",
+                    validPassword2: "abcdEf1!",
+                };
+
+                // Cleanup the database before the test.
+                dropDatabase().then(() => {
+                    // Inject a user.
+                    return createUser(this.testData.validEmail1, this.testData.validPassword1);
+                }).then(done);
+            });
+
+            beforeEach((done) => {
+                // Create a spy on the getUser function.
+                spyOn(userRead, "getUser").and.callThrough();
+
+                done();
+            });
+
+            it("returns true for a correct user and password combination.", (done) => {
+                checkPass(this.testData.validEmail1, this.testData.validPassword1).then((result) => {
+                    // Make sure we call the getUser function of the read module.
+                    expect(userRead.getUser).toHaveBeenCalledWith(this.testData.validEmail1);
+
+                    expect(result).toBeTruthy();
+                }).finally(() => {
+                    done();
+                })
+            });
+
+            it("returns false for a correct user and a wrong password.", (done) => {
+                // Make sure we call the getUser function of the read module.
+                checkPass(this.testData.validEmail1, this.testData.validPassword2).then((result) => {
+                    expect(userRead.getUser).toHaveBeenCalledWith(this.testData.validEmail1);
+
+                    expect(result).toBeFalsy();
+                }).finally(() => {
+                    done();
+                })
+            });
+
+            it("returns false for a non-existing user.", (done) => {
+                checkPass(this.testData.validEmail2, this.testData.validPassword1).then((result) => {
+                    // Make sure we call the getUser function of the read module.
+                    expect(userRead.getUser).toHaveBeenCalledWith(this.testData.validEmail2);
+
+                    expect(result).toBeFalsy();
+                }).finally(() => {
+                    done();
+                })
+            });
+        });
+    });
+
     describe("read module", () => {
         beforeEach((done) => {
             // Define common test data.
@@ -132,7 +195,7 @@ describe("The user controller", () => {
         it("should get the requested user if it exists.", (done) => {
             // Create a new user.
             createUser(this.testData.validEmail1, this.testData.validPassword).then(() => {
-                return getUser(this.testData.validEmail1);
+                return userRead.getUser(this.testData.validEmail1);
             }).then((user) => {
                 // Check that the data matches the injected user.
                 expect(user.email).toBe(this.testData.validEmail1);
@@ -146,7 +209,7 @@ describe("The user controller", () => {
         it("should get no user if the requested user does not exist.", (done) => {
             // Create a new user.
             createUser(this.testData.validEmail1, this.testData.validPassword).then(() => {
-                return getUser(this.testData.validEmail2);
+                return userRead.getUser(this.testData.validEmail2);
             }).then(() => {
                 fail("Promise should not be fulfilled.");
             }).finally(() => {
