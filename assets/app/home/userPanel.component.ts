@@ -24,6 +24,8 @@ export class UserPanelComponent implements OnInit {
     patchUser = new PatchUser('','','','','','');
     emailInUse = false;
     pwChangeFail = false;
+    passwordMatching = true;
+    retypedPassword = '';
 
     constructor(private jwtHelper: JwtHelper,
                 public homeService: HomeService){
@@ -34,6 +36,11 @@ export class UserPanelComponent implements OnInit {
         if(userPatch.email.length < 5){
             return;
         }
+
+        if(this.retypedPassword !== this.patchUser.newPassword){
+            return this.passwordMatching = false;
+        }
+        this.passwordMatching = true;
 
         if(userPatch.currentPassword && userPatch.newPassword){
             this.homeService.patchUserPassword(userPatch.email,

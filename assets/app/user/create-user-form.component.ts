@@ -5,6 +5,7 @@ import {Component} from "@angular/core";
 import {User} from "./user";
 import {ROUTER_DIRECTIVES, Router} from "@angular/router";
 import {UserService} from "./user.service";
+import {model} from "mongoose";
 
 @Component({
     selector: 'user-form',
@@ -15,6 +16,8 @@ import {UserService} from "./user.service";
 
 export class CreateUserComponent{
     model = new User('', '');
+    retypedPassword = '';
+    passwordMatching = true;
     userInUse = false;
 
     constructor(private userService: UserService,
@@ -26,6 +29,11 @@ export class CreateUserComponent{
         if (!email || !password){
             return;
         }
+        if(this.model.password !== this.retypedPassword){
+            return this.passwordMatching = false;
+        }
+
+        this.passwordMatching = true;
 
 
         this.userService.getUserByEmail(email.toLowerCase()).subscribe(

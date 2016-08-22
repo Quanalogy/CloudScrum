@@ -15,7 +15,14 @@
             <input type="password" class="form-control" required
             [(ngModel)]="model.password" name="password">
         </div>
-
+        <div class="form-group">
+            <label for="passwordRetype">Retype password</label>
+            <input type="password" class="form-control" required
+                   [(ngModel)]="retypedPassword" name="passwordRetype">
+        </div>
+        <div *ngIf="!passwordMatching" class="alert alert-dismissible fade in" role="alert">
+            Passwords not matching!
+        </div>
         <button type="submit" class="btn btn-default"
                 (click)="createUser(model.email, model.password)">Submit</button>
     </form>
