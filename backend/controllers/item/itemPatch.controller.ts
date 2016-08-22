@@ -10,13 +10,21 @@ export function patchItem(item: IItemDocument): Promise<boolean>{
         if(!item.name  || (!item.category && item.category !== 0) || !item.estimate){
             reject(false);
         }
-        Items.findByIdAndUpdate(item._id, item, (err, res) => {
+        let id = item._id;
+        Items.findByIdAndUpdate(id, item, (err, doc) => {
             //TODO update this with error handling
             if(err){
                 console.log(err);
                 reject(false);
             }
-            resolve(true);
+            if(!doc){
+                console.log("Doc is empty");
+                resolve(false);
+            } else {
+                doc.category = item.category;
+                doc.save();
+                resolve(true);
+            }
         });
     });
 }

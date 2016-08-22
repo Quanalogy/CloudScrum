@@ -10,6 +10,7 @@ export interface IItem {
     progress: number,
     creationDate: Date,
     revisionDate: Date,
+    _id: any,
     assignee?: string,
     priority?: number
 

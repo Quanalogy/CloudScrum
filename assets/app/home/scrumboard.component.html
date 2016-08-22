@@ -26,8 +26,8 @@
     <ul>
         <li class="menubar">
             <h3 class="doNotMove">Backlog</h3>
-            <ul [dragula]='"bag-one"' id="backlog" [dragulaModel]='itemArray'>
-                <li *ngFor="let item of itemArray">
+            <ul [dragula]='"bag-one"' id="backlog" [dragulaModel]='backlogArray'>
+                <li *ngFor="let item of backlogArray">
                     {{item.name}}
                 </li>
             </ul>
