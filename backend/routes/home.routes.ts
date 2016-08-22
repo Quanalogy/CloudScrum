@@ -2,8 +2,8 @@
  * Created by munk on 10-08-16.
  */
 import { Router, Request,Response } from "express";
-import {JSONSendPatchResponse} from "../utilities/JSONSender";
-import {patchUserPassword} from "../controllers/user/userPatch.controller";
+import {JSONSendPatchResponse, JSONSendError} from "../utilities/JSONSender";
+import {patchUserPassword, patchUserDetails} from "../controllers/user/userPatch.controller";
 
 const router = Router();
 
@@ -19,6 +19,16 @@ router.patch("/", (req: Request, res: Response, next) => {
             JSONSendPatchResponse(res, result);
         }
     );
+});
+
+router.patch("/userDetails", (req: Request, res: Response) => {
+    patchUserDetails(req.body.email, req.body.name, req.body.phoneNumber, req.body.picture).then(
+        result => {
+            JSONSendPatchResponse(res, result);
+        }, err => {
+            JSONSendError(res, err);
+        }
+    )
 });
 
 module.exports = router;

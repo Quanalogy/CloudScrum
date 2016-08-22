@@ -12,10 +12,6 @@ import {HomeService} from "../home.service";
     template: require("./userPanel.component.html"),
     directives: [ROUTER_DIRECTIVES],
     providers: [
-        /*HomeService,
-        AuthHttp,
-        AuthConfig,
-        UserService,*/
         JwtHelper]
 })
 
@@ -37,6 +33,7 @@ export class UserPanelComponent implements OnInit {
             return;
         }
 
+
         if(this.retypedPassword !== this.patchUser.newPassword){
             return this.passwordMatching = false;
         }
@@ -52,6 +49,16 @@ export class UserPanelComponent implements OnInit {
                     } else {
                         this.pwChangeFail = true;
                     }
+                });
+        }
+
+        if(userPatch.name || userPatch.phoneNumber || userPatch.picture){
+            this.homeService.patchUserDetails(userPatch.email,
+                userPatch.name, userPatch.phoneNumber, userPatch.picture)
+                .subscribe(res => {
+                    console.log(res);
+                }, err => {
+                    console.log(err);
                 });
         }
     }
