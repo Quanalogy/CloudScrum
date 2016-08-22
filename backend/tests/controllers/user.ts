@@ -1,9 +1,8 @@
 import {connect, dropDatabase} from "../../config/mongodb";
-import {Users, IUserDocument} from "../../models/UserModel";
 import {createUser} from "../../controllers/user/userControllerCreate";
 
 import Promise = require("bluebird");
-
+import {Users} from "../../models/UserModel";
 
 beforeAll((done) => {
     // Connect to the database.
@@ -23,13 +22,14 @@ describe("The user controller", () => {
                 invalidPassword: "abcdef1!"
             };
 
-            // Stub the password creation in the model, to save time during tests. This is already tested in the model.
-
             // Cleanup the database before each test.
             dropDatabase().then(done);
         });
 
         it("cannot create a user with in invalid email.", (done) => {
+            // Stub the password creation in the model, to save time during tests. This is already tested in the model.
+            spyOn(Users.prototype, "createPassword").and.returnValue(true);
+
             // Create a new user.
             createUser(this.testData.invalidEmail, this.testData.validPassword).then(() => {
                 fail(new Error("Promise should not be fulfilled."));
@@ -59,6 +59,9 @@ describe("The user controller", () => {
         });
 
         it("cannot create a user which exists in the database.", (done) => {
+            // Stub the password creation in the model, to save time during tests. This is already tested in the model.
+            spyOn(Users.prototype, "createPassword").and.returnValue(true);
+
             createUser(this.testData.validEmail1, this.testData.validPassword).then(() => {
                 return createUser(this.testData.validEmail1, this.testData.validPassword);
             }).then(() => {
@@ -72,6 +75,9 @@ describe("The user controller", () => {
         });
 
         it("can create a user with valid data.", (done) => {
+            // Stub the password creation in the model, to save time during tests. This is already tested in the model.
+            spyOn(Users.prototype, "createPassword").and.returnValue(true);
+
             // Create a new user.
             createUser(this.testData.validEmail1, this.testData.validPassword).then((user) => {
                 // Check that the data matches.
@@ -85,6 +91,9 @@ describe("The user controller", () => {
         });
 
         it("does convert uppercase emails to lowercase.", (done) => {
+            // Stub the password creation in the model, to save time during tests. This is already tested in the model.
+            spyOn(Users.prototype, "createPassword").and.returnValue(true);
+
             // Create a new user.
             createUser(this.testData.validEmail1UpperCase, this.testData.validPassword).then((user) => {
                 // Check that the data matches.
