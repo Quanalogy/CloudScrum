@@ -16,9 +16,9 @@ import {HomeGuard} from "./home/home.guard";
 import {UserService} from "./user/user.service";
 import {JwtHelper, AuthHttp, AuthConfig} from "angular2-jwt";
 import {HomeService} from "./home/home.service";
-import {ScrumboardComponent} from "./home/scrumboard/scrumboard.component";
+import {ScrumboardComponent} from "./home/project/scrumboard/scrumboard.component";
 import {DragulaService} from 'ng2-dragula/ng2-dragula';
-import {ItemComponent} from "./home/scrumboard/item/item.component";
+import {ItemComponent} from "./home/project/scrumboard/item/item.component";
 
 
 // For info abot @NgModule
