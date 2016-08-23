@@ -1,11 +1,10 @@
 import { Router, Request,Response } from "express";
 import jwt = require("jsonwebtoken");
 
-import { getUser, checkPass } from "../controllers/user/userControllerRead";
-import { createUser } from "../controllers/user/userControllerCreate";
+import {getUser} from "../controllers/user/userControllerRead";
+import {createUser} from "../controllers/user/userControllerCreate";
 import {JSONSendLoginOk, JSONSendError, JSONSendPatchResponse} from "../utilities/JSONSender";
-import {patchUserPassword} from "../controllers/user/userPatch.controller";
-
+import {changePass, checkPass} from "../controllers/user/controller.user.utility";
 
 const router = Router();
 
