@@ -23,10 +23,16 @@ export class UserPanelComponent implements OnInit {
     passwordMatching = true;
     retypedPassword = '';
 
+    filesToUpload: Array<File>;
+
     constructor(private jwtHelper: JwtHelper,
                 public homeService: HomeService){
-
+        this.filesToUpload = [];
     }
+
+    upload(){
+    }
+
 
     updateUserDetails(userPatch: PatchUser){
         if(userPatch.email.length < 5){

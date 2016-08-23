@@ -23,7 +23,7 @@
         </div>
         <div class="form-group">
             <label for="passwordRetype">Retype password</label>
-            <input type="password" class="form-control" required
+            <input type="password" class="form-control"
                    [(ngModel)]="retypedPassword" name="passwordRetype">
         </div>
         <div *ngIf="!passwordMatching" class="alert alert-dismissible fade in" role="alert">
@@ -38,10 +38,6 @@
             <label for="phonenumber">Phone number</label>
             <input type="text" class="form-control" name="phonenumber"
                    [(ngModel)]="patchUser.phoneNumber">
-        </div>
-        <div class="form-group">
-            <label for="picture">Picture</label>
-            <button type="button" name="picture" class="btn">Browse computer</button>
         </div>
         <button type="submit" class="btn btn-default"
                 (click)="updateUserDetails(patchUser)">
