@@ -12,6 +12,7 @@ const userRoutes = require("./routes/user.routes");
 const homeRoutes = require("./routes/home.routes");
 const catchAllRoutes = require("./routes/catchAll.routes");
 const itemRoutes = require("./routes/items.routes");
+const projectRoutes = require("./routes/projects.routes");
 
 import * as mongoConfig from "./config/mongodb";
 
@@ -54,4 +55,5 @@ app.use('/', appRoutes);
 app.use('/users', userRoutes);
 app.use('/home', homeRoutes);
 app.use('/items', itemRoutes);
+app.use('/projects', projectRoutes);
 app.use('*', catchAllRoutes);
