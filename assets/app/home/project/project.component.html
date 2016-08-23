@@ -1,24 +1,4 @@
-<div class="container">
-    <h2>Projects</h2>
-
-    <div class="container">
-        <h3>Create new project</h3>
-        <div class="form-group">
-            <label for="projectName">Project Name</label>
-            <input type="text" class="form-control" name="projectName"
-                   [(ngModel)]="newProject" required>
-        </div>
-        <div *ngIf="projectCreateError">
-            Error in creating project
-        </div>
-        <button type="submit" class="btn btn-default" (click)="createProject()">Create project!</button>
-    </div>
-
-    <div class="container">
-        <h3>Enlisted projects</h3>
-        <div *ngFor="let project of userProjects">
-            {{project.name}}
-        </div>
-    </div>
-
+<div class="project" id="{{project._id}}">
+    <div hidden>{{project._id}}</div>
+    <div class="item-header">{{project.name}}</div>
 </div>

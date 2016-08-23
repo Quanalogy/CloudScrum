@@ -6,7 +6,7 @@ import {HomeComponent} from "./home.component";
 import {UserPanelComponent} from "./userpanel/userPanel.component";
 import {HomeGuard} from "./home.guard";
 import {ScrumboardComponent} from "./project/scrumboard/scrumboard.component";
-import {ProjectComponent} from "./project/project.component";
+import {ProjectsComponent} from "./project/projects.component";
 
 export const HomeRoutes: Routes = [{
         path: 'home',
@@ -16,6 +16,6 @@ export const HomeRoutes: Routes = [{
             {path: '', redirectTo: 'userpanel', pathMatch: 'full'},
             {path: 'userpanel', component: UserPanelComponent},
             {path: 'scrumboard', component: ScrumboardComponent},
-            {path: 'projects', component: ProjectComponent}
+            {path: 'projects', component: ProjectsComponent}
         ]
 }];
