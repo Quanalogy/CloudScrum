@@ -1,6 +1,6 @@
 
-import {IItem} from "../../../../../backend/models/item/IItem";
-import {EItemCategory} from "../../../../../backend/models/item/EItemCategory";
+import {IItem} from "../../../../../../backend/models/item/IItem";
+import {EItemCategory} from "../../../../../../backend/models/item/EItemCategory";
 /**
  * Created by munk on 12-08-16.
  */

@@ -6,8 +6,8 @@ import {Component, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {DragulaService, Dragula} from 'ng2-dragula/ng2-dragula';
 import {Item} from "./item/item";
-import {EItemCategory} from "../../../../backend/models/item/EItemCategory";
-import {HomeService} from "../home.service";
+import {EItemCategory} from "../../../../../backend/models/item/EItemCategory";
+import {HomeService} from "../../home.service";
 
 
 @Component({
