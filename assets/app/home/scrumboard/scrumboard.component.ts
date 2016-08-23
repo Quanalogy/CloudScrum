@@ -58,6 +58,7 @@ export class ScrumboardComponent implements OnInit{
 
         dragulaService.dropModel.subscribe(value => {    // when element dropped into new category, the category attribute should update
             this.onDrop(value.slice(1)[0], value.slice(2)[0].id);
+            console.log("this is value", value);
         });
     }
 
@@ -65,12 +66,16 @@ export class ScrumboardComponent implements OnInit{
     //TODO make a better way of getting the element. Atm this is done by getting inner HTML, but this won't work when the elements includes more than the name!!
     private onDrop(el, id) {
 
-        let elementName: string = el.innerHTML.replace(/\s/g, '');
+        const regexp = /^([^\s]*)/;
+        // let elementName: string = el.innerHTML.replace(/\s/g, '');
+        let elementName: string = el.innerText.trim();
+        let elementId = regexp.exec(elementName)[1];
 
+        console.log("This is element _id:", elementId);
         switch (id.toString()){
             case "backlog":
                 this.backlogArray.forEach((value, index, array) => {
-                    if(value.name === elementName){
+                    if(value._id === elementId){
                         value.category = EItemCategory.backlog;
                         this.patchItem(value);
                     }
@@ -78,7 +83,7 @@ export class ScrumboardComponent implements OnInit{
                 return;
             case "inProgress":
                 this.inprogressArray.forEach((value, index, array) => {
-                    if(value.name === elementName){
+                    if(value._id === elementId){
                         value.category = EItemCategory.inProgress;
                         this.patchItem(value);
                     }
@@ -86,7 +91,7 @@ export class ScrumboardComponent implements OnInit{
                 return;
             case "review":
                 this.reviewArray.forEach((value, index, array) => {
-                    if(value.name === elementName){
+                    if(value._id === elementId){
                         value.category = EItemCategory.review;
                         this.patchItem(value);
                     }
@@ -94,7 +99,7 @@ export class ScrumboardComponent implements OnInit{
                 return;
             case "done":
                 this.doneArray.forEach((value, index, array) => {
-                    if(value.name === elementName){
+                    if(value._id === elementId){
                         value.category = EItemCategory.done;
                         this.patchItem(value);
                     }
