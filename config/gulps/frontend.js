@@ -75,16 +75,13 @@ gulp.task("watch-webpack", function(done) {
     var fs = require("fs");
 
     var quanalogyPath = "/home/munk/.local/install/node/bin/webpack";
-    var webpackExecutable = "webpack";
+    var webpackExecutable = quanalogyPath;
 
-    fs.access(quanalogyPath, fs.F_OK, function(err) {
-        if (!err) {
-            // We have to use the workaround.
-            webpackExecutable = quanalogyPath;
-        } else {
-            // It isn't accessible, use the default.
-        }
-    });
+    try {
+        fs.accessSync(webpackExecutable, fs.F_OK);
+    } catch (e) {
+        webpackExecutable = "webpack";
+    }
 
     // TODO: Maybe switch to cross-spawn?
     const webpackWatchHandle = spawn(webpackExecutable, ["--watch", "--colors", "--config", path.join(variables.webpackFolder, "webpack.dev")]);
