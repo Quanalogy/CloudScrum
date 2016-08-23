@@ -7,7 +7,7 @@ var backendFolder = path.join(projectRoot, "backend/");
 var frontendFolder = path.join(projectRoot, "assets/app/");
 var interfaceFolder = path.join(projectRoot, "interfaces/");
 var publicFolder = path.join(projectRoot, "public/");
-var stylesheetsFolder = path.join(projectRoot, "assets/stylesheet/")
+var stylesheetsFolder = path.join(projectRoot, "assets/stylesheets/");
 var tsconfigPath = path.join(projectRoot, "tsconfig.json");
 var webpackFolder = path.join(projectRoot, "config/webpack/");
 
