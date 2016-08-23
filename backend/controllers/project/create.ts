@@ -7,6 +7,11 @@ import {ERoles} from "../../models/user/ERole";
 
 export function create(name: string, master: string, users?: [string]): Promise<IProjectDocument> {
     return Promise.try<IProjectDocument>(() => {
+        // Check the input data.
+        if (!name) {
+            throw new Error("Invalid name supplied.");
+        }
+
         // Lookup the user.
         return getUser(master).then((scrumMaster) => {
             // Create a new project.

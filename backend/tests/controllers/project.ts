@@ -34,8 +34,28 @@ describe("The project controller", () => {
             }).finally(done);
         });
 
+        it("cannot create a project with no name", (done) => {
+            create(null, this.testData.testEmailMaster).then(() => {
+                fail("Promise should be rejected.");
+            }, () => {
+                //
+            }).finally(() => {
+                done();
+            });
+        });
+
+        it("cannot create a project with a blank name", (done) => {
+            create("", this.testData.testEmailMaster).then(() => {
+                fail("Promise should be rejected.");
+            }, () => {
+                //
+            }).finally(() => {
+                done();
+            });
+        });
+
         it("can not create a project without a ScrumMaster.", (done) => {
-            create(this.testData.projectName, "").then((result) => {
+            create(this.testData.projectName, "").then(() => {
                 fail("Promise should be rejected.");
             }, () => {
                 //
