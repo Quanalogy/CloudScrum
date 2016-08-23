@@ -19,24 +19,6 @@ describe("The user model", () => {
         done();
     });
 
-    it("cannot accept a password longer than 64 characters.", (done) => {
-        // Define the test data. We test the boundary.
-        const testStringInvalid = "abcdeF!1abcdeF!1abcdeF!1abcdeF!1abcdeF!1abcdeF!1abcdeF!1abcdeF!1a";
-        const testStringValid = "abcdeF!1abcdeF!1abcdeF!1abcdeF!1abcdeF!1abcdeF!1abcdeF!1abcdeF!1";
-
-        // Create a new user.
-        const user: IUserDocument = new Users();
-
-        // Attempt to create a password.
-        expect(testStringInvalid.length).toBeGreaterThan(64);
-        expect(testStringValid.length).toBe(64);
-
-        expect(user.createPassword(testStringInvalid)).toBeFalsy();
-        expect(user.createPassword(testStringValid)).toBeTruthy();
-
-        done();
-    });
-
     it("cannot accept a password without the presence of lowercase, uppercase, digit and a special character.", (done) => {
         // Define the test data. We test the boundary.
         const testStringInvalid1 = "abcdef!1";
