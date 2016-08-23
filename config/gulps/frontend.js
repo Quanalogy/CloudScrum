@@ -71,8 +71,23 @@ gulp.task("watch-frontend", ["watch-webpack"], function() {
 // For Alex "/home/munk/.local/install/node/bin/webpack" is first argument in spawn.
 // For Magnus "webpack" is first argument in spawn
 gulp.task("watch-webpack", function(done) {
+    // Hack to handle path for Quanalogy. See if webpack exists in the local filesystem.
+    var fs = require("fs");
+
+    var quanalogyPath = "/home/munk/.local/install/node/bin/webpack";
+    var webpackExecutable = "webpack";
+
+    fs.access(quanalogyPath, fs.F_OK, function(err) {
+        if (!err) {
+            // We have to use the workaround.
+            webpackExecutable = quanalogyPath;
+        } else {
+            // It isn't accessible, use the default.
+        }
+    });
+
     // TODO: Maybe switch to cross-spawn?
-    const webpackWatchHandle = spawn("/home/munk/.local/install/node/bin/webpack", ["--watch", "--colors", "--config", path.join(variables.webpackFolder, "webpack.dev")]);
+    const webpackWatchHandle = spawn(webpackExecutable, ["--watch", "--colors", "--config", path.join(variables.webpackFolder, "webpack.dev")]);
 
     webpackWatchHandle.stderr.on("data", function(data) {
         console.log("stderr:" + data);
