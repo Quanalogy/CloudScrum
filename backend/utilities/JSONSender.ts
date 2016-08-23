@@ -35,6 +35,13 @@ export function JSONSendPatchResponse(res: Response, success: boolean){
     sendResponse(res, message);
 }
 
+export function JSONSendItemResponse(res: Response, success: boolean){
+    const message: IJSONOk = {
+        ok: success
+    };
+    sendResponse(res, message);
+}
+
 
 function sendResponse(res: Response, message: any) {
     // Convert the message to JSON and send it.

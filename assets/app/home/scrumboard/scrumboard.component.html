@@ -1,0 +1,60 @@
+<!--<div class="container" *ngIf="addingMode">
+    <label for="itemInput">Lav et nyt item</label>
+    <input type="text" name="itemInput" [(ngModel)]="inputName">
+    <button type="button" class="btn" (click)="addItem(inputName)">+</button>
+</div>-->
+
+<div class="container" *ngIf="addingMode">
+    <form>
+        <label for="itemName">Name of new item</label>
+        <input type="text" name="itemName" [(ngModel)]="itemModel.name" required>
+        <label for="itemDesc">Description</label>
+        <input type="text" name="itemDesc" [(ngModel)]="itemModel.description">
+        <label for="itemEstimate">Estimate</label>
+        <input type="number" name="itemEstimate" [(ngModel)]="itemModel.estimate" required>
+        <label for="itemAssignee">Assignee</label>
+        <input type="text" name="itemAssignee" [(ngModel)]="itemModel.assignee">
+        <label for="itemPriority">Priority</label>
+        <input type="number" name="itemPriority" [(ngModel)]="itemModel.priority">
+        <button type="submit" class="btn btn-default" (click)="postItem()">+</button>
+    </form>
+</div>
+
+<button type="button" class="btn" (click)="addingMode=true" *ngIf="!addingMode">+</button>
+
+<div>
+    <ul>
+        <li class="menubar">
+            <h3 class="doNotMove">Backlog</h3>
+            <ul [dragula]='"bag-one"' id="backlog" [dragulaModel]='backlogArray'>
+                <li *ngFor="let item of backlogArray">
+                    {{item.name}}
+                </li>
+            </ul>
+        </li>
+        <li class="menubar bag2">
+            <h3 class="doNotMove">In progress</h3>
+            <ul [dragula]='"bag-one"' id="inProgress" [dragulaModel]='inprogressArray'>
+                <li *ngFor="let progress of inprogressArray" >
+                    {{progress.name}}
+                </li>
+            </ul>
+        </li>
+        <li class="menubar bag3" >
+            <h3 class="doNotMove">Review</h3>
+            <ul [dragula]='"bag-one"' id="review" [dragulaModel]='reviewArray'>
+                <li *ngFor="let review of reviewArray" >
+                    {{review.name}}
+                </li>
+            </ul>
+        </li>
+        <li class="menubar bag4" [dragula]='"bag-four"'>
+            <h3 class="doNotMove">Done</h3>
+            <ul [dragula]='"bag-one"' id="done" [dragulaModel]='doneArray'>
+                <li *ngFor="let done of doneArray" >
+                    {{done.name}}
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>

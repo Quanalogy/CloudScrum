@@ -1,11 +1,10 @@
 import { Router, Request,Response } from "express";
 import jwt = require("jsonwebtoken");
 
-import { getUser, checkPass } from "../controllers/user/userControllerRead";
-import { createUser } from "../controllers/user/userControllerCreate";
+import {getUser} from "../controllers/user/userControllerRead";
+import {createUser} from "../controllers/user/userControllerCreate";
 import {JSONSendLoginOk, JSONSendError, JSONSendPatchResponse} from "../utilities/JSONSender";
-import {patchUserPassword} from "../controllers/user/userPatch.controller";
-
+import {changePass, checkPass} from "../controllers/user/controller.user.utility";
 
 const router = Router();
 
@@ -33,7 +32,9 @@ router.post("/", (req: Request, res: Response) =>{
 //Login
 router.post("/login", (req: Request, res: Response) => {
     checkPass(req.body.email, req.body.password).then((success) => {
-        const userToken = jwt.sign({email: req.body.email}, 'L33tWallahWallah');
+        const userToken = jwt.sign({email: req.body.email}, 'L33tWallahWallah', {
+            expiresIn: 3600
+        });
         JSONSendLoginOk(res, userToken);
     }, (failure) => {
         JSONSendError(res);
@@ -42,14 +43,7 @@ router.post("/login", (req: Request, res: Response) => {
 
 
 
-// Edit an existing user.
-router.patch("/", (req: Request, res: Response, next) => {
-    patchUserPassword(req.body.email, req.body.currentPassword, req.body.newPassword).then(
-        (result) => {
-            JSONSendPatchResponse(res, result);
-        }
-    );
-});
+
 
 // Overwrite an existing user.
 router.put("/", (req: Request, res: Response, next) => {

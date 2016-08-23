@@ -11,12 +11,12 @@ import {PageNotFound} from "./page-not-found.component";
 import {LoginComponent} from "./user/login.component";
 import {CreateUserComponent} from "./user/create-user-form.component";
 import {HomeComponent} from "./home/home.component";
-import {UserPanelComponent} from "./home/userPanel.component";
+import {UserPanelComponent} from "./home/userpanel/userPanel.component";
 import {HomeGuard} from "./home/home.guard";
 import {UserService} from "./user/user.service";
 import {JwtHelper, AuthHttp, AuthConfig} from "angular2-jwt";
 import {HomeService} from "./home/home.service";
-import {ScrumboardComponent} from "./home/scrumboard.component";
+import {ScrumboardComponent} from "./home/scrumboard/scrumboard.component";
 import {DragulaService} from 'ng2-dragula/ng2-dragula';
 
 

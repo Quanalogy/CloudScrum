@@ -5,17 +5,13 @@ import {Component, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {JwtHelper} from "angular2-jwt";
 import {PatchUser} from "./patchUser";
-import {HomeService} from "./home.service";
+import {HomeService} from "../home.service";
 
 @Component({
     selector: 'userPanel-component',
     template: require("./userPanel.component.html"),
     directives: [ROUTER_DIRECTIVES],
     providers: [
-        /*HomeService,
-        AuthHttp,
-        AuthConfig,
-        UserService,*/
         JwtHelper]
 })
 
@@ -24,16 +20,30 @@ export class UserPanelComponent implements OnInit {
     patchUser = new PatchUser('','','','','','');
     emailInUse = false;
     pwChangeFail = false;
+    passwordMatching = true;
+    retypedPassword = '';
+
+    filesToUpload: Array<File>;
 
     constructor(private jwtHelper: JwtHelper,
                 public homeService: HomeService){
-
+        this.filesToUpload = [];
     }
+
+    upload(){
+    }
+
 
     updateUserDetails(userPatch: PatchUser){
         if(userPatch.email.length < 5){
             return;
         }
+
+
+        if(this.retypedPassword !== this.patchUser.newPassword){
+            return this.passwordMatching = false;
+        }
+        this.passwordMatching = true;
 
         if(userPatch.currentPassword && userPatch.newPassword){
             this.homeService.patchUserPassword(userPatch.email,
@@ -45,6 +55,16 @@ export class UserPanelComponent implements OnInit {
                     } else {
                         this.pwChangeFail = true;
                     }
+                });
+        }
+
+        if(userPatch.name || userPatch.phoneNumber || userPatch.picture){
+            this.homeService.patchUserDetails(userPatch.email,
+                userPatch.name, userPatch.phoneNumber, userPatch.picture)
+                .subscribe(res => {
+                    console.log(res);
+                }, err => {
+                    console.log(err);
                 });
         }
     }
