@@ -14,7 +14,7 @@ import {Project} from "./project/project";
 @Injectable()
 export class HomeService{
     patchPWURL = "/home/";
-    projectURL = "/projects/";
+    projectsURL = "/projects/";
     patchDetailsURL = "/home/userDetails";
     itemsURL = "/items";
     token = 'bearer ' + localStorage.getItem("token");
@@ -31,13 +31,13 @@ export class HomeService{
         let headers = new Headers({'Authorization': token});
         let options = new RequestOptions({headers: headers});
 
-        return this.http.get(this.projectURL, options).map(res => res.json());
+        return this.http.get(this.projectsURL, options).map(res => res.json());
     }
 
     // For creating a new project
     postProject(name: string): Observable<IJSONOk>{
         let body = JSON.stringify({name: name});
-        return this.http.post(this.projectURL, body, this.options).map(res => res.json());
+        return this.http.post(this.projectsURL, body, this.options).map(res => res.json());
     }
 
 

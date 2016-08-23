@@ -5,7 +5,7 @@
         <h3>Create new project</h3>
         <div class="form-group">
             <label for="projectName">Project Name</label>
-            <input type="text" class="form-control" name="projectName"
+            <input type="text" class="form-control" id="projectName"
                    [(ngModel)]="newProject" required>
         </div>
         <div *ngIf="projectCreateError">

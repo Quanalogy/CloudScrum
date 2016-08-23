@@ -38,7 +38,7 @@ router.post("/", (req: Request, res: Response) => {
 
     console.log(user);
 
-    create(req.body.item, user.email)
+    create(req.body.name, user.email)
         .then(() => {
             JSONSendItemResponse(res, true)
         }, (err) => {
