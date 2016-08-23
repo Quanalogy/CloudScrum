@@ -33,5 +33,5 @@ gulp.task("clean-backend", function() {
 
 // Watch task for the backend.
 gulp.task("watch-backend", function() {
-    gulp.watch(path.join(variables.backendFolder, "/**/*.ts"), ["build-ts-server"]);
+    gulp.watch(path.join(variables.backendFolder, "/**/*.ts"), ["build-ts-backend"]);
 });
