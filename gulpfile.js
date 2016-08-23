@@ -8,8 +8,7 @@ requireDir(path.join(__dirname, "config/gulps"));
 // Define the default task.
 gulp.task("default", function(done) {
     runSequence("build",
-        "watch",
-        done
+        "watch"
     );
 });
 

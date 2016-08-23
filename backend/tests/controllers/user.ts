@@ -2,7 +2,7 @@ import Promise = require("bluebird");
 
 import {connect, dropDatabase} from "../../config/mongodb";
 import {createUser} from "../../controllers/user/userControllerCreate";
-import {Users} from "../../models/UserModel";
+import {Users} from "../../models/user/UserModel";
 import * as userRead from "../../controllers/user/userControllerRead";
 import {checkPass} from "../../controllers/user/controller.user.utility";
 

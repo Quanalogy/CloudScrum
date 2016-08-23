@@ -1,4 +1,4 @@
-import {Users, IUserDocument} from "../../models/UserModel";
+import {Users, IUserDocument} from "../../models/user/UserModel";
 
 describe("The user model", () => {
     it("cannot accept a password shorter than 8 characters.", (done) => {

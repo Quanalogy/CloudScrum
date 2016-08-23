@@ -14,8 +14,8 @@ import "angular2-jwt";
 import "rxjs";
 
 // Dragula.
-import "dragula";
-import "ng2-dragula";
+// import "dragula";
+// import "ng2-dragula";
 
 // Other vendors for example jQuery, Lodash or Bootstrap
 // You can import js, ts, css, sass, ...

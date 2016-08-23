@@ -67,9 +67,12 @@ gulp.task("watch-frontend", ["watch-webpack"], function() {
 });
 
 // Start the webpack watch task.
+// TODO fix if files exists for the first spawn.
+// For Alex "/home/munk/.local/install/node/bin/webpack" is first argument in spawn.
+// For Magnus "webpack" is first argument in spawn
 gulp.task("watch-webpack", function(done) {
     // TODO: Maybe switch to cross-spawn?
-    const webpackWatchHandle = spawn("webpack", ["--watch", "--colors", "--config", path.join(variables.webpackFolder, "webpack.dev")]);
+    const webpackWatchHandle = spawn("/home/munk/.local/install/node/bin/webpack", ["--watch", "--colors", "--config", path.join(variables.webpackFolder, "webpack.dev")]);
 
     webpackWatchHandle.stderr.on("data", function(data) {
         console.log("stderr:" + data);
@@ -90,6 +93,9 @@ gulp.task("watch-webpack", function(done) {
     // Register an event that will close down webpack if we stop gulp.
     process.on("SIGINT", function () {
         webpackWatchHandle.kill();
+    });
+    webpackWatchHandle.on("error", function (err) {
+        throw err;
     });
 
     done();
