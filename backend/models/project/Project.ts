@@ -2,10 +2,9 @@ import * as mongoose from "mongoose";
 
 import {IProject} from "./IProject";
 
-
 const projectSchema = new mongoose.Schema({
     name: String,
-    access: Array
+    access: [{}]
 });
 
 // Create the document interface.
