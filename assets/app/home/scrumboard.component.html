@@ -1,0 +1,42 @@
+<div class="container">
+    <label for="itemInput">Lav et nyt item</label>
+    <input type="text" id="itemInput" [(ngModel)]="inputName">
+    <button type="button" class="btn" (click)="addItem(inputName)">+</button>
+</div>
+
+<div>
+    <ul>
+        <li class="menubar">
+            <h3 class="doNotMove">Backlog size {{itemArraySize}}</h3>
+            <ul [dragula]='"bag-one"' id="backlog" [dragulaModel]='itemArray'>
+                <li *ngFor="let item of itemArray">
+                    <item-component [item]=item></item-component>
+                </li>
+            </ul>
+        </li>
+        <li class="menubar bag2">
+            <h3 class="doNotMove">In progress size {{inprogressArraySize}}</h3>
+            <ul [dragula]='"bag-one"' id="inProgress" [dragulaModel]='inprogressArray'>
+                <li *ngFor="let progress of inprogressArray" >
+                    <item-component [item]=progress></item-component>
+                </li>
+            </ul>
+        </li>
+        <li class="menubar bag3" >
+            <h3 class="doNotMove">Review size {{reviewArraySize}}</h3>
+            <ul [dragula]='"bag-one"' id="review" [dragulaModel]='reviewArray'>
+                <li *ngFor="let review of reviewArray" >
+                    <item-component [item]=review></item-component>
+                </li>
+            </ul>
+        </li>
+        <li class="menubar bag4" [dragula]='"bag-four"'>
+            <h3 class="doNotMove">Done size {{doneArraySize}}</h3>
+            <ul [dragula]='"bag-one"' id="done" [dragulaModel]='doneArray'>
+                <li *ngFor="let done of doneArray" >
+                    <item-component [item]=done></item-component>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>

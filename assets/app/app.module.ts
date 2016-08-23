@@ -18,6 +18,7 @@ import {JwtHelper, AuthHttp, AuthConfig} from "angular2-jwt";
 import {HomeService} from "./home/home.service";
 import {ScrumboardComponent} from "./home/scrumboard/scrumboard.component";
 import {DragulaService} from 'ng2-dragula/ng2-dragula';
+import {ItemComponent} from "./home/scrumboard/item/item.component";
 
 
 // For info abot @NgModule
@@ -29,6 +30,7 @@ import {DragulaService} from 'ng2-dragula/ng2-dragula';
         LoginComponent,
         CreateUserComponent,
         HomeComponent,
+        ItemComponent,
         UserPanelComponent,
         ScrumboardComponent
     ],
