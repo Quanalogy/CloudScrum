@@ -36,23 +36,19 @@ export class CreateUserComponent{
         this.passwordMatching = true;
 
 
-        this.userService.getUserByEmail(email.toLowerCase()).subscribe(
-            (data) => {
-                // An email can never be shorter than 5 characters.
-                if(data.email.length < 5){
-                    this.userService.postUser(email.toLowerCase(), password).then(
-                        (success) => {
-                            this.userInUse = false;
-                            this.router.navigateByUrl('');
-                    }, (failure) => {
-                            this.userInUse = true;
-                        });
-                } else {
+        this.userService.isEmailAvailable(email.toLowerCase()).subscribe((res: boolean) => {
+            // An email can never be shorter than 5 characters.
+            if (res) {
+                this.userService.postUser(email.toLowerCase(), password).then(() => {
+                    this.userInUse = false;
+                    this.router.navigateByUrl("");
+                }, () => {
                     this.userInUse = true;
-                }
-            },
-            (err) => this.handleError(err)
-        );
+                });
+            } else {
+                this.userInUse = true;
+            }
+        }, (err) => this.handleError(err));
     }
 
     private handleError(error: any){

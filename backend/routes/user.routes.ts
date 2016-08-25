@@ -31,6 +31,15 @@ router.get("/:email", (req: Request, res: Response, next) => {
     });
 });
 
+// Is the email available?
+router.get("/available/:email", (req: Request, res: Response, next) => {
+    getUser(req.params.email).then((re) => {
+        JSONSendError(res);
+    }, () => {
+        JSONSendOk(res);
+    });
+});
+
 // Create a new user.
 router.post("/", (req: Request, res: Response) =>{
     createUser(req.body.email, req.body.password).then(result => {

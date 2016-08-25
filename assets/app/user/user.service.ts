@@ -5,7 +5,7 @@ import {User} from "./user";
 import {Http, Headers, RequestOptions, Response} from "@angular/http";
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
-import {ILoginOk} from "../../../interfaces/ILoginOk";    // needed for toPromise()
+import {ILoginOk} from "../../../interfaces/ILoginOk";
 
 @Injectable()
 export class UserService{
@@ -16,17 +16,28 @@ export class UserService{
         this.loggedIn = !!localStorage.getItem('token');
     }
 
+    private baseURL = "/users";
     private createUserURL = "/users/";
     private loginURL = "/users/login";
+
+    isEmailAvailable(email: string): Observable<boolean>{
+        const url = this.baseURL + "/available/" + email;
+
+        return this.http.get(url).map((res) => {
+            const body = res.json();
+
+            // Check the flag.
+            return body.ok;
+        });
+    }
 
     getUserByEmail(email: string): Observable<User>{
         console.log("Sending GET");
         let getUserURL = "/users/" + email;
 
         return this.http.get(getUserURL)
-            .map(res => res.json());    // we are recieving json data
+            .map(res => res.json());
     }
-
 
     postUser(email: string, password: string){
         console.log("Sending post");
@@ -49,7 +60,7 @@ export class UserService{
             this.loginURL, body, options
         ).map(res => res.json()).map((res) => {
             if (res.ok) {       // Handling request, in order for saving the token
-                localStorage.setItem('token', res.token);   // The right place :)
+                localStorage.setItem('token', res.data.token);   // The right place :)
                 this.loggedIn = true;
             }
             return res.ok;
