@@ -20,10 +20,10 @@ router.get("/", (req: Request, res: Response, next) => {
 router.get("/:email", (req: Request, res: Response, next) => {
     getUser(req.params.email).then((result) => {
         JSONSendInterface(res, result, JSONUser);
-    }, (err) => {
+    }, () => {
         const error = new JSONError();
 
-        error.message = "No such user";
+        error.message = "No such user.";
         error.type = EErrorTypes.NoData;
 
         JSONSendError(res, error);
@@ -41,22 +41,28 @@ router.post("/", (req: Request, res: Response) =>{
 router.post("/login", (req: Request, res: Response) => {
     checkPass(req.body.email, req.body.password).then((success) => {
         if (success) {
-            const userToken = jwt.sign({email: req.body.email}, 'L33tWallahWallah', {
+            const userToken = jwt.sign({email: req.body.email}, "L33tWallahWallah", {
                 expiresIn: 3600
             });
 
             JSONSendLoginOk(res, userToken);
         } else {
-            JSONSendError(res);
+            const error = new JSONError();
+
+            error.message = "Invalid username and password combination.";
+            error.type = EErrorTypes.NoData;
+
+            JSONSendError(res, error);
         }
-    }, (failure) => {
-        JSONSendError(res);
+    }, () => {
+        const error = new JSONError();
+
+        error.message = "Internal server error.";
+        error.type = EErrorTypes.Undefined;
+
+        JSONSendError(res, error);
     });
 });
-
-
-
-
 
 // Overwrite an existing user.
 router.put("/", (req: Request, res: Response, next) => {
