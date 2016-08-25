@@ -8,14 +8,21 @@ import {Headers, RequestOptions, Http} from "@angular/http";
 import {Observable} from "rxjs";
 import {IJSONOk} from "../../../interfaces/IJSONOk";
 import {Item} from "./project/scrumboard/item/item";
+import {Project} from "./project/project";
 
 // A service for CRUD authenticated tasks
 @Injectable()
 export class HomeService{
+
+    // URLS
     patchPWURL = "/home/";
     projectsURL = "/projects/";
     patchDetailsURL = "/home/userDetails";
     itemsURL = "/items/";
+    sprintsURL = "/sprints/";
+
+
+    // Attributes
     token = 'bearer ' + localStorage.getItem("token");
     headers = new Headers({'Authorization': this.token, 'Content-Type': 'application/json'});
     options = new RequestOptions({headers: this.headers});
@@ -23,6 +30,18 @@ export class HomeService{
     constructor(public http: Http){
 
     }
+
+
+    // get sprints associated with the project
+    getSprints(projectId: string){
+        let token = 'bearer ' + localStorage.getItem("token");
+        let headers = new Headers({'Authorization': token});
+        let options = new RequestOptions({headers: headers});
+
+        return this.http.get(this.itemsURL + projectId, options).map(res => res.json());
+    }
+
+
 
     // For getting all projects the user is enlisted on
     getProjects(){
@@ -34,8 +53,8 @@ export class HomeService{
     }
 
     // For creating a new project
-    postProject(name: string): Observable<IJSONOk>{
-        let body = JSON.stringify({name: name});
+    postProject(project: Project): Observable<IJSONOk>{
+        let body = JSON.stringify({project: project});
         return this.http.post(this.projectsURL, body, this.options).map(res => res.json());
     }
 

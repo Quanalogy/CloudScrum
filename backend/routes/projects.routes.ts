@@ -28,12 +28,12 @@ router.post("/", (req: Request, res: Response) => {
         user = jwt.decode(req.headers["authorization"].split(" ")[1]);
     }
 
-    create(req.body.name, user.email)
+    create(req.body.project, user.email)
         .then(() => {
             JSONSendItemResponse(res, true)
         }, (err) => {
             console.log(err);
-            JSONSendError(res, []);
+            JSONSendItemResponse(res, false);
         });
 });
 

@@ -14,7 +14,7 @@ import {Project} from "./project";
 
 export class ProjectsComponent implements OnInit{
 
-    newProject = '';
+    project = new Project('', [], []);
     projectCreateError = false;
     userProjects: Array<Project> = [];
 
@@ -32,12 +32,13 @@ export class ProjectsComponent implements OnInit{
 
     // Method for creating a new project.
     createProject(){
-        if(!this.newProject){
+        if(!this.project.name){
             return;
         }
-        this.homeService.postProject(this.newProject).subscribe(res=>{
+
+        this.homeService.postProject(this.project).subscribe(res=>{
             if(res.ok){
-                this.newProject = '';
+                this.project.name = '';
                 this.projectCreateError = false;
                 this.updateProjects();
             } else {

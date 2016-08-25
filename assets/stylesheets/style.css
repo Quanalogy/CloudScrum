@@ -26,3 +26,8 @@ a {
 .projects {
     list-style-type: none;
 }
+
+.sprintsmenu {
+    list-style-type: none;
+    padding-left: 0;
+}

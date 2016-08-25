@@ -1,0 +1,7 @@
+<div class="sprintsmenu">
+    <ul *ngFor="let sprint of sprints">
+        <li>
+            <sprint-component [sprint]=sprint [index]=sprint.index></sprint-component>
+        </li>
+    </ul>
+</div>

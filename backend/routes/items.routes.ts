@@ -11,7 +11,6 @@ const router = Router();
 
 //get scrumboard items
 router.get("/:id", (req: Request, res: Response) => {
-    console.log("This is params.id: ", req.params.id);
     getItems(req.params.id).then(result => {
         res.json(result);
         console.log(result);

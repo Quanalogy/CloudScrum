@@ -13,6 +13,7 @@ const homeRoutes = require("./routes/home.routes");
 const catchAllRoutes = require("./routes/catchAll.routes");
 const itemRoutes = require("./routes/items.routes");
 const projectRoutes = require("./routes/projects.routes");
+const sprintsRoutes = require("./routes/sprints.routes");
 
 import * as mongoConfig from "./config/mongodb";
 
@@ -56,4 +57,5 @@ app.use('/users', userRoutes);
 app.use('/home', homeRoutes);
 app.use('/items', itemRoutes);
 app.use('/projects', projectRoutes);
+app.use('/sprints', sprintsRoutes);
 app.use('*', catchAllRoutes);

@@ -21,6 +21,8 @@ import {DragulaService} from 'ng2-dragula/ng2-dragula';
 import {ItemComponent} from "./home/project/scrumboard/item/item.component";
 import {ProjectComponent} from "./home/project/project.component";
 import {ProjectsComponent} from "./home/project/projects.component";
+import {SprintsComponent} from "./home/project/scrumboard/sprint/sprints.component";
+import {SprintComponent} from "./home/project/scrumboard/sprint/sprint.component";
 
 
 // For info abot @NgModule
@@ -36,7 +38,9 @@ import {ProjectsComponent} from "./home/project/projects.component";
         UserPanelComponent,
         ScrumboardComponent,
         ProjectComponent,
-        ProjectsComponent
+        ProjectsComponent,
+        SprintComponent,
+        SprintsComponent
     ],
     imports:      [
         BrowserModule,

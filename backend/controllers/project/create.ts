@@ -4,28 +4,31 @@ import {getUser} from "../user/userControllerRead";
 import {Projects, IProjectDocument} from "../../models/project/Project";
 import {IBoardUser} from "../../models/user/IBoardUser";
 import {ERoles} from "../../models/user/ERole";
+import {IProject} from "../../models/project/IProject";
 
-export function create(name: string, master: string, users?: [string]): Promise<IProjectDocument> {
+export function create(newProject: IProject, master: string, users?: [string]): Promise<IProjectDocument> {
     return Promise.try<IProjectDocument>(() => {
         // Check the input data.
-        if (!name) {
+        if (!newProject.name) {
             throw new Error("Invalid name supplied.");
         }
 
         // Lookup the user.
         return getUser(master).then((scrumMaster) => {
             // Create a new project.
-            const project = new Projects();
+            let project = new Projects(newProject);
 
             // Set the data.
-            project.name = name;
+            // project.name = newProject.name;
 
-            const roleObject: IBoardUser = {
+            let roleObject: IBoardUser = {
                 id: scrumMaster._id,
                 role: ERoles.ScrumMaster
             };
 
+
             project.access.push(roleObject);
+
 
             // Save the project.
             return project.save();
