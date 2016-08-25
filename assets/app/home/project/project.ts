@@ -8,6 +8,6 @@ export class Project implements IProject{
     constructor(
         public name: string,
         public access: Array<IBoardUser>,
-        public _id?: string
+        public _id: string
     ){}
 }

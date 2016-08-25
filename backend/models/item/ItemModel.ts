@@ -20,7 +20,8 @@ const itemSchema = new mongoose.Schema({
     assignee: String,
     priority: Number,
     creationDate: Date,
-    revisionDate: Date
+    revisionDate: Date,
+    sprintId: String
 });
 
 export interface IItemDocument extends IItem, mongoose.Document{}

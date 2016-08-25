@@ -11,6 +11,7 @@ export interface IItem {
     creationDate: Date,
     revisionDate: Date,
     _id: any,
+    sprintId: string,
     assignee?: string,
     priority?: number
 

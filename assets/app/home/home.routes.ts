@@ -15,7 +15,7 @@ export const HomeRoutes: Routes = [{
         children: [
             {path: '', redirectTo: 'userpanel', pathMatch: 'full'},
             {path: 'userpanel', component: UserPanelComponent},
-            {path: 'scrumboard', component: ScrumboardComponent},
+            {path: 'scrumboard/:id', component: ScrumboardComponent},
             {path: 'projects', component: ProjectsComponent}
         ]
 }];

@@ -1,4 +1,4 @@
 <div class="project" id="{{project._id}}">
-    <div hidden>{{project._id}}</div>
     <div class="item-header">{{project.name}}</div>
+    <a type="button" class="btn btn-default" [routerLink]="['/home/scrumboard/' + project._id]">Til Scrumboard</a>
 </div>

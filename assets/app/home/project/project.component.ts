@@ -8,7 +8,7 @@ import {ROUTER_DIRECTIVES} from "@angular/router";
 import {Project} from "./project";
 @Component({
     selector: 'project-component',
-    template: require("./project.component"),
+    template: require("./project.component.html"),
     directives: [ROUTER_DIRECTIVES]
 })
 

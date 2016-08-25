@@ -14,6 +14,7 @@ export class Item implements IItem{
         public progress: number,
         public creationDate: Date,
         public revisionDate: Date,
+        public sprintId: string,
         public _id?: string,
         public assignee?: string,
         public priority?: number

@@ -17,7 +17,7 @@
     <div class="container">
         <h3>Enlisted projects</h3>
         <div *ngFor="let project of userProjects">
-            {{project.name}}
+            <project-component [project]=project></project-component>
         </div>
     </div>
 
