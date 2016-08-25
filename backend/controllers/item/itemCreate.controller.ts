@@ -15,17 +15,7 @@ export function addItem(item: IItemDocument): Promise<boolean>{
         });
     }
 
-    let newItem = new Items();
-    newItem.name = item.name;
-    newItem.description = item.description;
-    newItem.category = item.category;
-    newItem.estimate = item.estimate;
-    newItem.progress = item.progress;
-    newItem.creationDate = item.creationDate;
-    newItem.revisionDate = item.revisionDate;
-    newItem.assignee = item.assignee;
-    newItem.priority = item.priority;
-
+    let newItem = new Items(item);
 
     return new Promise<boolean>((resolve, reject) => {
         newItem.save((err: any, res: IItemDocument) => {

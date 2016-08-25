@@ -4,10 +4,10 @@ import {IItemDocument, Items} from "../../models/item/ItemModel";
  */
 
 
-export function getItems(): Promise<Array<IItemDocument>> {
+export function getItems(sprintId: string): Promise<Array<IItemDocument>> {
     return new Promise<Array<IItemDocument>>((resolve, reject) => {
         const itemsArray: Array<IItemDocument> = [];
-        Items.find({}, (err, docs) => {
+        Items.find({sprintId: sprintId}, (err, docs) => {
             if(err){
                 console.log(err);
                 reject(err);
@@ -19,21 +19,4 @@ export function getItems(): Promise<Array<IItemDocument>> {
             resolve(itemsArray);
         });
     });
-}
-
-export function getItem(name: string, id: number, category: string, estimate: number, progress: number,
-                        assignee: string, priority: number): Promise<IItemDocument>{
-    return new Promise<IItemDocument>((resolve, reject) => {
-        Items.findOne({name: name, itemId: id, category: category, estimate: estimate, progress: progress,
-            assignee: assignee, priority: priority}, (err: any, res: IItemDocument) => {
-            if(err){
-                reject();
-            }
-
-            if(!res){
-                reject(res);
-            }
-            resolve(res);
-        })
-    })
 }

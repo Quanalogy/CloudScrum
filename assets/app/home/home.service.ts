@@ -8,7 +8,6 @@ import {Headers, RequestOptions, Http} from "@angular/http";
 import {Observable} from "rxjs";
 import {IJSONOk} from "../../../interfaces/IJSONOk";
 import {Item} from "./project/scrumboard/item/item";
-import {Project} from "./project/project";
 
 // A service for CRUD authenticated tasks
 @Injectable()
@@ -16,7 +15,7 @@ export class HomeService{
     patchPWURL = "/home/";
     projectsURL = "/projects/";
     patchDetailsURL = "/home/userDetails";
-    itemsURL = "/items";
+    itemsURL = "/items/";
     token = 'bearer ' + localStorage.getItem("token");
     headers = new Headers({'Authorization': this.token, 'Content-Type': 'application/json'});
     options = new RequestOptions({headers: this.headers});
@@ -59,20 +58,20 @@ export class HomeService{
 
     // For adding an item to the scrumboard
     // TODO implement scrumboard id aswell
-    postNewItem(item: Item): Observable<IJSONOk>{
+    postNewItem(item: Item, id: string): Observable<IJSONOk>{
         let body = JSON.stringify({item: item});
 
-        return this.http.post(this.itemsURL, body, this.options).map(res => res.json());
+        return this.http.post(this.itemsURL + id, body, this.options).map(res => res.json());
     }
 
     // Getting all items in the scrumboard
     // TODO implement scrumboard id aswell
-    getItems(): Observable<Array<Item>>{
+    getItems(id: string): Observable<Array<Item>>{
         let token = 'bearer ' + localStorage.getItem("token");
         let headers = new Headers({'Authorization': token});
         let options = new RequestOptions({headers: headers});
 
-        return this.http.get(this.itemsURL, options).map(res => res.json());
+        return this.http.get(this.itemsURL + id, options).map(res => res.json());
     }
 
     // For changing a single item on the scrumboard.

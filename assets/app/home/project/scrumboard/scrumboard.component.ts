@@ -2,8 +2,8 @@
  * Created by munk on 12-08-16.
  */
 
-import {Component, OnInit} from "@angular/core";
-import {ROUTER_DIRECTIVES} from "@angular/router";
+import {Component, OnInit, Input} from "@angular/core";
+import {ROUTER_DIRECTIVES, ActivatedRoute} from "@angular/router";
 import {DragulaService, Dragula} from 'ng2-dragula/ng2-dragula';
 import {Item} from "./item/item";
 import {EItemCategory} from "../../../../../backend/models/item/EItemCategory";
@@ -22,23 +22,25 @@ import {HomeService} from "../../home.service";
 
 export class ScrumboardComponent implements OnInit{
 
-    itemModel = new Item('', '', EItemCategory.backlog, 0, 0, new Date(Date.now()), new Date(Date.now()));
+    itemModel = new Item('', '', EItemCategory.backlog,
+        0, 0, new Date(Date.now()), new Date(Date.now()), '');
     addingMode = false;
-
     backlogArray: Array<Item> = [];
     backendArray: Array<Item> = [];
     inprogressArray: Array<Item> = [];
     reviewArray: Array<Item> = [];
     doneArray: Array<Item> = [];
     arraySize = this.backlogArray.length;
-    id = 0;
     inputName = "";
 
+    id = "";
 
     constructor(
         private dragulaService: DragulaService,
-        private homeService: HomeService
+        private homeService: HomeService,
+        private route: ActivatedRoute
     ){
+
         dragulaService.setOptions("bag-one", {
             accepts: (el, target, source, sibling) => { // Makes sure that the direction of the elements is correct
                 if(source.id === "backlog" && target.id === "inProgress"){
@@ -58,7 +60,6 @@ export class ScrumboardComponent implements OnInit{
 
         dragulaService.dropModel.subscribe(value => {    // when element dropped into new category, the category attribute should update
             this.onDrop(value.slice(1)[0], value.slice(2)[0].id);
-            console.log("this is value", value);
         });
     }
 
@@ -67,11 +68,9 @@ export class ScrumboardComponent implements OnInit{
     private onDrop(el, id) {
 
         const regexp = /^([^\s]*)/;
-        // let elementName: string = el.innerHTML.replace(/\s/g, '');
         let elementName: string = el.innerText.trim();
         let elementId = regexp.exec(elementName)[1];
 
-        console.log("This is element _id:", elementId);
         switch (id.toString()){
             case "backlog":
                 this.backlogArray.forEach((value, index, array) => {
@@ -110,6 +109,12 @@ export class ScrumboardComponent implements OnInit{
 
 
     ngOnInit() {
+        // get the id from the route params
+        this.route.params.subscribe(params => {
+            this.id = params['id'];
+        });
+        console.log(this.id);
+
         this.updateItems();
     }
 
@@ -128,7 +133,7 @@ export class ScrumboardComponent implements OnInit{
         this.inprogressArray = [];
         this.reviewArray = [];
         this.doneArray = [];
-        this.homeService.getItems().subscribe((res) => {
+        this.homeService.getItems(this.id).subscribe((res) => {
             res.forEach(item => {
                 switch (item.category){
                     case EItemCategory.backlog:
@@ -152,7 +157,9 @@ export class ScrumboardComponent implements OnInit{
             return;
         }
 
-        this.homeService.postNewItem(this.itemModel).subscribe((res) => {
+        this.itemModel.sprintId = this.id;
+
+        this.homeService.postNewItem(this.itemModel, this.id).subscribe((res) => {
             this.updateItems();
         }, (err) => {
             console.log(err);

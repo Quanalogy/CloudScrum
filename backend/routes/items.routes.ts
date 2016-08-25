@@ -10,8 +10,9 @@ import {patchItem} from "../controllers/item/itemPatch.controller";
 const router = Router();
 
 //get scrumboard items
-router.get("/", (req: Request, res: Response) => {
-    getItems().then(result => {
+router.get("/:id", (req: Request, res: Response) => {
+    console.log("This is params.id: ", req.params.id);
+    getItems(req.params.id).then(result => {
         res.json(result);
         console.log(result);
     }, error => {
@@ -19,7 +20,7 @@ router.get("/", (req: Request, res: Response) => {
     });
 });
 
-router.post("/", (req: Request, res: Response) => {
+router.post("/:id", (req: Request, res: Response) => {
 
     addItem(req.body.item)
         .then(result => {
