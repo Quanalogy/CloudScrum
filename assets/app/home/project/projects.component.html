@@ -16,9 +16,11 @@
 
     <div class="container">
         <h3>Enlisted projects</h3>
-        <div *ngFor="let project of userProjects">
-            <project-component [project]=project></project-component>
-        </div>
+        <ul *ngFor="let project of userProjects" class="projects">
+            <li>
+                <project-component [project]=project></project-component>
+            </li>
+        </ul>
     </div>
 
 </div>

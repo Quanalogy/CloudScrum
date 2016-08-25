@@ -5,7 +5,8 @@
             <label for="email">E-mail</label>
             <input type="email" class="form-control" required
                    [(ngModel)]="model.email" name="email" #spy
-                   pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                   pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                   autofocus>
         </div>
         <div *ngIf="userInUse" class="alert alert-dismissible fade in" role="alert">
             The user is already in use, please try another
