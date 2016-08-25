@@ -6,8 +6,9 @@ import {Response} from "supertest-as-promised";
 
 import {JSONUser} from "../../models/json/JSONUser";
 import {createUser} from "../../controllers/user/userControllerCreate";
-import {JSONOk} from "../../models/json/JSONOk";
+import {JSONData} from "../../models/json/JSONData";
 import {JSONError} from "../../models/json/JSONError";
+import {JSONErrorMessage} from "../../models/json/JSONErrorMessage";
 import {EErrorTypes} from "../../../interfaces/EErrorTypes";
 import {JSONLogin} from "../../models/json/JSONLogin";
 
@@ -65,16 +66,21 @@ describe("The /users route", () => {
                 expect(res.type).toBe("application/json");
                 expect(res.body).toBeDefined();
 
+                expect(res.body.ok).toBeDefined();
+                expect(res.body.ok).toBeTruthy();
+                expect(res.body.data).toBeDefined();
+
+
                 // Get all the keys.
                 const keys = Object.keys(new JSONUser());
 
                 for(const key of keys) {
-                    expect(res.body[key]).toBeDefined("Could not get the property: " + key + ".");
-                    expect(res.body[key]).toBe(user[key], "Data did not match for: " + key + ".");
+                    expect(res.body.data[key]).toBeDefined("Could not get the property: " + key + ".");
+                    expect(res.body.data[key]).toBe(user[key], "Data did not match for: " + key + ".");
                 }
 
                 // There should not be any other keys.
-                for(const key in res.body) {
+                for(const key in res.body.data) {
                     expect(keys.indexOf(key)).toBeGreaterThan(-1, "Found extra property on the response: " + key + ".");
                 }
 
@@ -105,7 +111,7 @@ describe("The /users route", () => {
                 const error = res.body.errors[0];
 
                 // Get all the keys.
-                const expectedError = new JSONError();
+                const expectedError = new JSONErrorMessage();
                 expectedError.message = "No such user.";
                 expectedError.type = EErrorTypes.NoData;
 
@@ -178,7 +184,7 @@ describe("The /users route", () => {
                 const error = res.body.errors[0];
 
                 // Get all the keys.
-                const expectedError = new JSONError();
+                const expectedError = new JSONErrorMessage();
                 expectedError.message = "Invalid username and password combination.";
                 expectedError.type = EErrorTypes.NoData;
 
@@ -215,11 +221,12 @@ describe("The /users route", () => {
                 expect(res.body.ok).toBeDefined();
                 expect(res.body.ok).toBeTruthy();
 
-                expect(res.body.token).toBeDefined();
+                expect(res.body.data).toBeDefined();
+                expect(res.body.data.token).toBeDefined();
 
                 // There should not be any other keys.
                 for(const key in res.body) {
-                    expect((["ok", "token"].indexOf(key))).toBeGreaterThan(-1, "Found extra property on the response: " + key + ".");
+                    expect((["ok", "data"].indexOf(key))).toBeGreaterThan(-1, "Found extra property on the response: " + key + ".");
                 }
 
                 done();
@@ -256,7 +263,7 @@ describe("The /users route", () => {
                 const error = res.body.errors[0];
 
                 // Get all the keys.
-                const expectedError = new JSONError();
+                const expectedError = new JSONErrorMessage();
                 expectedError.message = "Invalid username and password combination.";
                 expectedError.type = EErrorTypes.NoData;
 
@@ -302,7 +309,7 @@ describe("The /users route", () => {
                 const error = res.body.errors[0];
 
                 // Get all the keys.
-                const expectedError = new JSONError();
+                const expectedError = new JSONErrorMessage();
                 expectedError.message = "Invalid username and password combination.";
                 expectedError.type = EErrorTypes.NoData;
 

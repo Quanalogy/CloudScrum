@@ -38,6 +38,7 @@ export class CreateUserComponent{
 
         this.userService.getUserByEmail(email.toLowerCase()).subscribe(
             (data) => {
+                // An email can never be shorter than 5 characters.
                 if(data.email.length < 5){
                     this.userService.postUser(email.toLowerCase(), password).then(
                         (success) => {
@@ -50,7 +51,7 @@ export class CreateUserComponent{
                     this.userInUse = true;
                 }
             },
-            err => this.handleError(err)
+            (err) => this.handleError(err)
         );
     }
 

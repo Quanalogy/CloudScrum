@@ -1,11 +1,11 @@
 import {Response} from "express";
 import {ILoginOk} from "../../interfaces/ILoginOk";
-import {JSONOk} from "../models/json/JSONOk";
+import {JSONData} from "../models/json/JSONData";
 import {JSONError} from "../models/json/JSONError";
+import {JSONErrorMessage} from "../models/json/JSONErrorMessage";
 
-export function JSONSendError(res: Response, err?: JSONError | JSONError[]) {
-    const message = new JSONOk();
-    message.ok = false;
+export function JSONSendError(res: Response, err?: JSONErrorMessage | JSONErrorMessage[]) {
+    const message = new JSONError();
 
     // Check if we got any specific errors attached.
     if (err) {
@@ -22,21 +22,10 @@ export function JSONSendError(res: Response, err?: JSONError | JSONError[]) {
     sendResponse(res, message);
 }
 
-export function JSONSendOk(res: Response) {
-    const message = new JSONOk();
-    message.ok = true;
+export function JSONSendOk(res: Response, data = {}) {
+    const message = new JSONData();
+    message.data = data;
 
-    sendResponse(res, message);
-}
-
-export function JSONSendLoginOk(res: Response, token: string) {
-    // Create the message using the specified interface.
-    const message: ILoginOk = {
-        ok: true,
-        token: token
-    };
-
-    // Send the response.
     sendResponse(res, message);
 }
 
@@ -55,8 +44,11 @@ export function JSONSendItemResponse(res: Response, success: boolean){
 }
 
 export function JSONSendInterface(res: Response, data: any, interfaceClass: any) {
+    // Create the response object.
+    const response = new JSONData();
+
     // Iterate over the keys.
-    let obj = {};
+    const obj = response.data;
     const ic = new interfaceClass();
     const keys = Object.keys(ic);
 
@@ -70,7 +62,7 @@ export function JSONSendInterface(res: Response, data: any, interfaceClass: any)
         }
     }
 
-    sendResponse(res, obj);
+    sendResponse(res, response);
 }
 
 function sendResponse(res: Response, message: any) {

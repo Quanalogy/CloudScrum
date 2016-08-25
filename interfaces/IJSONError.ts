@@ -1,7 +1,6 @@
-import { EErrorTypes } from "./EErrorTypes";
+import {IJSONErrorMessage} from "./IJSONErrorMessage";
+import {IJSONOk} from "./IJSONOk";
 
-export interface IJSONError {
-    number: number,
-    message: string,
-    type: EErrorTypes
+export interface IJSONError extends IJSONOk {
+    errors?: Array<IJSONErrorMessage>
 }

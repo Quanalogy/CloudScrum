@@ -1,8 +1,7 @@
 import {IJSONError} from "../../../interfaces/IJSONError";
-import {EErrorTypes} from "../../../interfaces/EErrorTypes";
+import {JSONErrorMessage} from "./JSONErrorMessage";
 
 export class JSONError implements IJSONError {
-    public number = 0;
-    public message = "";
-    public type = EErrorTypes.Undefined;
+    public ok = false;
+    public errors = Array<JSONErrorMessage>();
 }

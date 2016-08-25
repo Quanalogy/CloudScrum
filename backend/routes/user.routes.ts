@@ -3,11 +3,12 @@ import jwt = require("jsonwebtoken");
 
 import {getUser} from "../controllers/user/userControllerRead";
 import {createUser} from "../controllers/user/userControllerCreate";
-import {JSONSendLoginOk, JSONSendError, JSONSendPatchResponse, JSONSendInterface} from "../utilities/JSONSender";
+import {JSONSendOk, JSONSendError, JSONSendInterface} from "../utilities/JSONSender";
 import {changePass, checkPass} from "../controllers/user/controller.user.utility";
 import {JSONUser} from "../models/json/JSONUser";
 import {EErrorTypes} from "../../interfaces/EErrorTypes";
 import {JSONError} from "../models/json/JSONError";
+import {JSONErrorMessage} from "../models/json/JSONErrorMessage";
 
 const router = Router();
 
@@ -21,7 +22,7 @@ router.get("/:email", (req: Request, res: Response, next) => {
     getUser(req.params.email).then((result) => {
         JSONSendInterface(res, result, JSONUser);
     }, () => {
-        const error = new JSONError();
+        const error = new JSONErrorMessage();
 
         error.message = "No such user.";
         error.type = EErrorTypes.NoData;
@@ -45,9 +46,13 @@ router.post("/login", (req: Request, res: Response) => {
                 expiresIn: 3600
             });
 
-            JSONSendLoginOk(res, userToken);
+            const tokenObj = {
+                token: userToken
+            };
+
+            JSONSendOk(res, tokenObj);
         } else {
-            const error = new JSONError();
+            const error = new JSONErrorMessage();
 
             error.message = "Invalid username and password combination.";
             error.type = EErrorTypes.NoData;
@@ -55,7 +60,7 @@ router.post("/login", (req: Request, res: Response) => {
             JSONSendError(res, error);
         }
     }, () => {
-        const error = new JSONError();
+        const error = new JSONErrorMessage();
 
         error.message = "Internal server error.";
         error.type = EErrorTypes.Undefined;
