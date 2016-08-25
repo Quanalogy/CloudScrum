@@ -1,7 +1,7 @@
-import { errorTypes } from "./ListOfErrors";
+import { EErrorTypes } from "./EErrorTypes";
 
 export interface IJSONError {
     number: number,
     message: string,
-    type: errorTypes
+    type: EErrorTypes
 }

@@ -3,8 +3,11 @@ import jwt = require("jsonwebtoken");
 
 import {getUser} from "../controllers/user/userControllerRead";
 import {createUser} from "../controllers/user/userControllerCreate";
-import {JSONSendLoginOk, JSONSendError, JSONSendPatchResponse} from "../utilities/JSONSender";
+import {JSONSendLoginOk, JSONSendError, JSONSendPatchResponse, JSONSendInterface} from "../utilities/JSONSender";
 import {changePass, checkPass} from "../controllers/user/controller.user.utility";
+import {JSONUser} from "../models/json/JSONUser";
+import {EErrorTypes} from "../../interfaces/EErrorTypes";
+import {JSONError} from "../models/json/JSONError";
 
 const router = Router();
 
@@ -15,10 +18,15 @@ router.get("/", (req: Request, res: Response, next) => {
 
 // Get a single user.
 router.get("/:email", (req: Request, res: Response, next) => {
-    getUser(req.params.email).then(result => {
-        res.json(result);
-    }, error => {
-        res.json({'email':'','password':''});
+    getUser(req.params.email).then((result) => {
+        JSONSendInterface(res, result, JSONUser);
+    }, (err) => {
+        const error = new JSONError();
+
+        error.message = "No such user";
+        error.type = EErrorTypes.NoData;
+
+        JSONSendError(res, error);
     });
 });
 

@@ -43,7 +43,7 @@ router.post("/", (req: Request, res: Response) => {
             JSONSendItemResponse(res, true)
         }, (err) => {
             console.log(err);
-            JSONSendError(res, []);
+            JSONSendError(res);
         });
 });
 

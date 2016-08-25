@@ -26,7 +26,7 @@ router.post("/", (req: Request, res: Response) => {
             JSONSendItemResponse(res, result);
         }, err => {
             console.log(err);
-            JSONSendError(res, []);
+            JSONSendError(res);
         });
 });
 
@@ -35,7 +35,7 @@ router.patch("/", (req: Request, res: Response) => {
     patchItem(req.body.item).then(result => {
         JSONSendItemResponse(res, result);
     }, err => {
-        JSONSendError(res, []);
+        JSONSendError(res);
     });
 });
 

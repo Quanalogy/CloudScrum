@@ -12,11 +12,20 @@ const userSchema = new mongoose.Schema({
         validate: /^([^A-Z])*[@]([^A-Z])*/,
         unique: true
     },
-    image: String,
-    name: String,
+    image: {
+        type: String,
+        default: ""
+    },
+    name:  {
+        type: String,
+        default: ""
+    },
     passwordHash: String,
     passwordSalt: String,
-    phoneNumber: String,
+    phoneNumber:  {
+        type: String,
+        default: ""
+    },
 });
 
 userSchema.methods.changePassword = function(passwordOld: string, passwordNew: string): boolean {

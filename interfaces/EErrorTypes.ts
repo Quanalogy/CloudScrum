@@ -1,5 +1,6 @@
-export const enum errorTypes {
+export const enum EErrorTypes {
     InvalidField,
     MissingField,
+    NoData,
     Undefined
 }
