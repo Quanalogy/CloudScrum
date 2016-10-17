@@ -3,14 +3,13 @@
  */
 
 import {Component} from "@angular/core";
-import {ROUTER_DIRECTIVES, Router} from "@angular/router"
+import {Router} from "@angular/router"
 import {User} from "./user";
 import {UserService} from "./user.service";
 
 @Component({
     selector: 'login-component',
     template: require("./login.component.html"),
-    directives: [ROUTER_DIRECTIVES],
     providers: [UserService]
 })
 

@@ -3,15 +3,13 @@
  */
 
 import {Component} from "@angular/core";
-import {ROUTER_DIRECTIVES, CanActivate, Router} from "@angular/router";
+import {CanActivate, Router} from "@angular/router";
 import {tokenNotExpired} from "angular2-jwt";
-import {HTTP_PROVIDERS, Http} from "@angular/http";
 
 
 @Component({
     selector: 'home-component',
-    template: require("./home.component.html"),
-    directives: [ROUTER_DIRECTIVES]
+    template: require("./home.component.html")
 })
 
 
