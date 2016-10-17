@@ -6,11 +6,11 @@ import {IBoardUser} from "../user/IBoardUser";
 const projectSchema = new mongoose.Schema({
     name: String,
     access: [{
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'IBoardUser'
     }],
     sprints: [{
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'ISprint'
     }]
 });

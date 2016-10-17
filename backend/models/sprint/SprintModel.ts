@@ -9,7 +9,7 @@ const sprintSchema = new mongoose.Schema({
     startDate: Date,
     endDate: Date,
     items: [{
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Items'
     }]
 });
