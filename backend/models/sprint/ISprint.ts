@@ -1,8 +1,11 @@
+import {IItem} from "../item/IItem";
+import {IRetrospective} from "../retrospective/IRetrospective";
+
 export interface ISprint {
     description: string,
     endDate: Date,
-    items: string,
+    items: Array<IItem>,
     name: string,
-    retrospective: string,
+    retrospective: IRetrospective,
     startDate: Date
 }
