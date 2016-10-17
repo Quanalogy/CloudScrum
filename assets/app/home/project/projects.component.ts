@@ -31,10 +31,13 @@ export class ProjectsComponent implements OnInit{
     // Method for creating a new project.
     createProject(){
         if(!this.project.name){
+            console.log("No project name");
             return;
         }
+        console.log("Project name ok")
 
         this.homeService.postProject(this.project).subscribe(res=>{
+            console.log(res.ok);
             if(res.ok){
                 this.project.name = '';
                 this.projectCreateError = false;
@@ -43,11 +46,11 @@ export class ProjectsComponent implements OnInit{
                 this.projectCreateError = true;
             }
         }, err => {
+            console.log("Error in posting project");
             this.projectCreateError = true;
         });
     }
 
-    // TODO make getrequest instead of mock db
     updateProjects(){
         this.userProjects = [];
         this.homeService.getProjects().subscribe(res => {

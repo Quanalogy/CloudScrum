@@ -1,6 +1,6 @@
 import {ERoles} from "./ERole";
 
 export interface IBoardUser {
-    userid: string,
+    userID: string,
     role: ERoles
 }

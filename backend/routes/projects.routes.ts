@@ -26,7 +26,12 @@ router.post("/", (req: Request, res: Response) => {
 
     if (req.headers["authorization"] && req.headers["authorization"].split(" ")[0].toLowerCase() === "bearer") {
         user = jwt.decode(req.headers["authorization"].split(" ")[1]);
+        console.log(user.email);
+    } else {
+        console.log("No auth user");
     }
+
+    console.log(req.body.project);
 
     create(req.body.project, user.email)
         .then(() => {
