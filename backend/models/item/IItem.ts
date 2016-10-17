@@ -1,17 +1,17 @@
-import {EItemCategory} from "./EItemCategory";
-/**
- * Created by munk on 18-08-16.
- */
+import {IItemCategory} from "../itemCategory/IItemCategory";
+import {ITag} from "../tag/ITag";
+import {IUser} from "../user/IUser";
+
 export interface IItem {
-    name: string,
-    description: string,
-    category: EItemCategory,
-    estimate: number,
-    progress: number,
-    creationDate: Date,
-    revisionDate: Date,
-    sprintId: string,
     _id: any,
-    assignee?: string,
-    priority?: number
+    assignee?: IUser,
+    category: IItemCategory,
+    creationDate: Date,
+    description: string,
+    estimate: number,
+    name: string,
+    priority?: number,
+    progress: number,
+    revisionDate: Date,
+    tag: Array<ITag>
 }
