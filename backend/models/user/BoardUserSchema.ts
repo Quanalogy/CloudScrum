@@ -1,9 +1,16 @@
-import {Schema} from "mongoose";
+import * as mongoose from "mongoose";
+import {IBoardUser} from "./IBoardUser";
 
-export const boardUserSchema = new Schema({
-    id: Schema.Types.ObjectId,
+import {ERoles} from "./ERole";
+
+export const boardUserSchema = new mongoose.Schema({
+    userid: mongoose.Schema.Types.ObjectId,
     role: {
         type: String,
-        enum: ["A", "B"]
+        enum: [ERoles.ScrumMaster, ERoles.ScrumUser]
     }
 });
+
+export interface IBoardUserDocument extends IBoardUser, mongoose.Document{}
+
+export const BoardUsers = mongoose.model<IBoardUserDocument>("BoardUsers", boardUserSchema);

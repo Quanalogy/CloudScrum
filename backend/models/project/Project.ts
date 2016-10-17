@@ -1,17 +1,18 @@
 import * as mongoose from "mongoose";
 
 import {IProject} from "./IProject";
-import {IBoardUser} from "../user/IBoardUser";
+import {BoardUsers} from "../user/BoardUserSchema";
+import {Sprints} from "../sprint/SprintModel";
 
 const projectSchema = new mongoose.Schema({
     name: String,
     access: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'IBoardUser'
+        ref: 'BoardUsers'
     }],
     sprints: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'ISprint'
+        ref: 'Sprints'
     }]
 });
 

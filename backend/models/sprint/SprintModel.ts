@@ -5,7 +5,7 @@
 import * as mongoose from "mongoose";
 import {ISprint} from "./ISprint";
 
-const sprintSchema = new mongoose.Schema({
+export const sprintSchema = new mongoose.Schema({
     startDate: Date,
     endDate: Date,
     items: [{
