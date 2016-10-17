@@ -22,7 +22,7 @@ gulp.task("build-ts-frontend", function() {
         variables.typingsIndex
     ])
         .pipe(gulpSourcemaps.init())
-        .pipe(gulpTypescript(tsconfig))
+        .pipe(tsconfig())
         .pipe(gulpSourcemaps.write())
         .pipe(gulp.dest(variables.frontendFolder));
 });
