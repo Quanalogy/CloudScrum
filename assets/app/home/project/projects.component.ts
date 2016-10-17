@@ -3,13 +3,11 @@
  */
 
 import {Component, OnInit} from "@angular/core";
-import {ROUTER_DIRECTIVES} from "@angular/router";
 import {HomeService} from "../home.service";
 import {Project} from "./project";
 @Component({
     selector: 'projects-component',
-    template: require("./projects.component.html"),
-    directives: [ROUTER_DIRECTIVES]
+    template: require("./projects.component.html")
 })
 
 export class ProjectsComponent implements OnInit{

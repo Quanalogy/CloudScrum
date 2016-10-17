@@ -22,7 +22,7 @@ export class UserService{
     getUserByEmail(email: string): Observable<User>{
         console.log("Sending GET");
         let getUserURL = "/users/" + email;
-
+        console.log(this.http.get(getUserURL));
         return this.http.get(getUserURL)
             .map(res => res.json());    // we are recieving json data
     }

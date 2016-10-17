@@ -15,14 +15,12 @@ import {HomeGuard} from "./home/home.guard";
 import {UserService} from "./user/user.service";
 import {JwtHelper, AuthHttp, AuthConfig, AUTH_PROVIDERS} from "angular2-jwt";
 import {HomeService} from "./home/home.service";
-import {ScrumboardComponent} from "./home/project/scrumboard/scrumboard.component";
-import {DragulaService} from 'ng2-dragula/ng2-dragula';
 import {ItemComponent} from "./home/project/scrumboard/item/item.component";
 import {ProjectComponent} from "./home/project/project.component";
 import {ProjectsComponent} from "./home/project/projects.component";
 import {SprintsComponent} from "./home/project/scrumboard/sprint/sprints.component";
 import {SprintComponent} from "./home/project/scrumboard/sprint/sprint.component";
-import {ScrumboardComponent} from "./home/scrumboard/scrumboard.component";
+import {ScrumboardComponent} from "./home/project/scrumboard/scrumboard.component";
 import {DragulaService, DragulaModule} from 'ng2-dragula/ng2-dragula';
 import {JsonpModule, HttpModule} from "@angular/http";
 

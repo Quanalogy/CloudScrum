@@ -20,8 +20,7 @@ import {HomeService} from "../../home.service";
 
 export class ScrumboardComponent implements OnInit{
 
-    itemModel = new Item('', '', EItemCategory.backlog,
-        0, 0, new Date(Date.now()), new Date(Date.now()), '');
+    itemModel = new Item('', '', EItemCategory.backlog, 0, 0, new Date(Date.now()), new Date(Date.now()), '', '');
     addingMode = false;
 
     backlogArray: Array<Item> = [];

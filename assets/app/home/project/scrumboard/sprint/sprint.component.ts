@@ -3,13 +3,11 @@
  */
 
 import {Component, Input} from "@angular/core";
-import {ROUTER_DIRECTIVES} from "@angular/router";
 import {Sprint} from "./sprint";
 
 @Component({
     selector: 'sprint-component',
-    template: require("./sprint.component.html"),
-    directives: [ROUTER_DIRECTIVES]
+    template: require("./sprint.component.html")
 })
 
 export class SprintComponent{

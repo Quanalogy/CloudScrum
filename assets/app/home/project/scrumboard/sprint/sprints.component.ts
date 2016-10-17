@@ -3,13 +3,11 @@
  */
 
 import {Component, Input, OnInit} from "@angular/core";
-import {ROUTER_DIRECTIVES} from "@angular/router";
 import {HomeService} from "../../../home.service";
 import {Sprint} from "./sprint";
 @Component({
     selector: 'sprints-component',
-    template: require("./sprints.component.html"),
-    directives: [ROUTER_DIRECTIVES]
+    template: require("./sprints.component.html")
 })
 
 export class SprintsComponent implements OnInit{
