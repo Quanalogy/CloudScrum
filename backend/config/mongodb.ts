@@ -1,8 +1,8 @@
 import * as mongoose from "mongoose";
 
 // Set the promise library.
-mongoose.Promise = require("bluebird");
-import Promise = require("bluebird");
+// TODO: Fix from http://stackoverflow.com/a/38833920/3365039, check for updates.
+(mongoose as any).Promise = require("bluebird");
 
 // Define constants for the different states. Taken from http://mongoosejs.com/docs/api.html#connection_Connection-readyState
 const disconnected = 0;
