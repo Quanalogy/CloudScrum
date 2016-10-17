@@ -3,8 +3,7 @@
  */
 
 import {Component, OnInit, Input} from "@angular/core";
-import {ROUTER_DIRECTIVES, ActivatedRoute} from "@angular/router";
-import {DragulaService, Dragula} from 'ng2-dragula/ng2-dragula';
+import {DragulaService, ActivatedRoute} from 'ng2-dragula/ng2-dragula';
 import {Item} from "./item/item";
 import {EItemCategory} from "../../../../../backend/models/item/EItemCategory";
 import {HomeService} from "../../home.service";
@@ -13,7 +12,6 @@ import {HomeService} from "../../home.service";
 @Component({
     selector: 'scrumboard-component',
     template: require("./scrumboard.component.html"),
-    directives: [ROUTER_DIRECTIVES,Dragula],
     providers: [
         DragulaService
     ],
@@ -25,6 +23,7 @@ export class ScrumboardComponent implements OnInit{
     itemModel = new Item('', '', EItemCategory.backlog,
         0, 0, new Date(Date.now()), new Date(Date.now()), '');
     addingMode = false;
+
     backlogArray: Array<Item> = [];
     backendArray: Array<Item> = [];
     inprogressArray: Array<Item> = [];

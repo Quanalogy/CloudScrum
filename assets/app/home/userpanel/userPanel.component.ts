@@ -2,7 +2,6 @@
  * Created by munk on 10-08-16.
  */
 import {Component, OnInit} from "@angular/core";
-import {ROUTER_DIRECTIVES} from "@angular/router";
 import {JwtHelper} from "angular2-jwt";
 import {PatchUser} from "./patchUser";
 import {HomeService} from "../home.service";
@@ -10,7 +9,6 @@ import {HomeService} from "../home.service";
 @Component({
     selector: 'userPanel-component',
     template: require("./userPanel.component.html"),
-    directives: [ROUTER_DIRECTIVES],
     providers: [
         JwtHelper]
 })

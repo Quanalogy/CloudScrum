@@ -15,7 +15,7 @@ export class Item implements IItem{
         public creationDate: Date,
         public revisionDate: Date,
         public sprintId: string,
-        public _id?: string,
+        public _id: string,
         public assignee?: string,
         public priority?: number
     ){}
