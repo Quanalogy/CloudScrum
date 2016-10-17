@@ -3,10 +3,11 @@
  */
 
 import {Component, OnInit, Input} from "@angular/core";
-import {DragulaService, ActivatedRoute} from 'ng2-dragula/ng2-dragula';
+import {DragulaService} from 'ng2-dragula/ng2-dragula';
 import {Item} from "./item/item";
 import {EItemCategory} from "../../../../../backend/models/item/EItemCategory";
 import {HomeService} from "../../home.service";
+import {ActivatedRoute} from "@angular/router";
 
 
 @Component({

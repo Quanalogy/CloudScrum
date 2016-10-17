@@ -7,7 +7,7 @@ import {ERoles} from "../../models/user/ERole";
 import {IProject} from "../../models/project/IProject";
 
 export function create(newProject: IProject, master: string, users?: [string]): Promise<IProjectDocument> {
-    return Promise.try<IProjectDocument>(() => {
+    return new Promise<IProjectDocument>( () => {
         // Check the input data.
         if (!newProject.name) {
             throw new Error("Invalid name supplied.");
@@ -25,7 +25,6 @@ export function create(newProject: IProject, master: string, users?: [string]): 
                 id: scrumMaster._id,
                 role: ERoles.ScrumMaster
             };
-
 
             project.access.push(roleObject);
 

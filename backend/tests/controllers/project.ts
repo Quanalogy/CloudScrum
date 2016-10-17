@@ -31,7 +31,7 @@ describe("The project controller", () => {
                 return createUser(this.testData.testEmailUser1, this.testData.testPassword);
             }).then(() => {
                 return createUser(this.testData.testEmailUser2, this.testData.testPassword);
-            }).finally(done);
+            }).then(done);
         });
 
         it("cannot create a project with no name", (done) => {
@@ -45,7 +45,7 @@ describe("The project controller", () => {
         });
 
         it("cannot create a project with a blank name", (done) => {
-            create("", this.testData.testEmailMaster).then(() => {
+            create({name: ""}, this.testData.testEmailMaster).then(() => {
                 fail("Promise should be rejected.");
             }, () => {
                 //
@@ -109,7 +109,7 @@ describe("The project controller", () => {
                 return createUser(this.testData.testEmailUser1, this.testData.testPassword);
             }).then(() => {
                 return createUser(this.testData.testEmailUser2, this.testData.testPassword);
-            }).finally(done);
+            }).then(done);
         });
 
         it("cannot get all projects when none are present.", (done) => {

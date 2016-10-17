@@ -6,13 +6,13 @@ import {Projects} from "../../models/project/Project";
 
 export function getSprints(projectId: string): Promise<Array<ISprintDocument>>{
     return new Promise<Array<ISprintDocument>>((resolve, reject) => {
-        Projects.findById({_id: projectId}, (err, project) => {
+        Projects.findById(projectId, (err, project) => {
             if(err) {
                 console.log(err);
                 reject(err);
             }
 
-            Sprints.find(project).then(res => {
+            Sprints.find(project).exec().then(res => {
                 resolve(res);
             }, err => {
                 reject(err);

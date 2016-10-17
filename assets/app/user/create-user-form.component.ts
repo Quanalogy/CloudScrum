@@ -5,7 +5,6 @@ import {Component} from "@angular/core";
 import {User} from "./user";
 import {Router} from "@angular/router";
 import {UserService} from "./user.service";
-import {model} from "mongoose";
 
 @Component({
     selector: 'user-form',
