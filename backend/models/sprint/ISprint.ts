@@ -4,7 +4,7 @@ import {IRetrospective} from "../retrospective/IRetrospective";
 export interface ISprint {
     description: string,
     endDate: Date,
-    items: Array<IItem>,
+    items: Array<string>,
     name: string,
     retrospective: IRetrospective,
     startDate: Date

@@ -12,7 +12,7 @@ import {Project} from "./project";
 
 export class ProjectsComponent implements OnInit{
 
-    project = new Project('', [], []);
+    project = '';
     projectCreateError = false;
     userProjects: Array<Project> = [];
 
@@ -30,7 +30,7 @@ export class ProjectsComponent implements OnInit{
 
     // Method for creating a new project.
     createProject(){
-        if(!this.project.name){
+        if(this.project === ''){
             console.log("No project name");
             return;
         }
@@ -39,7 +39,7 @@ export class ProjectsComponent implements OnInit{
         this.homeService.postProject(this.project).subscribe(res=>{
             console.log(res.ok);
             if(res.ok){
-                this.project.name = '';
+                this.project = '';
                 this.projectCreateError = false;
                 this.updateProjects();
             } else {

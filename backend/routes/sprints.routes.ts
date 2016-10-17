@@ -10,7 +10,7 @@ const router = Router();
 
 // get sprints by projectId
 router.get("/:id", (req: Request, res: Response) => {
-    getSprints(req.params).then(result => {
+    getSprints(req.params.id).then(result => {
         res.json(result);
     }, error => {
         res.json(error);
@@ -25,7 +25,6 @@ router.post("/", (req: Request, res: Response) => {
         JSONSendItemResponse(res, err);
     });
 });
-
 
 
 module.exports = router;

@@ -8,6 +8,7 @@ import {Item} from "./item/item";
 import {EItemCategory} from "../../../../../backend/models/item/EItemCategory";
 import {HomeService} from "../../home.service";
 import {ActivatedRoute} from "@angular/router";
+import {Tag} from "./item/tag/tag";
 
 
 @Component({
@@ -21,7 +22,7 @@ import {ActivatedRoute} from "@angular/router";
 
 export class ScrumboardComponent implements OnInit{
 
-    itemModel = new Item('', '', EItemCategory.backlog, 0, 0, new Date(Date.now()), new Date(Date.now()), '', '');
+    itemModel = new Item('', '', EItemCategory.backlog, 0, 0, new Date(Date.now()), new Date(Date.now()), null);
     addingMode = false;
 
     backlogArray: Array<Item> = [];
@@ -156,7 +157,7 @@ export class ScrumboardComponent implements OnInit{
             return;
         }
 
-        this.itemModel.sprintId = this.id;
+        //this.itemModel.sprintId = this.id;
 
         this.homeService.postNewItem(this.itemModel, this.id).subscribe((res) => {
             this.updateItems();

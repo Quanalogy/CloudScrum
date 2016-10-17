@@ -4,44 +4,37 @@ import {getUser} from "../user/userControllerRead";
 import {Projects, IProjectDocument} from "../../models/project/Project";
 import {BoardUsers} from "../../models/user/BoardUserSchema";
 import {ERoles} from "../../models/user/ERole";
-import {IProject} from "../../models/project/IProject";
 
-export function create(newProject: IProject, master: string, users?: [string]): Promise<IProjectDocument> {
-    return new Promise<IProjectDocument>( () => {
+export function create(newProject: string, master: string, users?: [string]): Promise<IProjectDocument> {
+    return new Promise<IProjectDocument>( (resolve, reject) => {
         // Check the input data.
-        if (!newProject.name) {
+        if (!newProject) {
             throw new Error("Invalid name supplied.");
         }
 
         // Lookup the user.
         return getUser(master).then((scrumMaster) => {
             // Create a new project.
-            let project = new Projects(newProject);
-
-            // Set the data.
-            // project.name = newProject.name;
-
-            /*let roleObject: IBoardUser = {
-                userid: scrumMaster._id,
-                role: ERoles.ScrumMaster
-            };*/
+            let project = new Projects({name: newProject});
 
             let roleObject = new BoardUsers({
                 userid: scrumMaster._id,
                 role: ERoles.ScrumMaster
             });
+            console.log(roleObject);
 
-            return new roleObject.save().then((res) => {
+            return roleObject.save((err: any, res) => {
+                if(err){
+                    reject();
+                }
                 project.access.push(res._id);
-            }).then(() => {
-                // Save the project.
-                return project.save();
+                project.save((err: any, res: IProjectDocument) => {
+                    if(err){
+                        reject();
+                    }
+                    resolve(res);
+                });
             });
-
-
-
-
-
         }, () => {
             throw new Error("No such user.");
         });

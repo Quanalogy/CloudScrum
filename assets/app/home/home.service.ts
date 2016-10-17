@@ -9,6 +9,8 @@ import {Observable} from "rxjs";
 import {IJSONOk} from "../../../interfaces/IJSONOk";
 import {Item} from "./project/scrumboard/item/item";
 import {Project} from "./project/project";
+import {ISprint} from "../../../backend/models/sprint/ISprint";
+import {Sprint} from "./project/scrumboard/sprint/sprint";
 
 // A service for CRUD authenticated tasks
 @Injectable()
@@ -38,10 +40,13 @@ export class HomeService{
         let headers = new Headers({'Authorization': token});
         let options = new RequestOptions({headers: headers});
 
-        return this.http.get(this.itemsURL + projectId, options).map(res => res.json());
+        return this.http.get(this.sprintsURL + projectId, options).map(res => res.json());
     }
 
-
+    patchSprint(sprint: Sprint): Observable<IJSONOk>{
+        let body = JSON.stringify({sprint: sprint});
+        return this.http.patch(this.sprintsURL, body, this.options).map(res => res.json());
+    }
 
     // For getting all projects the user is enlisted on
     getProjects(){
@@ -53,7 +58,7 @@ export class HomeService{
     }
 
     // For creating a new project
-    postProject(project: Project): Observable<IJSONOk>{
+    postProject(project: string): Observable<IJSONOk>{
         let body = JSON.stringify({project: project});
         return this.http.post(this.projectsURL, body, this.options).map(res => res.json());
     }

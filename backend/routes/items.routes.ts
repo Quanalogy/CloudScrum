@@ -20,8 +20,8 @@ router.get("/:id", (req: Request, res: Response) => {
 });
 
 router.post("/:id", (req: Request, res: Response) => {
-
-    addItem(req.body.item)
+    console.log(req.body.item);
+    addItem(req.body.item, req.params.id)
         .then(result => {
             JSONSendItemResponse(res, result);
         }, err => {

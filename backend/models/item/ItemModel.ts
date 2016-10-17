@@ -5,6 +5,7 @@
 import * as mongoose from "mongoose";
 import {IItem} from "./IItem";
 import {EItemCategory} from "./EItemCategory";
+import {ITag} from "../tag/ITag";
 
 
 //TODO get the schema in sync with the enum EItemCategory, instead of hardcode
@@ -17,11 +18,11 @@ const itemSchema = new mongoose.Schema({
     },
     estimate: Number,
     progress: Number,
-    assignee: String,
-    priority: Number,
     creationDate: Date,
     revisionDate: Date,
-    sprintId: String
+    assignee: String,
+    priority: Number,
+    tag: String
 });
 
 export interface IItemDocument extends IItem, mongoose.Document{}
